@@ -1,0 +1,16 @@
+﻿@using SSC_Admin_Website.Models
+@model List<LoaiNhom>
+
+    <select id="LoaiNhom" name="LoaiNhom" class="form-control">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            if (i == 0)
+            {
+                <option value="@Model[i].MaLN" selected>@Model[i].TenLN</option>
+            }
+            else
+            {
+                <option value="@Model[i].MaLN">@Model[i].TenLN</option>
+            }
+        }
+    </select>

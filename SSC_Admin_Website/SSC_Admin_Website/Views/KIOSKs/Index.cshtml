@@ -1,0 +1,147 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<SSC_Admin_Website.Models.V_KIOSK>
+
+
+@{
+    ViewBag.Title = "Danh sách KIOSK";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <style>
+        .hideOverflow {
+            max-width: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+<h2 class="text-center">Danh sách KIOSK</h2>
+
+@*@Html.Action("_ClearToken", "KIOSKs")*@
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table table-responsive-sm table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                Mã KIOSK
+            </th>
+            <th>
+                Mã token
+            </th>
+            <th>
+                Tên KIOSK
+            </th>
+            <th>
+                Ngày xây dựng
+            </th>
+            <th>
+                Ngày vận hành
+            </th>
+            <th>
+                Địa điểm
+            </th>
+            <th>
+                Nhiệt độ
+            </th>
+            <th>
+                Trạng thái KO
+            </th>
+            <th>
+                Banner
+            </th>
+            <th>
+                Connect string
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MAKO)
+                </td>
+                <td class="hideOverflow" title="@item.MaToken">
+                    @Html.DisplayFor(modelItem => item.MaToken)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKO)
+                </td>
+                <td>
+                    @string.Format("{0:dd-MMM-yyyy}", item.NgayXD)
+                </td>
+                <td>
+                    @string.Format("{0:dd-MMM-yyyy}", item.NgayVH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaDiem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NhietDo)
+                </td>
+                <td>
+                    @if (item.TrangThaiKo == true)
+                    {
+                        @:Đang hoạt động
+                    }
+                    else
+                    {
+                        @:Đã tắt
+                    }
+                </td>
+                <td>
+                    @if (item.ImageBanner != null)
+                    {
+                        var base64 = Convert.ToBase64String(item.ImageBanner);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                    <img class="img-responsive" src="@imgsrc" style="max-width:200px;">
+                    }
+
+                    </td>
+                <td class="hideOverflow" title="@item.ConnectStr">
+                    @Html.DisplayFor(modelItem => item.ConnectStr)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MAKO }, new { @class = "btn btn-outline-warning" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MAKO }, new { @class = "btn btn-outline-danger" })
+                    <button class="btn btn-outline-secondary" onclick="CopyConstr('@(item.ConnectStr)');">Copy constr</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+@section scripts
+{
+    <script>
+        function CopyConstr(constr) {
+            const el = document.createElement('textarea');  // Create a <textarea> element
+            el.value = constr;                                 // Set its value to the string that you want copied
+            el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';                      // Move outside the screen to make it invisible
+            document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
+            const selected =
+                document.getSelection().rangeCount > 0        // Check if there is any content selected previously
+                    ? document.getSelection().getRangeAt(0)     // Store selection if found
+                    : false;                                    // Mark as false to know no selection existed before
+            el.select();                                    // Select the <textarea> content
+            document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
+            document.body.removeChild(el);                  // Remove the <textarea> element
+            if (selected) {                                 // If a selection existed before copying
+                document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
+                document.getSelection().addRange(selected);   // Restore the original selection
+            }
+            alert("Copied to clipboard");
+        }
+    </script>
+}

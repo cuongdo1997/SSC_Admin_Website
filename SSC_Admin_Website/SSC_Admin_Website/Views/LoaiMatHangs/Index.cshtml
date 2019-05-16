@@ -1,0 +1,51 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<SSC_Admin_Website.Models.V_LoaiMatHang>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Danh sách loại mặt hàng</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table table-responsive-sm table-hover">
+    <tr>
+        <th>
+            Tên loại mặt hàng
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenLMH)
+            </td>
+            <td>
+                @if (item.ImageLMH != null)
+                {
+                    var base64 = Convert.ToBase64String(item.ImageLMH);
+                    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                    <img class="img-responsive" src="@imgsrc" style="max-width:200px;">
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaLMH }, new { @class = "btn btn-outline-warning" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaLMH }, new { @class = "btn btn-outline-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

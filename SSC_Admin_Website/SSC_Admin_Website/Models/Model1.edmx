@@ -1,0 +1,2028 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QLKIOSKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BuoiAn">
+          <Key>
+            <PropertyRef Name="MaBA" />
+          </Key>
+          <Property Name="MaBA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenBA" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioBD" Type="time" Precision="7" />
+          <Property Name="GioKT" Type="time" Precision="7" />
+          <Property Name="SoHD" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChiTietBA_MH">
+          <Key>
+            <PropertyRef Name="MaBA" />
+            <PropertyRef Name="MaMH" />
+          </Key>
+          <Property Name="MaBA" Type="int" Nullable="false" />
+          <Property Name="MaMH" Type="int" Nullable="false" />
+          <Property Name="TrangThaiMA" Type="bit" Nullable="false" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChiTietGiamGiaTheoSL">
+          <Key>
+            <PropertyRef Name="STT" />
+          </Key>
+          <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKM" Type="int" Nullable="false" />
+          <Property Name="MaMH" Type="int" Nullable="false" />
+          <Property Name="SLMuaToiThieu" Type="int" Nullable="false" />
+          <Property Name="Giam" Type="decimal" Precision="6" Scale="4" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChiTietQC">
+          <Key>
+            <PropertyRef Name="SoHD" />
+            <PropertyRef Name="MAKO" />
+            <PropertyRef Name="MaQC" />
+          </Key>
+          <Property Name="SoHD" Type="int" Nullable="false" />
+          <Property Name="MAKO" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="MaQC" Type="int" Nullable="false" />
+          <Property Name="NgayBDQC" Type="date" Nullable="false" />
+          <Property Name="NgayKTQC" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChiTietThueKIOSKQC">
+          <Key>
+            <PropertyRef Name="SoHD" />
+            <PropertyRef Name="MAKO" />
+          </Key>
+          <Property Name="SoHD" Type="int" Nullable="false" />
+          <Property Name="MAKO" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="NgayBDThue" Type="date" Nullable="false" />
+          <Property Name="NgayKetThuc" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChucNang">
+          <Key>
+            <PropertyRef Name="MaCN" />
+          </Key>
+          <Property Name="MaCN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenCN" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaLN" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="VariableName" />
+          </Key>
+          <Property Name="VariableName" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" />
+          <Property Name="Value" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DonVi_MatHang">
+          <Key>
+            <PropertyRef Name="MaDV" />
+          </Key>
+          <Property Name="MaDV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenDV" Type="nvarchar" MaxLength="50" />
+          <Property Name="MALMH" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DotKhuyenMai">
+          <Key>
+            <PropertyRef Name="MaKM" />
+          </Key>
+          <Property Name="MaKM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgayTao" Type="date" Nullable="false" />
+          <Property Name="NgayBD" Type="date" Nullable="false" />
+          <Property Name="NgayKT" Type="date" Nullable="false" />
+          <Property Name="SoHD" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HopDong">
+          <Key>
+            <PropertyRef Name="SoHD" />
+          </Key>
+          <Property Name="SoHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgayLapHD" Type="date" Nullable="false" />
+          <Property Name="NoiDungHD" Type="nvarchar" MaxLength="200" />
+          <Property Name="MALHD" Type="int" Nullable="false" />
+          <Property Name="MaKH_THUEKO" Type="int" />
+          <Property Name="MaKH_DATQC" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CMND" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="TenKH" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="SDT" Type="varchar" MaxLength="10" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KIOSK">
+          <Key>
+            <PropertyRef Name="MAKO" />
+          </Key>
+          <Property Name="MAKO" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="MaToken" Type="varchar" MaxLength="128" />
+          <Property Name="TenKO" Type="nvarchar" MaxLength="100" />
+          <Property Name="NgayXD" Type="date" />
+          <Property Name="NgayVH" Type="date" />
+          <Property Name="DiaDiem" Type="nvarchar" MaxLength="100" />
+          <Property Name="NhietDo" Type="varchar" MaxLength="10" />
+          <Property Name="TrangThaiKo" Type="bit" Nullable="false" />
+          <Property Name="ImageBanner" Type="varbinary(max)" />
+          <Property Name="ConnectStr" Type="varchar" MaxLength="200" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoaiMatHang">
+          <Key>
+            <PropertyRef Name="MaLMH" />
+          </Key>
+          <Property Name="MaLMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLMH" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageLMH" Type="varbinary(max)" />
+          <Property Name="SoHD" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoaiNhom">
+          <Key>
+            <PropertyRef Name="MaLN" />
+          </Key>
+          <Property Name="MaLN" Type="int" Nullable="false" />
+          <Property Name="TenLN" Type="nvarchar" MaxLength="21" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatHang">
+          <Key>
+            <PropertyRef Name="MaMH" />
+          </Key>
+          <Property Name="MaMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenMH" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoLuongTon" Type="int" />
+          <Property Name="DonGia" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="MaDV" Type="int" Nullable="false" />
+          <Property Name="TrangThai" Type="bit" Nullable="false" />
+          <Property Name="ImageMH" Type="varbinary(max)" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhanQuyen">
+          <Key>
+            <PropertyRef Name="MaTK" />
+            <PropertyRef Name="MaCN" />
+          </Key>
+          <Property Name="MaTK" Type="int" Nullable="false" />
+          <Property Name="MaCN" Type="int" Nullable="false" />
+          <Property Name="Ngay_CapNhat" Type="date" />
+          <Property Name="Gio_CapNhat" Type="time" Precision="7" />
+          <Property Name="TinhTrang" Type="bit" Nullable="false" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuangCao">
+          <Key>
+            <PropertyRef Name="MaQC" />
+          </Key>
+          <Property Name="MaQC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImageQC" Type="varbinary(max)" />
+          <Property Name="ThoiLuong" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="MaTK" />
+          </Key>
+          <Property Name="MaTK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NgayTao" Type="date" Nullable="false" />
+          <Property Name="GioTao" Type="time" Precision="7" Nullable="false" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="SoHD" Type="int" />
+          <Property Name="TrangThai" Type="bit" Nullable="false" />
+          <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLKIOSK.dbo.V_ChiTietQC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ChiTietQC">
+          <Key>
+            <PropertyRef Name="SoHD" />
+            <PropertyRef Name="MAKO" />
+            <PropertyRef Name="MaQC" />
+            <PropertyRef Name="NgayBDQC" />
+            <PropertyRef Name="NgayKTQC" />
+          </Key>
+          <Property Name="SoHD" Type="int" Nullable="false" />
+          <Property Name="MAKO" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="MaQC" Type="int" Nullable="false" />
+          <Property Name="NgayBDQC" Type="date" Nullable="false" />
+          <Property Name="NgayKTQC" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLKIOSK.dbo.V_DonViMatHang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_DonViMatHang">
+          <Key>
+            <PropertyRef Name="MaDV" />
+            <PropertyRef Name="MALMH" />
+          </Key>
+          <Property Name="MaDV" Type="int" Nullable="false" />
+          <Property Name="TenDV" Type="nvarchar" MaxLength="50" />
+          <Property Name="MALMH" Type="int" Nullable="false" />
+          <Property Name="TenLMH" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLKIOSK.dbo.V_KhachHang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="CMND" />
+          </Key>
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CMND" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="TenKH" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="SDT" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLKIOSK.dbo.V_KIOSK' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_KIOSK">
+          <Key>
+            <PropertyRef Name="MAKO" />
+            <PropertyRef Name="TrangThaiKo" />
+          </Key>
+          <Property Name="MAKO" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="MaToken" Type="varchar" MaxLength="128" />
+          <Property Name="TenKO" Type="nvarchar" MaxLength="100" />
+          <Property Name="NgayXD" Type="date" />
+          <Property Name="NgayVH" Type="date" />
+          <Property Name="DiaDiem" Type="nvarchar" MaxLength="100" />
+          <Property Name="NhietDo" Type="varchar" MaxLength="10" />
+          <Property Name="TrangThaiKo" Type="bit" Nullable="false" />
+          <Property Name="ImageBanner" Type="varbinary(max)" />
+          <Property Name="ConnectStr" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLKIOSK.dbo.V_LoaiMatHang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_LoaiMatHang">
+          <Key>
+            <PropertyRef Name="MaLMH" />
+          </Key>
+          <Property Name="MaLMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLMH" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageLMH" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLKIOSK.dbo.V_QuangCao' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_QuangCao">
+          <Key>
+            <PropertyRef Name="MaQC" />
+            <PropertyRef Name="ThoiLuong" />
+          </Key>
+          <Property Name="MaQC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImageQC" Type="varbinary(max)" />
+          <Property Name="ThoiLuong" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="BuoiAn_FK_SoHD">
+          <End Role="HopDong" Type="Self.HopDong" Multiplicity="0..1" />
+          <End Role="BuoiAn" Type="Self.BuoiAn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="BuoiAn">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietBA_MH_FK_MaBA">
+          <End Role="BuoiAn" Type="Self.BuoiAn" Multiplicity="1" />
+          <End Role="ChiTietBA_MH" Type="Self.ChiTietBA_MH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuoiAn">
+              <PropertyRef Name="MaBA" />
+            </Principal>
+            <Dependent Role="ChiTietBA_MH">
+              <PropertyRef Name="MaBA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietBA_MH_FK_MaMH">
+          <End Role="MatHang" Type="Self.MatHang" Multiplicity="1" />
+          <End Role="ChiTietBA_MH" Type="Self.ChiTietBA_MH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatHang">
+              <PropertyRef Name="MaMH" />
+            </Principal>
+            <Dependent Role="ChiTietBA_MH">
+              <PropertyRef Name="MaMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietGiamGiaTheoSL_FK_MaKM">
+          <End Role="DotKhuyenMai" Type="Self.DotKhuyenMai" Multiplicity="1" />
+          <End Role="ChiTietGiamGiaTheoSL" Type="Self.ChiTietGiamGiaTheoSL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DotKhuyenMai">
+              <PropertyRef Name="MaKM" />
+            </Principal>
+            <Dependent Role="ChiTietGiamGiaTheoSL">
+              <PropertyRef Name="MaKM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietGiamGiaTheoSL_FK_MaMH">
+          <End Role="MatHang" Type="Self.MatHang" Multiplicity="1" />
+          <End Role="ChiTietGiamGiaTheoSL" Type="Self.ChiTietGiamGiaTheoSL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatHang">
+              <PropertyRef Name="MaMH" />
+            </Principal>
+            <Dependent Role="ChiTietGiamGiaTheoSL">
+              <PropertyRef Name="MaMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietQC_FK_MaQC">
+          <End Role="QuangCao" Type="Self.QuangCao" Multiplicity="1" />
+          <End Role="ChiTietQC" Type="Self.ChiTietQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuangCao">
+              <PropertyRef Name="MaQC" />
+            </Principal>
+            <Dependent Role="ChiTietQC">
+              <PropertyRef Name="MaQC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietQC_FK_SoHD_MaKO">
+          <End Role="ChiTietThueKIOSKQC" Type="Self.ChiTietThueKIOSKQC" Multiplicity="1" />
+          <End Role="ChiTietQC" Type="Self.ChiTietQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChiTietThueKIOSKQC">
+              <PropertyRef Name="SoHD" />
+              <PropertyRef Name="MAKO" />
+            </Principal>
+            <Dependent Role="ChiTietQC">
+              <PropertyRef Name="SoHD" />
+              <PropertyRef Name="MAKO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietThueKIOSKQC_FK_MaKO">
+          <End Role="KIOSK" Type="Self.KIOSK" Multiplicity="1" />
+          <End Role="ChiTietThueKIOSKQC" Type="Self.ChiTietThueKIOSKQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KIOSK">
+              <PropertyRef Name="MAKO" />
+            </Principal>
+            <Dependent Role="ChiTietThueKIOSKQC">
+              <PropertyRef Name="MAKO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietThueKIOSKQC_FK_SoHD">
+          <End Role="HopDong" Type="Self.HopDong" Multiplicity="1" />
+          <End Role="ChiTietThueKIOSKQC" Type="Self.ChiTietThueKIOSKQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="ChiTietThueKIOSKQC">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChucNang_FK_MaLN">
+          <End Role="LoaiNhom" Type="Self.LoaiNhom" Multiplicity="0..1" />
+          <End Role="ChucNang" Type="Self.ChucNang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiNhom">
+              <PropertyRef Name="MaLN" />
+            </Principal>
+            <Dependent Role="ChucNang">
+              <PropertyRef Name="MaLN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DonVi_MatHang_FK_MaLMH">
+          <End Role="LoaiMatHang" Type="Self.LoaiMatHang" Multiplicity="1" />
+          <End Role="DonVi_MatHang" Type="Self.DonVi_MatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiMatHang">
+              <PropertyRef Name="MaLMH" />
+            </Principal>
+            <Dependent Role="DonVi_MatHang">
+              <PropertyRef Name="MALMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DotKM_FK">
+          <End Role="HopDong" Type="Self.HopDong" Multiplicity="1" />
+          <End Role="DotKhuyenMai" Type="Self.DotKhuyenMai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="DotKhuyenMai">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="HopDong_FK_MaKH">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="HopDong" Type="Self.HopDong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="HopDong">
+              <PropertyRef Name="MaKH_THUEKO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="HopDong_FK_MaKH2">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="HopDong" Type="Self.HopDong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="HopDong">
+              <PropertyRef Name="MaKH_DATQC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LoaiMatHang_FK_SoHD">
+          <End Role="HopDong" Type="Self.HopDong" Multiplicity="0..1" />
+          <End Role="LoaiMatHang" Type="Self.LoaiMatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="LoaiMatHang">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatHang_FK_MaDV">
+          <End Role="DonVi_MatHang" Type="Self.DonVi_MatHang" Multiplicity="1" />
+          <End Role="MatHang" Type="Self.MatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi_MatHang">
+              <PropertyRef Name="MaDV" />
+            </Principal>
+            <Dependent Role="MatHang">
+              <PropertyRef Name="MaDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PhanQuyen_FK_MaCN">
+          <End Role="ChucNang" Type="Self.ChucNang" Multiplicity="1" />
+          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucNang">
+              <PropertyRef Name="MaCN" />
+            </Principal>
+            <Dependent Role="PhanQuyen">
+              <PropertyRef Name="MaCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PhanQuyen_FK_MaTK">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
+          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="PhanQuyen">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TaiKhoan_FK_MaKH">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="TaiKhoan">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TaiKhoan_FK_SoHD">
+          <End Role="HopDong" Type="Self.HopDong" Multiplicity="0..1" />
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="TaiKhoan">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_checkKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cmnd" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ChiTietGiamGiaTheoSL_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKM" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ChiTietGiamGiaTheoSL_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKM" Type="int" Mode="In" />
+          <Parameter Name="MaMH" Type="int" Mode="In" />
+          <Parameter Name="SLMuaToiThieu" Type="int" Mode="In" />
+          <Parameter Name="Giam" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="sp_ChiTietGiamGiaTheoSL_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STT" Type="int" Mode="In" />
+          <Parameter Name="MaKM" Type="int" Mode="In" />
+          <Parameter Name="MaMH" Type="int" Mode="In" />
+          <Parameter Name="SLMuaToiThieu" Type="int" Mode="In" />
+          <Parameter Name="Giam" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="sp_ChiTietQC_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SoHD" Type="int" Mode="In" />
+          <Parameter Name="MaKO" Type="varchar" Mode="In" />
+          <Parameter Name="MaQC" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ChiTietQC_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SoHD" Type="int" Mode="In" />
+          <Parameter Name="MaKO" Type="varchar" Mode="In" />
+          <Parameter Name="MaQC" Type="int" Mode="In" />
+          <Parameter Name="NgayBDQC" Type="date" Mode="In" />
+          <Parameter Name="NgayKTQC" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_ChiTietThueKIOSKQC_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SoHD" Type="int" Mode="In" />
+          <Parameter Name="MaKO" Type="varchar" Mode="In" />
+          <Parameter Name="NgayBDThue" Type="date" Mode="In" />
+          <Parameter Name="NgayKetThuc" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_ChucNangTheoLoaiNhom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maln" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_CONFIG_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="variable_name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="value" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_DonVi_MatHang_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaDV" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DonVi_MatHang_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TenDV" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaLMH" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DonVi_MatHang_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaDV" Type="int" Mode="In" />
+          <Parameter Name="TenDV" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaLMH" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DotKhuyenMai_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKM" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DotKhuyenMai_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NgayBD" Type="date" Mode="In" />
+          <Parameter Name="NgayKT" Type="date" Mode="In" />
+          <Parameter Name="SoHD" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DotKhuyenMai_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKM" Type="int" Mode="In" />
+          <Parameter Name="NgayBD" Type="date" Mode="In" />
+          <Parameter Name="NgayKT" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_GetAccountsByMaLN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maln" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_KhachHang_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_KhachHang_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CMND" Type="varchar" Mode="In" />
+          <Parameter Name="TenKH" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="SDT" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_KhachHang_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+          <Parameter Name="CMND" Type="varchar" Mode="In" />
+          <Parameter Name="TenKH" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiaChi" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="SDT" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_KIOSK_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_LoaiMatHang_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaLMH" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_MaKHMoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_PhanQuyen_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTK" Type="int" Mode="In" />
+          <Parameter Name="MaCN" Type="int" Mode="In" />
+          <Parameter Name="TinhTrang" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_PhanQuyen_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTK" Type="int" Mode="In" />
+          <Parameter Name="MaCN" Type="int" Mode="In" />
+          <Parameter Name="TinhTrang" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_QuangCao_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaQC" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_TaiKhoan_Disable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_TaiKhoan_Enable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_TaiKhoan_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+          <Parameter Name="SoHD" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_TKMoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="QLKIOSKModelStoreContainer">
+          <EntitySet Name="BuoiAn" EntityType="Self.BuoiAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietBA_MH" EntityType="Self.ChiTietBA_MH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietGiamGiaTheoSL" EntityType="Self.ChiTietGiamGiaTheoSL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietQC" EntityType="Self.ChiTietQC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietThueKIOSKQC" EntityType="Self.ChiTietThueKIOSKQC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChucNang" EntityType="Self.ChucNang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonVi_MatHang" EntityType="Self.DonVi_MatHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DotKhuyenMai" EntityType="Self.DotKhuyenMai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HopDong" EntityType="Self.HopDong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KIOSK" EntityType="Self.KIOSK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiMatHang" EntityType="Self.LoaiMatHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiNhom" EntityType="Self.LoaiNhom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatHang" EntityType="Self.MatHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhanQuyen" EntityType="Self.PhanQuyen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuangCao" EntityType="Self.QuangCao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_ChiTietQC" EntityType="Self.V_ChiTietQC" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_ChiTietQC].[SoHD] AS [SoHD], 
+    [V_ChiTietQC].[MAKO] AS [MAKO], 
+    [V_ChiTietQC].[MaQC] AS [MaQC], 
+    [V_ChiTietQC].[NgayBDQC] AS [NgayBDQC], 
+    [V_ChiTietQC].[NgayKTQC] AS [NgayKTQC]
+    FROM [dbo].[V_ChiTietQC] AS [V_ChiTietQC]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_DonViMatHang" EntityType="Self.V_DonViMatHang" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_DonViMatHang].[MaDV] AS [MaDV], 
+    [V_DonViMatHang].[TenDV] AS [TenDV], 
+    [V_DonViMatHang].[MALMH] AS [MALMH], 
+    [V_DonViMatHang].[TenLMH] AS [TenLMH]
+    FROM [dbo].[V_DonViMatHang] AS [V_DonViMatHang]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_KhachHang" EntityType="Self.V_KhachHang" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_KhachHang].[MaKH] AS [MaKH], 
+    [V_KhachHang].[CMND] AS [CMND], 
+    [V_KhachHang].[TenKH] AS [TenKH], 
+    [V_KhachHang].[DiaChi] AS [DiaChi], 
+    [V_KhachHang].[Email] AS [Email], 
+    [V_KhachHang].[SDT] AS [SDT]
+    FROM [dbo].[V_KhachHang] AS [V_KhachHang]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_KIOSK" EntityType="Self.V_KIOSK" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_KIOSK].[MAKO] AS [MAKO], 
+    [V_KIOSK].[MaToken] AS [MaToken], 
+    [V_KIOSK].[TenKO] AS [TenKO], 
+    [V_KIOSK].[NgayXD] AS [NgayXD], 
+    [V_KIOSK].[NgayVH] AS [NgayVH], 
+    [V_KIOSK].[DiaDiem] AS [DiaDiem], 
+    [V_KIOSK].[NhietDo] AS [NhietDo], 
+    [V_KIOSK].[TrangThaiKo] AS [TrangThaiKo], 
+    [V_KIOSK].[ImageBanner] AS [ImageBanner], 
+    [V_KIOSK].[ConnectStr] AS [ConnectStr]
+    FROM [dbo].[V_KIOSK] AS [V_KIOSK]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_LoaiMatHang" EntityType="Self.V_LoaiMatHang" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_LoaiMatHang].[MaLMH] AS [MaLMH], 
+    [V_LoaiMatHang].[TenLMH] AS [TenLMH], 
+    [V_LoaiMatHang].[ImageLMH] AS [ImageLMH]
+    FROM [dbo].[V_LoaiMatHang] AS [V_LoaiMatHang]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_QuangCao" EntityType="Self.V_QuangCao" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_QuangCao].[MaQC] AS [MaQC], 
+    [V_QuangCao].[NoiDung] AS [NoiDung], 
+    [V_QuangCao].[ImageQC] AS [ImageQC], 
+    [V_QuangCao].[ThoiLuong] AS [ThoiLuong]
+    FROM [dbo].[V_QuangCao] AS [V_QuangCao]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="BuoiAn_FK_SoHD" Association="Self.BuoiAn_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDong" />
+            <End Role="BuoiAn" EntitySet="BuoiAn" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietBA_MH_FK_MaBA" Association="Self.ChiTietBA_MH_FK_MaBA">
+            <End Role="BuoiAn" EntitySet="BuoiAn" />
+            <End Role="ChiTietBA_MH" EntitySet="ChiTietBA_MH" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietBA_MH_FK_MaMH" Association="Self.ChiTietBA_MH_FK_MaMH">
+            <End Role="MatHang" EntitySet="MatHang" />
+            <End Role="ChiTietBA_MH" EntitySet="ChiTietBA_MH" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietGiamGiaTheoSL_FK_MaKM" Association="Self.ChiTietGiamGiaTheoSL_FK_MaKM">
+            <End Role="DotKhuyenMai" EntitySet="DotKhuyenMai" />
+            <End Role="ChiTietGiamGiaTheoSL" EntitySet="ChiTietGiamGiaTheoSL" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietGiamGiaTheoSL_FK_MaMH" Association="Self.ChiTietGiamGiaTheoSL_FK_MaMH">
+            <End Role="MatHang" EntitySet="MatHang" />
+            <End Role="ChiTietGiamGiaTheoSL" EntitySet="ChiTietGiamGiaTheoSL" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietQC_FK_MaQC" Association="Self.ChiTietQC_FK_MaQC">
+            <End Role="QuangCao" EntitySet="QuangCao" />
+            <End Role="ChiTietQC" EntitySet="ChiTietQC" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietQC_FK_SoHD_MaKO" Association="Self.ChiTietQC_FK_SoHD_MaKO">
+            <End Role="ChiTietThueKIOSKQC" EntitySet="ChiTietThueKIOSKQC" />
+            <End Role="ChiTietQC" EntitySet="ChiTietQC" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietThueKIOSKQC_FK_MaKO" Association="Self.ChiTietThueKIOSKQC_FK_MaKO">
+            <End Role="KIOSK" EntitySet="KIOSK" />
+            <End Role="ChiTietThueKIOSKQC" EntitySet="ChiTietThueKIOSKQC" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietThueKIOSKQC_FK_SoHD" Association="Self.ChiTietThueKIOSKQC_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDong" />
+            <End Role="ChiTietThueKIOSKQC" EntitySet="ChiTietThueKIOSKQC" />
+          </AssociationSet>
+          <AssociationSet Name="ChucNang_FK_MaLN" Association="Self.ChucNang_FK_MaLN">
+            <End Role="LoaiNhom" EntitySet="LoaiNhom" />
+            <End Role="ChucNang" EntitySet="ChucNang" />
+          </AssociationSet>
+          <AssociationSet Name="DonVi_MatHang_FK_MaLMH" Association="Self.DonVi_MatHang_FK_MaLMH">
+            <End Role="LoaiMatHang" EntitySet="LoaiMatHang" />
+            <End Role="DonVi_MatHang" EntitySet="DonVi_MatHang" />
+          </AssociationSet>
+          <AssociationSet Name="DotKM_FK" Association="Self.DotKM_FK">
+            <End Role="HopDong" EntitySet="HopDong" />
+            <End Role="DotKhuyenMai" EntitySet="DotKhuyenMai" />
+          </AssociationSet>
+          <AssociationSet Name="HopDong_FK_MaKH" Association="Self.HopDong_FK_MaKH">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="HopDong" EntitySet="HopDong" />
+          </AssociationSet>
+          <AssociationSet Name="HopDong_FK_MaKH2" Association="Self.HopDong_FK_MaKH2">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="HopDong" EntitySet="HopDong" />
+          </AssociationSet>
+          <AssociationSet Name="LoaiMatHang_FK_SoHD" Association="Self.LoaiMatHang_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDong" />
+            <End Role="LoaiMatHang" EntitySet="LoaiMatHang" />
+          </AssociationSet>
+          <AssociationSet Name="MatHang_FK_MaDV" Association="Self.MatHang_FK_MaDV">
+            <End Role="DonVi_MatHang" EntitySet="DonVi_MatHang" />
+            <End Role="MatHang" EntitySet="MatHang" />
+          </AssociationSet>
+          <AssociationSet Name="PhanQuyen_FK_MaCN" Association="Self.PhanQuyen_FK_MaCN">
+            <End Role="ChucNang" EntitySet="ChucNang" />
+            <End Role="PhanQuyen" EntitySet="PhanQuyen" />
+          </AssociationSet>
+          <AssociationSet Name="PhanQuyen_FK_MaTK" Association="Self.PhanQuyen_FK_MaTK">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="PhanQuyen" EntitySet="PhanQuyen" />
+          </AssociationSet>
+          <AssociationSet Name="TaiKhoan_FK_MaKH" Association="Self.TaiKhoan_FK_MaKH">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+          </AssociationSet>
+          <AssociationSet Name="TaiKhoan_FK_SoHD" Association="Self.TaiKhoan_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDong" />
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLKIOSKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChiTietGiamGiaTheoSL">
+          <Key>
+            <PropertyRef Name="STT" />
+          </Key>
+          <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKM" Type="Int32" Nullable="false" />
+          <Property Name="MaMH" Type="Int32" Nullable="false" />
+          <Property Name="SLMuaToiThieu" Type="Int32" Nullable="false" />
+          <Property Name="Giam" Type="Decimal" Precision="6" Scale="4" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DotKhuyenMai" Relationship="Self.ChiTietGiamGiaTheoSL_FK_MaKM" FromRole="ChiTietGiamGiaTheoSL" ToRole="DotKhuyenMai" />
+          <NavigationProperty Name="MatHang" Relationship="QLKIOSKModel.ChiTietGiamGiaTheoSL_FK_MaMH" FromRole="ChiTietGiamGiaTheoSL" ToRole="MatHang" />
+        </EntityType>
+        <EntityType Name="ChiTietQC">
+          <Key>
+            <PropertyRef Name="SoHD" />
+            <PropertyRef Name="MAKO" />
+            <PropertyRef Name="MaQC" />
+          </Key>
+          <Property Name="SoHD" Type="Int32" Nullable="false" />
+          <Property Name="MAKO" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaQC" Type="Int32" Nullable="false" />
+          <Property Name="NgayBDQC" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NgayKTQC" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="QuangCao" Relationship="Self.ChiTietQC_FK_MaQC" FromRole="ChiTietQC" ToRole="QuangCao" />
+          <NavigationProperty Name="ChiTietThueKIOSKQC" Relationship="QLKIOSKModel.ChiTietQC_FK_SoHD_MaKO" FromRole="ChiTietQC" ToRole="ChiTietThueKIOSKQC" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="VariableName" />
+          </Key>
+          <Property Name="VariableName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DotKhuyenMai">
+          <Key>
+            <PropertyRef Name="MaKM" />
+          </Key>
+          <Property Name="MaKM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NgayBD" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NgayKT" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SoHD" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChiTietGiamGiaTheoSLs" Relationship="Self.ChiTietGiamGiaTheoSL_FK_MaKM" FromRole="DotKhuyenMai" ToRole="ChiTietGiamGiaTheoSL" />
+          <NavigationProperty Name="HopDong" Relationship="QLKIOSKModel.DotKM_FK" FromRole="DotKhuyenMai" ToRole="HopDong" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CMND" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="TaiKhoans" Relationship="Self.TaiKhoan_FK_MaKH" FromRole="KhachHang" ToRole="TaiKhoan" />
+          <NavigationProperty Name="HopDongs" Relationship="QLKIOSKModel.HopDong_FK_MaKH" FromRole="KhachHang" ToRole="HopDong" />
+          <NavigationProperty Name="HopDongs1" Relationship="QLKIOSKModel.HopDong_FK_MaKH2" FromRole="KhachHang" ToRole="HopDong" />
+        </EntityType>
+        <EntityType Name="KIOSK">
+          <Key>
+            <PropertyRef Name="MAKO" />
+          </Key>
+          <Property Name="MAKO" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaToken" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="TenKO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NgayXD" Type="DateTime" Precision="0" />
+          <Property Name="NgayVH" Type="DateTime" Precision="0" />
+          <Property Name="DiaDiem" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NhietDo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TrangThaiKo" Type="Boolean" Nullable="false" />
+          <Property Name="ImageBanner" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ConnectStr" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChiTietThueKIOSKQCs" Relationship="QLKIOSKModel.ChiTietThueKIOSKQC_FK_MaKO" FromRole="KIOSK" ToRole="ChiTietThueKIOSKQC" />
+        </EntityType>
+        <EntityType Name="PhanQuyen">
+          <Key>
+            <PropertyRef Name="MaTK" />
+            <PropertyRef Name="MaCN" />
+          </Key>
+          <Property Name="MaTK" Type="Int32" Nullable="false" />
+          <Property Name="MaCN" Type="Int32" Nullable="false" />
+          <Property Name="Ngay_CapNhat" Type="DateTime" Precision="0" />
+          <Property Name="Gio_CapNhat" Type="Time" Precision="7" />
+          <Property Name="TinhTrang" Type="Boolean" Nullable="false" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.PhanQuyen_FK_MaTK" FromRole="PhanQuyen" ToRole="TaiKhoan" />
+          <NavigationProperty Name="ChucNang" Relationship="QLKIOSKModel.PhanQuyen_FK_MaCN" FromRole="PhanQuyen" ToRole="ChucNang" />
+        </EntityType>
+        <EntityType Name="QuangCao">
+          <Key>
+            <PropertyRef Name="MaQC" />
+          </Key>
+          <Property Name="MaQC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoiDung" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImageQC" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ThoiLuong" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChiTietQCs" Relationship="Self.ChiTietQC_FK_MaQC" FromRole="QuangCao" ToRole="ChiTietQC" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="MaTK" />
+          </Key>
+          <Property Name="MaTK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GioTao" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="SoHD" Type="Int32" />
+          <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.TaiKhoan_FK_MaKH" FromRole="TaiKhoan" ToRole="KhachHang" />
+          <NavigationProperty Name="PhanQuyens" Relationship="Self.PhanQuyen_FK_MaTK" FromRole="TaiKhoan" ToRole="PhanQuyen" />
+          <NavigationProperty Name="HopDong" Relationship="QLKIOSKModel.TaiKhoan_FK_SoHD" FromRole="TaiKhoan" ToRole="HopDong" />
+        </EntityType>
+        <EntityType Name="V_ChiTietQC">
+          <Key>
+            <PropertyRef Name="SoHD" />
+            <PropertyRef Name="MAKO" />
+            <PropertyRef Name="MaQC" />
+            <PropertyRef Name="NgayBDQC" />
+            <PropertyRef Name="NgayKTQC" />
+          </Key>
+          <Property Name="SoHD" Type="Int32" Nullable="false" />
+          <Property Name="MAKO" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaQC" Type="Int32" Nullable="false" />
+          <Property Name="NgayBDQC" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NgayKTQC" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="V_DonViMatHang">
+          <Key>
+            <PropertyRef Name="MaDV" />
+            <PropertyRef Name="MALMH" />
+          </Key>
+          <Property Name="MaDV" Type="Int32" Nullable="false" />
+          <Property Name="TenDV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MALMH" Type="Int32" Nullable="false" />
+          <Property Name="TenLMH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="CMND" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CMND" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="V_KIOSK">
+          <Key>
+            <PropertyRef Name="MAKO" />
+            <PropertyRef Name="TrangThaiKo" />
+          </Key>
+          <Property Name="MAKO" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaToken" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="TenKO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NgayXD" Type="DateTime" Precision="0" />
+          <Property Name="NgayVH" Type="DateTime" Precision="0" />
+          <Property Name="DiaDiem" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NhietDo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TrangThaiKo" Type="Boolean" Nullable="false" />
+          <Property Name="ImageBanner" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ConnectStr" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="V_LoaiMatHang">
+          <Key>
+            <PropertyRef Name="MaLMH" />
+          </Key>
+          <Property Name="MaLMH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLMH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageLMH" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="V_QuangCao">
+          <Key>
+            <PropertyRef Name="MaQC" />
+            <PropertyRef Name="ThoiLuong" />
+          </Key>
+          <Property Name="MaQC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoiDung" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImageQC" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ThoiLuong" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ChiTietGiamGiaTheoSL_FK_MaKM">
+          <End Role="DotKhuyenMai" Type="Self.DotKhuyenMai" Multiplicity="1" />
+          <End Role="ChiTietGiamGiaTheoSL" Type="Self.ChiTietGiamGiaTheoSL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DotKhuyenMai">
+              <PropertyRef Name="MaKM" />
+            </Principal>
+            <Dependent Role="ChiTietGiamGiaTheoSL">
+              <PropertyRef Name="MaKM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietQC_FK_MaQC">
+          <End Role="QuangCao" Type="Self.QuangCao" Multiplicity="1" />
+          <End Role="ChiTietQC" Type="Self.ChiTietQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuangCao">
+              <PropertyRef Name="MaQC" />
+            </Principal>
+            <Dependent Role="ChiTietQC">
+              <PropertyRef Name="MaQC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TaiKhoan_FK_MaKH">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="TaiKhoan">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PhanQuyen_FK_MaTK">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
+          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="MaTK" />
+            </Principal>
+            <Dependent Role="PhanQuyen">
+              <PropertyRef Name="MaTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLKIOSKEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChiTietGiamGiaTheoSLs" EntityType="Self.ChiTietGiamGiaTheoSL" />
+          <EntitySet Name="ChiTietQCs" EntityType="Self.ChiTietQC" />
+          <EntitySet Name="Configs" EntityType="Self.Config" />
+          <EntitySet Name="DotKhuyenMais" EntityType="Self.DotKhuyenMai" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="KIOSKs" EntityType="Self.KIOSK" />
+          <EntitySet Name="PhanQuyens" EntityType="Self.PhanQuyen" />
+          <EntitySet Name="QuangCaos" EntityType="Self.QuangCao" />
+          <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
+          <EntitySet Name="V_ChiTietQC" EntityType="Self.V_ChiTietQC" />
+          <EntitySet Name="V_DonViMatHang" EntityType="Self.V_DonViMatHang" />
+          <EntitySet Name="V_KhachHang" EntityType="Self.V_KhachHang" />
+          <EntitySet Name="V_KIOSK" EntityType="Self.V_KIOSK" />
+          <EntitySet Name="V_LoaiMatHang" EntityType="Self.V_LoaiMatHang" />
+          <EntitySet Name="V_QuangCao" EntityType="Self.V_QuangCao" />
+          <AssociationSet Name="ChiTietGiamGiaTheoSL_FK_MaKM" Association="Self.ChiTietGiamGiaTheoSL_FK_MaKM">
+            <End Role="DotKhuyenMai" EntitySet="DotKhuyenMais" />
+            <End Role="ChiTietGiamGiaTheoSL" EntitySet="ChiTietGiamGiaTheoSLs" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietQC_FK_MaQC" Association="Self.ChiTietQC_FK_MaQC">
+            <End Role="QuangCao" EntitySet="QuangCaos" />
+            <End Role="ChiTietQC" EntitySet="ChiTietQCs" />
+          </AssociationSet>
+          <AssociationSet Name="TaiKhoan_FK_MaKH" Association="Self.TaiKhoan_FK_MaKH">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+          </AssociationSet>
+          <AssociationSet Name="PhanQuyen_FK_MaTK" Association="Self.PhanQuyen_FK_MaTK">
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+            <End Role="PhanQuyen" EntitySet="PhanQuyens" />
+          </AssociationSet>
+          <FunctionImport Name="sp_checkKH" ReturnType="Collection(QLKIOSKModel.sp_checkKH_Result)">
+          <Parameter Name="cmnd" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChiTietGiamGiaTheoSL_DELETE">
+          <Parameter Name="MaKM" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChiTietGiamGiaTheoSL_INSERT">
+            <Parameter Name="MaKM" Mode="In" Type="Int32" />
+            <Parameter Name="MaMH" Mode="In" Type="Int32" />
+            <Parameter Name="SLMuaToiThieu" Mode="In" Type="Int32" />
+            <Parameter Name="Giam" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChiTietGiamGiaTheoSL_UPDATE">
+            <Parameter Name="STT" Mode="In" Type="Int32" />
+            <Parameter Name="MaKM" Mode="In" Type="Int32" />
+            <Parameter Name="MaMH" Mode="In" Type="Int32" />
+            <Parameter Name="SLMuaToiThieu" Mode="In" Type="Int32" />
+            <Parameter Name="Giam" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChiTietQC_DELETE">
+            <Parameter Name="SoHD" Mode="In" Type="Int32" />
+            <Parameter Name="MaKO" Mode="In" Type="String" />
+            <Parameter Name="MaQC" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChiTietQC_INSERT">
+            <Parameter Name="SoHD" Mode="In" Type="Int32" />
+            <Parameter Name="MaKO" Mode="In" Type="String" />
+            <Parameter Name="MaQC" Mode="In" Type="Int32" />
+            <Parameter Name="NgayBDQC" Mode="In" Type="DateTime" />
+            <Parameter Name="NgayKTQC" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChiTietThueKIOSKQC_INSERT">
+            <Parameter Name="SoHD" Mode="In" Type="Int32" />
+            <Parameter Name="MaKO" Mode="In" Type="String" />
+            <Parameter Name="NgayBDThue" Mode="In" Type="DateTime" />
+            <Parameter Name="NgayKetThuc" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CONFIG_UPDATE">
+            <Parameter Name="variable_name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="value" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DotKhuyenMai_DELETE">
+          <Parameter Name="MaKM" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DotKhuyenMai_INSERT">
+            <Parameter Name="NgayBD" Mode="In" Type="DateTime" />
+            <Parameter Name="NgayKT" Mode="In" Type="DateTime" />
+            <Parameter Name="SoHD" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DotKhuyenMai_UPDATE">
+            <Parameter Name="MaKM" Mode="In" Type="Int32" />
+            <Parameter Name="NgayBD" Mode="In" Type="DateTime" />
+            <Parameter Name="NgayKT" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetAccountsByMaLN" ReturnType="Collection(QLKIOSKModel.sp_GetAccountsByMaLN_Result)">
+          <Parameter Name="maln" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_KhachHang_DELETE">
+          <Parameter Name="MaKH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_KhachHang_INSERT">
+            <Parameter Name="CMND" Mode="In" Type="String" />
+            <Parameter Name="TenKH" Mode="In" Type="String" />
+            <Parameter Name="DiaChi" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="SDT" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_KhachHang_UPDATE">
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="CMND" Mode="In" Type="String" />
+            <Parameter Name="TenKH" Mode="In" Type="String" />
+            <Parameter Name="DiaChi" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="SDT" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_KIOSK_DELETE">
+          <Parameter Name="MaKO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MaKHMoi" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="sp_PhanQuyen_INSERT">
+            <Parameter Name="MaTK" Mode="In" Type="Int32" />
+            <Parameter Name="MaCN" Mode="In" Type="Int32" />
+            <Parameter Name="TinhTrang" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_PhanQuyen_UPDATE">
+            <Parameter Name="MaTK" Mode="In" Type="Int32" />
+            <Parameter Name="MaCN" Mode="In" Type="Int32" />
+            <Parameter Name="TinhTrang" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_QuangCao_DELETE">
+          <Parameter Name="MaQC" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TaiKhoan_Disable">
+          <Parameter Name="MaTK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TaiKhoan_Enable">
+          <Parameter Name="MaTK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TaiKhoan_INSERT">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="SoHD" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TKMoi" ReturnType="Collection(Int32)" />
+          <EntitySet Name="ChucNangs" EntityType="QLKIOSKModel.ChucNang" />
+          <EntitySet Name="MatHangs" EntityType="QLKIOSKModel.MatHang" />
+          <AssociationSet Name="ChiTietGiamGiaTheoSL_FK_MaMH" Association="QLKIOSKModel.ChiTietGiamGiaTheoSL_FK_MaMH">
+            <End Role="MatHang" EntitySet="MatHangs" />
+            <End Role="ChiTietGiamGiaTheoSL" EntitySet="ChiTietGiamGiaTheoSLs" />
+          </AssociationSet>
+          <AssociationSet Name="PhanQuyen_FK_MaCN" Association="QLKIOSKModel.PhanQuyen_FK_MaCN">
+            <End Role="ChucNang" EntitySet="ChucNangs" />
+            <End Role="PhanQuyen" EntitySet="PhanQuyens" />
+          </AssociationSet>
+          <EntitySet Name="ChiTietThueKIOSKQCs" EntityType="QLKIOSKModel.ChiTietThueKIOSKQC" />
+          <AssociationSet Name="ChiTietQC_FK_SoHD_MaKO" Association="QLKIOSKModel.ChiTietQC_FK_SoHD_MaKO">
+            <End Role="ChiTietThueKIOSKQC" EntitySet="ChiTietThueKIOSKQCs" />
+            <End Role="ChiTietQC" EntitySet="ChiTietQCs" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietThueKIOSKQC_FK_MaKO" Association="QLKIOSKModel.ChiTietThueKIOSKQC_FK_MaKO">
+            <End Role="KIOSK" EntitySet="KIOSKs" />
+            <End Role="ChiTietThueKIOSKQC" EntitySet="ChiTietThueKIOSKQCs" />
+          </AssociationSet>
+          <EntitySet Name="BuoiAns" EntityType="QLKIOSKModel.BuoiAn" />
+          <EntitySet Name="ChiTietBA_MH" EntityType="QLKIOSKModel.ChiTietBA_MH" />
+          <EntitySet Name="DonVi_MatHang" EntityType="QLKIOSKModel.DonVi_MatHang" />
+          <EntitySet Name="LoaiMatHangs" EntityType="QLKIOSKModel.LoaiMatHang" />
+          <AssociationSet Name="ChiTietBA_MH_FK_MaBA" Association="QLKIOSKModel.ChiTietBA_MH_FK_MaBA">
+            <End Role="BuoiAn" EntitySet="BuoiAns" />
+            <End Role="ChiTietBA_MH" EntitySet="ChiTietBA_MH" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietBA_MH_FK_MaMH" Association="QLKIOSKModel.ChiTietBA_MH_FK_MaMH">
+            <End Role="MatHang" EntitySet="MatHangs" />
+            <End Role="ChiTietBA_MH" EntitySet="ChiTietBA_MH" />
+          </AssociationSet>
+          <AssociationSet Name="DonVi_MatHang_FK_MaLMH" Association="QLKIOSKModel.DonVi_MatHang_FK_MaLMH">
+            <End Role="LoaiMatHang" EntitySet="LoaiMatHangs" />
+            <End Role="DonVi_MatHang" EntitySet="DonVi_MatHang" />
+          </AssociationSet>
+          <AssociationSet Name="MatHang_FK_MaDV" Association="QLKIOSKModel.MatHang_FK_MaDV">
+            <End Role="DonVi_MatHang" EntitySet="DonVi_MatHang" />
+            <End Role="MatHang" EntitySet="MatHangs" />
+          </AssociationSet>
+          <FunctionImport Name="sp_DonVi_MatHang_DELETE">
+          <Parameter Name="MaDV" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DonVi_MatHang_INSERT">
+            <Parameter Name="TenDV" Mode="In" Type="String" />
+            <Parameter Name="MaLMH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DonVi_MatHang_UPDATE">
+            <Parameter Name="MaDV" Mode="In" Type="Int32" />
+            <Parameter Name="TenDV" Mode="In" Type="String" />
+            <Parameter Name="MaLMH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_LoaiMatHang_DELETE">
+          <Parameter Name="MaLMH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="HopDongs" EntityType="QLKIOSKModel.HopDong" />
+          <AssociationSet Name="BuoiAn_FK_SoHD" Association="QLKIOSKModel.BuoiAn_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDongs" />
+            <End Role="BuoiAn" EntitySet="BuoiAns" />
+          </AssociationSet>
+          <AssociationSet Name="ChiTietThueKIOSKQC_FK_SoHD" Association="QLKIOSKModel.ChiTietThueKIOSKQC_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDongs" />
+            <End Role="ChiTietThueKIOSKQC" EntitySet="ChiTietThueKIOSKQCs" />
+          </AssociationSet>
+          <AssociationSet Name="DotKM_FK" Association="QLKIOSKModel.DotKM_FK">
+            <End Role="HopDong" EntitySet="HopDongs" />
+            <End Role="DotKhuyenMai" EntitySet="DotKhuyenMais" />
+          </AssociationSet>
+          <AssociationSet Name="HopDong_FK_MaKH" Association="QLKIOSKModel.HopDong_FK_MaKH">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="HopDong" EntitySet="HopDongs" />
+          </AssociationSet>
+          <AssociationSet Name="HopDong_FK_MaKH2" Association="QLKIOSKModel.HopDong_FK_MaKH2">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="HopDong" EntitySet="HopDongs" />
+          </AssociationSet>
+          <AssociationSet Name="LoaiMatHang_FK_SoHD" Association="QLKIOSKModel.LoaiMatHang_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDongs" />
+            <End Role="LoaiMatHang" EntitySet="LoaiMatHangs" />
+          </AssociationSet>
+          <AssociationSet Name="TaiKhoan_FK_SoHD" Association="QLKIOSKModel.TaiKhoan_FK_SoHD">
+            <End Role="HopDong" EntitySet="HopDongs" />
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+          </AssociationSet>
+          <FunctionImport Name="sp_ChucNangTheoLoaiNhom" ReturnType="Collection(Int32)">
+          <Parameter Name="maln" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="LoaiNhoms" EntityType="QLKIOSKModel.LoaiNhom" />
+          <AssociationSet Name="ChucNang_FK_MaLN" Association="QLKIOSKModel.ChucNang_FK_MaLN">
+            <End Role="LoaiNhom" EntitySet="LoaiNhoms" />
+            <End Role="ChucNang" EntitySet="ChucNangs" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="sp_checkKH_Result">
+          <Property Type="Int32" Name="MaKH" Nullable="false" />
+          <Property Type="String" Name="CMND" Nullable="false" MaxLength="13" />
+          <Property Type="String" Name="TenKH" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SDT" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Guid" Name="rowguid" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetAccountsByMaLN_Result">
+          <Property Type="Int32" Name="MaTK" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="NgayTao" Nullable="false" />
+          <Property Type="Time" Name="GioTao" Nullable="false" />
+          <Property Type="Boolean" Name="TrangThai" Nullable="false" />
+          <Property Type="Int32" Name="SoHD" Nullable="true" />
+          <Property Type="Int32" Name="MaKH" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="ChucNang">
+          <Key>
+            <PropertyRef Name="MaCN" />
+          </Key>
+          <Property Name="MaCN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenCN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaLN" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="PhanQuyens" Relationship="QLKIOSKModel.PhanQuyen_FK_MaCN" FromRole="ChucNang" ToRole="PhanQuyen" />
+          <NavigationProperty Name="LoaiNhom" Relationship="QLKIOSKModel.ChucNang_FK_MaLN" FromRole="ChucNang" ToRole="LoaiNhom" />
+        </EntityType>
+        <EntityType Name="MatHang">
+          <Key>
+            <PropertyRef Name="MaMH" />
+          </Key>
+          <Property Name="MaMH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenMH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoLuongTon" Type="Int32" />
+          <Property Name="DonGia" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="MaDV" Type="Int32" Nullable="false" />
+          <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+          <Property Name="ImageMH" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChiTietGiamGiaTheoSLs" Relationship="QLKIOSKModel.ChiTietGiamGiaTheoSL_FK_MaMH" FromRole="MatHang" ToRole="ChiTietGiamGiaTheoSL" />
+          <NavigationProperty Name="ChiTietBA_MH" Relationship="QLKIOSKModel.ChiTietBA_MH_FK_MaMH" FromRole="MatHang" ToRole="ChiTietBA_MH" />
+          <NavigationProperty Name="DonVi_MatHang" Relationship="QLKIOSKModel.MatHang_FK_MaDV" FromRole="MatHang" ToRole="DonVi_MatHang" />
+        </EntityType>
+        <Association Name="ChiTietGiamGiaTheoSL_FK_MaMH">
+          <End Type="QLKIOSKModel.MatHang" Role="MatHang" Multiplicity="1" />
+          <End Type="QLKIOSKModel.ChiTietGiamGiaTheoSL" Role="ChiTietGiamGiaTheoSL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatHang">
+              <PropertyRef Name="MaMH" />
+            </Principal>
+            <Dependent Role="ChiTietGiamGiaTheoSL">
+              <PropertyRef Name="MaMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PhanQuyen_FK_MaCN">
+          <End Type="QLKIOSKModel.ChucNang" Role="ChucNang" Multiplicity="1" />
+          <End Type="QLKIOSKModel.PhanQuyen" Role="PhanQuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucNang">
+              <PropertyRef Name="MaCN" />
+            </Principal>
+            <Dependent Role="PhanQuyen">
+              <PropertyRef Name="MaCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ChiTietThueKIOSKQC">
+          <Key>
+            <PropertyRef Name="SoHD" />
+            <PropertyRef Name="MAKO" />
+          </Key>
+          <Property Name="SoHD" Type="Int32" Nullable="false" />
+          <Property Name="MAKO" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="NgayBDThue" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NgayKetThuc" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChiTietQCs" Relationship="QLKIOSKModel.ChiTietQC_FK_SoHD_MaKO" FromRole="ChiTietThueKIOSKQC" ToRole="ChiTietQC" />
+          <NavigationProperty Name="KIOSK" Relationship="QLKIOSKModel.ChiTietThueKIOSKQC_FK_MaKO" FromRole="ChiTietThueKIOSKQC" ToRole="KIOSK" />
+          <NavigationProperty Name="HopDong" Relationship="QLKIOSKModel.ChiTietThueKIOSKQC_FK_SoHD" FromRole="ChiTietThueKIOSKQC" ToRole="HopDong" />
+        </EntityType>
+        <Association Name="ChiTietQC_FK_SoHD_MaKO">
+          <End Type="QLKIOSKModel.ChiTietThueKIOSKQC" Role="ChiTietThueKIOSKQC" Multiplicity="1" />
+          <End Type="QLKIOSKModel.ChiTietQC" Role="ChiTietQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChiTietThueKIOSKQC">
+              <PropertyRef Name="SoHD" />
+              <PropertyRef Name="MAKO" />
+            </Principal>
+            <Dependent Role="ChiTietQC">
+              <PropertyRef Name="SoHD" />
+              <PropertyRef Name="MAKO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietThueKIOSKQC_FK_MaKO">
+          <End Type="QLKIOSKModel.KIOSK" Role="KIOSK" Multiplicity="1" />
+          <End Type="QLKIOSKModel.ChiTietThueKIOSKQC" Role="ChiTietThueKIOSKQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KIOSK">
+              <PropertyRef Name="MAKO" />
+            </Principal>
+            <Dependent Role="ChiTietThueKIOSKQC">
+              <PropertyRef Name="MAKO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BuoiAn">
+          <Key>
+            <PropertyRef Name="MaBA" />
+          </Key>
+          <Property Name="MaBA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenBA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioBD" Type="Time" Precision="7" />
+          <Property Name="GioKT" Type="Time" Precision="7" />
+          <Property Name="SoHD" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChiTietBA_MH" Relationship="QLKIOSKModel.ChiTietBA_MH_FK_MaBA" FromRole="BuoiAn" ToRole="ChiTietBA_MH" />
+          <NavigationProperty Name="HopDong" Relationship="QLKIOSKModel.BuoiAn_FK_SoHD" FromRole="BuoiAn" ToRole="HopDong" />
+        </EntityType>
+        <EntityType Name="ChiTietBA_MH">
+          <Key>
+            <PropertyRef Name="MaBA" />
+            <PropertyRef Name="MaMH" />
+          </Key>
+          <Property Name="MaBA" Type="Int32" Nullable="false" />
+          <Property Name="MaMH" Type="Int32" Nullable="false" />
+          <Property Name="TrangThaiMA" Type="Boolean" Nullable="false" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="BuoiAn" Relationship="QLKIOSKModel.ChiTietBA_MH_FK_MaBA" FromRole="ChiTietBA_MH" ToRole="BuoiAn" />
+          <NavigationProperty Name="MatHang" Relationship="QLKIOSKModel.ChiTietBA_MH_FK_MaMH" FromRole="ChiTietBA_MH" ToRole="MatHang" />
+        </EntityType>
+        <EntityType Name="DonVi_MatHang">
+          <Key>
+            <PropertyRef Name="MaDV" />
+          </Key>
+          <Property Name="MaDV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MALMH" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="LoaiMatHang" Relationship="QLKIOSKModel.DonVi_MatHang_FK_MaLMH" FromRole="DonVi_MatHang" ToRole="LoaiMatHang" />
+          <NavigationProperty Name="MatHangs" Relationship="QLKIOSKModel.MatHang_FK_MaDV" FromRole="DonVi_MatHang" ToRole="MatHang" />
+        </EntityType>
+        <EntityType Name="LoaiMatHang">
+          <Key>
+            <PropertyRef Name="MaLMH" />
+          </Key>
+          <Property Name="MaLMH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLMH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageLMH" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SoHD" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DonVi_MatHang" Relationship="QLKIOSKModel.DonVi_MatHang_FK_MaLMH" FromRole="LoaiMatHang" ToRole="DonVi_MatHang" />
+          <NavigationProperty Name="HopDong" Relationship="QLKIOSKModel.LoaiMatHang_FK_SoHD" FromRole="LoaiMatHang" ToRole="HopDong" />
+        </EntityType>
+        <Association Name="ChiTietBA_MH_FK_MaBA">
+          <End Type="QLKIOSKModel.BuoiAn" Role="BuoiAn" Multiplicity="1" />
+          <End Type="QLKIOSKModel.ChiTietBA_MH" Role="ChiTietBA_MH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuoiAn">
+              <PropertyRef Name="MaBA" />
+            </Principal>
+            <Dependent Role="ChiTietBA_MH">
+              <PropertyRef Name="MaBA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietBA_MH_FK_MaMH">
+          <End Type="QLKIOSKModel.MatHang" Role="MatHang" Multiplicity="1" />
+          <End Type="QLKIOSKModel.ChiTietBA_MH" Role="ChiTietBA_MH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatHang">
+              <PropertyRef Name="MaMH" />
+            </Principal>
+            <Dependent Role="ChiTietBA_MH">
+              <PropertyRef Name="MaMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DonVi_MatHang_FK_MaLMH">
+          <End Type="QLKIOSKModel.LoaiMatHang" Role="LoaiMatHang" Multiplicity="1" />
+          <End Type="QLKIOSKModel.DonVi_MatHang" Role="DonVi_MatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiMatHang">
+              <PropertyRef Name="MaLMH" />
+            </Principal>
+            <Dependent Role="DonVi_MatHang">
+              <PropertyRef Name="MALMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatHang_FK_MaDV">
+          <End Type="QLKIOSKModel.DonVi_MatHang" Role="DonVi_MatHang" Multiplicity="1" />
+          <End Type="QLKIOSKModel.MatHang" Role="MatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi_MatHang">
+              <PropertyRef Name="MaDV" />
+            </Principal>
+            <Dependent Role="MatHang">
+              <PropertyRef Name="MaDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HopDong">
+          <Key>
+            <PropertyRef Name="SoHD" />
+          </Key>
+          <Property Name="SoHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgayLapHD" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NoiDungHD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MALHD" Type="Int32" Nullable="false" />
+          <Property Name="MaKH_THUEKO" Type="Int32" />
+          <Property Name="MaKH_DATQC" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="BuoiAns" Relationship="QLKIOSKModel.BuoiAn_FK_SoHD" FromRole="HopDong" ToRole="BuoiAn" />
+          <NavigationProperty Name="ChiTietThueKIOSKQCs" Relationship="QLKIOSKModel.ChiTietThueKIOSKQC_FK_SoHD" FromRole="HopDong" ToRole="ChiTietThueKIOSKQC" />
+          <NavigationProperty Name="DotKhuyenMais" Relationship="QLKIOSKModel.DotKM_FK" FromRole="HopDong" ToRole="DotKhuyenMai" />
+          <NavigationProperty Name="KhachHang" Relationship="QLKIOSKModel.HopDong_FK_MaKH" FromRole="HopDong" ToRole="KhachHang" />
+          <NavigationProperty Name="KhachHang1" Relationship="QLKIOSKModel.HopDong_FK_MaKH2" FromRole="HopDong" ToRole="KhachHang" />
+          <NavigationProperty Name="LoaiMatHangs" Relationship="QLKIOSKModel.LoaiMatHang_FK_SoHD" FromRole="HopDong" ToRole="LoaiMatHang" />
+          <NavigationProperty Name="TaiKhoans" Relationship="QLKIOSKModel.TaiKhoan_FK_SoHD" FromRole="HopDong" ToRole="TaiKhoan" />
+        </EntityType>
+        <Association Name="BuoiAn_FK_SoHD">
+          <End Type="QLKIOSKModel.HopDong" Role="HopDong" Multiplicity="0..1" />
+          <End Type="QLKIOSKModel.BuoiAn" Role="BuoiAn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="BuoiAn">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChiTietThueKIOSKQC_FK_SoHD">
+          <End Type="QLKIOSKModel.HopDong" Role="HopDong" Multiplicity="1" />
+          <End Type="QLKIOSKModel.ChiTietThueKIOSKQC" Role="ChiTietThueKIOSKQC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="ChiTietThueKIOSKQC">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DotKM_FK">
+          <End Type="QLKIOSKModel.HopDong" Role="HopDong" Multiplicity="1" />
+          <End Type="QLKIOSKModel.DotKhuyenMai" Role="DotKhuyenMai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="DotKhuyenMai">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="HopDong_FK_MaKH">
+          <End Type="QLKIOSKModel.KhachHang" Role="KhachHang" Multiplicity="0..1" />
+          <End Type="QLKIOSKModel.HopDong" Role="HopDong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="HopDong">
+              <PropertyRef Name="MaKH_THUEKO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="HopDong_FK_MaKH2">
+          <End Type="QLKIOSKModel.KhachHang" Role="KhachHang" Multiplicity="0..1" />
+          <End Type="QLKIOSKModel.HopDong" Role="HopDong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="HopDong">
+              <PropertyRef Name="MaKH_DATQC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LoaiMatHang_FK_SoHD">
+          <End Type="QLKIOSKModel.HopDong" Role="HopDong" Multiplicity="0..1" />
+          <End Type="QLKIOSKModel.LoaiMatHang" Role="LoaiMatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="LoaiMatHang">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TaiKhoan_FK_SoHD">
+          <End Type="QLKIOSKModel.HopDong" Role="HopDong" Multiplicity="0..1" />
+          <End Type="QLKIOSKModel.TaiKhoan" Role="TaiKhoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HopDong">
+              <PropertyRef Name="SoHD" />
+            </Principal>
+            <Dependent Role="TaiKhoan">
+              <PropertyRef Name="SoHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LoaiNhom">
+          <Key>
+            <PropertyRef Name="MaLN" />
+          </Key>
+          <Property Name="MaLN" Type="Int32" Nullable="false" />
+          <Property Name="TenLN" Type="String" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="rowguid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChucNangs" Relationship="QLKIOSKModel.ChucNang_FK_MaLN" FromRole="LoaiNhom" ToRole="ChucNang" />
+        </EntityType>
+        <Association Name="ChucNang_FK_MaLN">
+          <End Type="QLKIOSKModel.LoaiNhom" Role="LoaiNhom" Multiplicity="0..1" />
+          <End Type="QLKIOSKModel.ChucNang" Role="ChucNang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiNhom">
+              <PropertyRef Name="MaLN" />
+            </Principal>
+            <Dependent Role="ChucNang">
+              <PropertyRef Name="MaLN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLKIOSKModelStoreContainer" CdmEntityContainer="QLKIOSKEntities">
+          <EntitySetMapping Name="ChiTietGiamGiaTheoSLs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.ChiTietGiamGiaTheoSL">
+              <MappingFragment StoreEntitySet="ChiTietGiamGiaTheoSL">
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
+                <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+                <ScalarProperty Name="SLMuaToiThieu" ColumnName="SLMuaToiThieu" />
+                <ScalarProperty Name="Giam" ColumnName="Giam" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietQCs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.ChiTietQC">
+              <MappingFragment StoreEntitySet="ChiTietQC">
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+                <ScalarProperty Name="MAKO" ColumnName="MAKO" />
+                <ScalarProperty Name="MaQC" ColumnName="MaQC" />
+                <ScalarProperty Name="NgayBDQC" ColumnName="NgayBDQC" />
+                <ScalarProperty Name="NgayKTQC" ColumnName="NgayKTQC" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.Config">
+              <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="VariableName" ColumnName="VariableName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DotKhuyenMais">
+            <EntityTypeMapping TypeName="QLKIOSKModel.DotKhuyenMai">
+              <MappingFragment StoreEntitySet="DotKhuyenMai">
+                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="NgayBD" ColumnName="NgayBD" />
+                <ScalarProperty Name="NgayKT" ColumnName="NgayKT" />
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KIOSKs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.KIOSK">
+              <MappingFragment StoreEntitySet="KIOSK">
+                <ScalarProperty Name="MAKO" ColumnName="MAKO" />
+                <ScalarProperty Name="MaToken" ColumnName="MaToken" />
+                <ScalarProperty Name="TenKO" ColumnName="TenKO" />
+                <ScalarProperty Name="NgayXD" ColumnName="NgayXD" />
+                <ScalarProperty Name="NgayVH" ColumnName="NgayVH" />
+                <ScalarProperty Name="DiaDiem" ColumnName="DiaDiem" />
+                <ScalarProperty Name="NhietDo" ColumnName="NhietDo" />
+                <ScalarProperty Name="TrangThaiKo" ColumnName="TrangThaiKo" />
+                <ScalarProperty Name="ImageBanner" ColumnName="ImageBanner" />
+                <ScalarProperty Name="ConnectStr" ColumnName="ConnectStr" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhanQuyens">
+            <EntityTypeMapping TypeName="QLKIOSKModel.PhanQuyen">
+              <MappingFragment StoreEntitySet="PhanQuyen">
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="MaCN" ColumnName="MaCN" />
+                <ScalarProperty Name="Ngay_CapNhat" ColumnName="Ngay_CapNhat" />
+                <ScalarProperty Name="Gio_CapNhat" ColumnName="Gio_CapNhat" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuangCaos">
+            <EntityTypeMapping TypeName="QLKIOSKModel.QuangCao">
+              <MappingFragment StoreEntitySet="QuangCao">
+                <ScalarProperty Name="MaQC" ColumnName="MaQC" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="ImageQC" ColumnName="ImageQC" />
+                <ScalarProperty Name="ThoiLuong" ColumnName="ThoiLuong" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaiKhoans">
+            <EntityTypeMapping TypeName="QLKIOSKModel.TaiKhoan">
+              <MappingFragment StoreEntitySet="TaiKhoan">
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GioTao" ColumnName="GioTao" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ChiTietQC">
+            <EntityTypeMapping TypeName="QLKIOSKModel.V_ChiTietQC">
+              <MappingFragment StoreEntitySet="V_ChiTietQC">
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+                <ScalarProperty Name="MAKO" ColumnName="MAKO" />
+                <ScalarProperty Name="MaQC" ColumnName="MaQC" />
+                <ScalarProperty Name="NgayBDQC" ColumnName="NgayBDQC" />
+                <ScalarProperty Name="NgayKTQC" ColumnName="NgayKTQC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_DonViMatHang">
+            <EntityTypeMapping TypeName="QLKIOSKModel.V_DonViMatHang">
+              <MappingFragment StoreEntitySet="V_DonViMatHang">
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+                <ScalarProperty Name="TenDV" ColumnName="TenDV" />
+                <ScalarProperty Name="MALMH" ColumnName="MALMH" />
+                <ScalarProperty Name="TenLMH" ColumnName="TenLMH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_KhachHang">
+            <EntityTypeMapping TypeName="QLKIOSKModel.V_KhachHang">
+              <MappingFragment StoreEntitySet="V_KhachHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_KIOSK">
+            <EntityTypeMapping TypeName="QLKIOSKModel.V_KIOSK">
+              <MappingFragment StoreEntitySet="V_KIOSK">
+                <ScalarProperty Name="MAKO" ColumnName="MAKO" />
+                <ScalarProperty Name="MaToken" ColumnName="MaToken" />
+                <ScalarProperty Name="TenKO" ColumnName="TenKO" />
+                <ScalarProperty Name="NgayXD" ColumnName="NgayXD" />
+                <ScalarProperty Name="NgayVH" ColumnName="NgayVH" />
+                <ScalarProperty Name="DiaDiem" ColumnName="DiaDiem" />
+                <ScalarProperty Name="NhietDo" ColumnName="NhietDo" />
+                <ScalarProperty Name="TrangThaiKo" ColumnName="TrangThaiKo" />
+                <ScalarProperty Name="ImageBanner" ColumnName="ImageBanner" />
+                <ScalarProperty Name="ConnectStr" ColumnName="ConnectStr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_LoaiMatHang">
+            <EntityTypeMapping TypeName="QLKIOSKModel.V_LoaiMatHang">
+              <MappingFragment StoreEntitySet="V_LoaiMatHang">
+                <ScalarProperty Name="MaLMH" ColumnName="MaLMH" />
+                <ScalarProperty Name="TenLMH" ColumnName="TenLMH" />
+                <ScalarProperty Name="ImageLMH" ColumnName="ImageLMH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_QuangCao">
+            <EntityTypeMapping TypeName="QLKIOSKModel.V_QuangCao">
+              <MappingFragment StoreEntitySet="V_QuangCao">
+                <ScalarProperty Name="MaQC" ColumnName="MaQC" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="ImageQC" ColumnName="ImageQC" />
+                <ScalarProperty Name="ThoiLuong" ColumnName="ThoiLuong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_checkKH" FunctionName="QLKIOSKModel.Store.sp_checkKH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLKIOSKModel.sp_checkKH_Result">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ChiTietGiamGiaTheoSL_DELETE" FunctionName="QLKIOSKModel.Store.sp_ChiTietGiamGiaTheoSL_DELETE" />
+          <FunctionImportMapping FunctionImportName="sp_ChiTietGiamGiaTheoSL_INSERT" FunctionName="QLKIOSKModel.Store.sp_ChiTietGiamGiaTheoSL_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_ChiTietGiamGiaTheoSL_UPDATE" FunctionName="QLKIOSKModel.Store.sp_ChiTietGiamGiaTheoSL_UPDATE" />
+          <FunctionImportMapping FunctionImportName="sp_ChiTietQC_DELETE" FunctionName="QLKIOSKModel.Store.sp_ChiTietQC_DELETE" />
+          <FunctionImportMapping FunctionImportName="sp_ChiTietQC_INSERT" FunctionName="QLKIOSKModel.Store.sp_ChiTietQC_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_ChiTietThueKIOSKQC_INSERT" FunctionName="QLKIOSKModel.Store.sp_ChiTietThueKIOSKQC_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_CONFIG_UPDATE" FunctionName="QLKIOSKModel.Store.sp_CONFIG_UPDATE" />
+          <FunctionImportMapping FunctionImportName="sp_DotKhuyenMai_DELETE" FunctionName="QLKIOSKModel.Store.sp_DotKhuyenMai_DELETE" />
+          <FunctionImportMapping FunctionImportName="sp_DotKhuyenMai_INSERT" FunctionName="QLKIOSKModel.Store.sp_DotKhuyenMai_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_DotKhuyenMai_UPDATE" FunctionName="QLKIOSKModel.Store.sp_DotKhuyenMai_UPDATE" />
+          <FunctionImportMapping FunctionImportName="sp_GetAccountsByMaLN" FunctionName="QLKIOSKModel.Store.sp_GetAccountsByMaLN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLKIOSKModel.sp_GetAccountsByMaLN_Result">
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GioTao" ColumnName="GioTao" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_KhachHang_DELETE" FunctionName="QLKIOSKModel.Store.sp_KhachHang_DELETE" />
+          <FunctionImportMapping FunctionImportName="sp_KhachHang_INSERT" FunctionName="QLKIOSKModel.Store.sp_KhachHang_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_KhachHang_UPDATE" FunctionName="QLKIOSKModel.Store.sp_KhachHang_UPDATE" />
+          <FunctionImportMapping FunctionImportName="sp_KIOSK_DELETE" FunctionName="QLKIOSKModel.Store.sp_KIOSK_DELETE" />
+          <FunctionImportMapping FunctionImportName="sp_MaKHMoi" FunctionName="QLKIOSKModel.Store.sp_MaKHMoi" />
+          <FunctionImportMapping FunctionImportName="sp_PhanQuyen_INSERT" FunctionName="QLKIOSKModel.Store.sp_PhanQuyen_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_PhanQuyen_UPDATE" FunctionName="QLKIOSKModel.Store.sp_PhanQuyen_UPDATE" />
+          <FunctionImportMapping FunctionImportName="sp_QuangCao_DELETE" FunctionName="QLKIOSKModel.Store.sp_QuangCao_DELETE" />
+          <FunctionImportMapping FunctionImportName="sp_TaiKhoan_Disable" FunctionName="QLKIOSKModel.Store.sp_TaiKhoan_Disable" />
+          <FunctionImportMapping FunctionImportName="sp_TaiKhoan_Enable" FunctionName="QLKIOSKModel.Store.sp_TaiKhoan_Enable" />
+          <FunctionImportMapping FunctionImportName="sp_TaiKhoan_INSERT" FunctionName="QLKIOSKModel.Store.sp_TaiKhoan_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_TKMoi" FunctionName="QLKIOSKModel.Store.sp_TKMoi" />
+          <EntitySetMapping Name="ChucNangs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.ChucNang">
+              <MappingFragment StoreEntitySet="ChucNang">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="MaLN" ColumnName="MaLN" />
+                <ScalarProperty Name="TenCN" ColumnName="TenCN" />
+                <ScalarProperty Name="MaCN" ColumnName="MaCN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MatHangs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.MatHang">
+              <MappingFragment StoreEntitySet="MatHang">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ImageMH" ColumnName="ImageMH" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
+                <ScalarProperty Name="TenMH" ColumnName="TenMH" />
+                <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietThueKIOSKQCs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.ChiTietThueKIOSKQC">
+              <MappingFragment StoreEntitySet="ChiTietThueKIOSKQC">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+                <ScalarProperty Name="NgayBDThue" ColumnName="NgayBDThue" />
+                <ScalarProperty Name="MAKO" ColumnName="MAKO" />
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuoiAns">
+            <EntityTypeMapping TypeName="QLKIOSKModel.BuoiAn">
+              <MappingFragment StoreEntitySet="BuoiAn">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+                <ScalarProperty Name="GioKT" ColumnName="GioKT" />
+                <ScalarProperty Name="GioBD" ColumnName="GioBD" />
+                <ScalarProperty Name="TenBA" ColumnName="TenBA" />
+                <ScalarProperty Name="MaBA" ColumnName="MaBA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietBA_MH">
+            <EntityTypeMapping TypeName="QLKIOSKModel.ChiTietBA_MH">
+              <MappingFragment StoreEntitySet="ChiTietBA_MH">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="TrangThaiMA" ColumnName="TrangThaiMA" />
+                <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+                <ScalarProperty Name="MaBA" ColumnName="MaBA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonVi_MatHang">
+            <EntityTypeMapping TypeName="QLKIOSKModel.DonVi_MatHang">
+              <MappingFragment StoreEntitySet="DonVi_MatHang">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="MALMH" ColumnName="MALMH" />
+                <ScalarProperty Name="TenDV" ColumnName="TenDV" />
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiMatHangs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.LoaiMatHang">
+              <MappingFragment StoreEntitySet="LoaiMatHang">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+                <ScalarProperty Name="ImageLMH" ColumnName="ImageLMH" />
+                <ScalarProperty Name="TenLMH" ColumnName="TenLMH" />
+                <ScalarProperty Name="MaLMH" ColumnName="MaLMH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_DonVi_MatHang_DELETE" FunctionName="QLKIOSKModel.Store.sp_DonVi_MatHang_DELETE" />
+          <FunctionImportMapping FunctionImportName="sp_DonVi_MatHang_INSERT" FunctionName="QLKIOSKModel.Store.sp_DonVi_MatHang_INSERT" />
+          <FunctionImportMapping FunctionImportName="sp_DonVi_MatHang_UPDATE" FunctionName="QLKIOSKModel.Store.sp_DonVi_MatHang_UPDATE" />
+          <FunctionImportMapping FunctionImportName="sp_LoaiMatHang_DELETE" FunctionName="QLKIOSKModel.Store.sp_LoaiMatHang_DELETE" />
+          <EntitySetMapping Name="HopDongs">
+            <EntityTypeMapping TypeName="QLKIOSKModel.HopDong">
+              <MappingFragment StoreEntitySet="HopDong">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="MaKH_DATQC" ColumnName="MaKH_DATQC" />
+                <ScalarProperty Name="MaKH_THUEKO" ColumnName="MaKH_THUEKO" />
+                <ScalarProperty Name="MALHD" ColumnName="MALHD" />
+                <ScalarProperty Name="NoiDungHD" ColumnName="NoiDungHD" />
+                <ScalarProperty Name="NgayLapHD" ColumnName="NgayLapHD" />
+                <ScalarProperty Name="SoHD" ColumnName="SoHD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ChucNangTheoLoaiNhom" FunctionName="QLKIOSKModel.Store.sp_ChucNangTheoLoaiNhom" />
+          <EntitySetMapping Name="LoaiNhoms">
+            <EntityTypeMapping TypeName="QLKIOSKModel.LoaiNhom">
+              <MappingFragment StoreEntitySet="LoaiNhom">
+                <ScalarProperty Name="rowguid" ColumnName="rowguid" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="TenLN" ColumnName="TenLN" />
+                <ScalarProperty Name="MaLN" ColumnName="MaLN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,110 @@
+﻿@model SSC_Admin_Website.Models.QuangCao
+
+@{
+    ViewBag.Title = "Sửa TT quảng cáo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary" })
+    </div>
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "QuangCaos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Quảng cáo</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaQC)
+
+    <div class="form-group">
+        <label class="col-md-2">Nội dung</label>
+        <div class="col-md-10">
+            <input type="text" name="NoiDung" class="form-control" maxlength="200" value="@Model.NoiDung" />
+        </div>
+        @if (ViewBag.Validate_NoiDung != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.Validate_NoiDung
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2">Hình ảnh hiện tại</label>
+        <div class="col-md-10">
+            <div id="btnClearImage" class="btn btn-outline-secondary form-control" style="max-width:280px;">Clear</div>
+            @if (Model.ImageQC != null)
+            {
+                var base64 = Convert.ToBase64String(Model.ImageQC);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                <input type="hidden" id="isClear" name="isClear" value="false" />
+                <img id="imgNow" class="img-responsive" src="@imgsrc" style="max-width:200px;">
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2">Hình ảnh mới</label>
+        <div class="col-md-10">
+            <input type="file" name="HinhAnh" class="form-control-file" onchange="previewFile()" />
+            <img src="" id="preview" height="200" alt="Image preview...">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2">Thời lượng</label>
+        <div class="col-md-10">
+            <input type="number" min="0" step="1" name="ThoiLuong" class="form-control" style="display:inline-block" required value="@Model.ThoiLuong" /> giây
+            @if (ViewBag.Validate_ThoiLuong != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.Validate_ThoiLuong
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-outline-warning" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("#btnClearImage").click(function () {
+                $("#HinhAnh").val(null);
+                $("#imgNow").prop("src", null);
+                $("#imgNow").prop("alt", "");
+                $("#isClear").val(true);
+            });
+        });
+
+        function previewFile() {
+            var preview = document.querySelector('#preview');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }
+    </script>
+}

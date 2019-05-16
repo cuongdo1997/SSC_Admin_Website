@@ -1,0 +1,59 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<SSC_Admin_Website.Models.V_QuangCao>
+
+@{
+                /**/
+
+                ViewBag.Title = "Danh sách quảng cáo";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Danh sách quảng cáo</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table table-responsive-sm table-hover">
+    <thead>
+        <tr>
+            <th>
+                Nội dung
+            </th>
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Thời lượng
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiDung)
+                </td>
+                <td>
+                    @if (item.ImageQC != null)
+                    {
+                        var base64 = Convert.ToBase64String(item.ImageQC);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                        <img class="img-responsive" src="@imgsrc" style="max-width:200px;">
+                    }
+                </td>
+                <td>
+                    @string.Format("{0:}", TimeSpan.FromSeconds(item.ThoiLuong))
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaQC }, new { @class = "btn btn-outline-warning" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaQC }, new { @class = "btn btn-outline-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

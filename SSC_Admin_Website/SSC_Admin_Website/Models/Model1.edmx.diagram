@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d463feb2d48b4e0ea329a8532de74e06" Name="Diagram1">
+        <EntityTypeShape EntityType="QLKIOSKModel.ChiTietGiamGiaTheoSL" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.ChiTietQC" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.Config" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.DotKhuyenMai" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.KhachHang" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.KIOSK" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.PhanQuyen" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.QuangCao" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.TaiKhoan" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.V_ChiTietQC" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.V_DonViMatHang" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.V_KhachHang" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.V_KIOSK" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.V_LoaiMatHang" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKIOSKModel.V_QuangCao" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietGiamGiaTheoSL_FK_MaKM" ManuallyRouted="false" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietQC_FK_MaQC" ManuallyRouted="false" />
+        <AssociationConnector Association="QLKIOSKModel.TaiKhoan_FK_MaKH" ManuallyRouted="false" />
+        <AssociationConnector Association="QLKIOSKModel.PhanQuyen_FK_MaTK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QLKIOSKModel.ChucNang" Width="1.5" PointX="10.375" PointY="11.875" />
+        <EntityTypeShape EntityType="QLKIOSKModel.MatHang" Width="1.5" PointX="8.375" PointY="12" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietGiamGiaTheoSL_FK_MaMH" />
+        <AssociationConnector Association="QLKIOSKModel.PhanQuyen_FK_MaCN" />
+        <EntityTypeShape EntityType="QLKIOSKModel.ChiTietThueKIOSKQC" Width="1.5" PointX="8" PointY="16.25" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietQC_FK_SoHD_MaKO" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietThueKIOSKQC_FK_MaKO" />
+        <EntityTypeShape EntityType="QLKIOSKModel.BuoiAn" Width="1.5" PointX="10.375" PointY="16.375" />
+        <EntityTypeShape EntityType="QLKIOSKModel.ChiTietBA_MH" Width="1.5" PointX="12.625" PointY="12.625" />
+        <EntityTypeShape EntityType="QLKIOSKModel.DonVi_MatHang" Width="1.5" PointX="6.125" PointY="20.5" />
+        <EntityTypeShape EntityType="QLKIOSKModel.LoaiMatHang" Width="1.5" PointX="3.875" PointY="20.5" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietBA_MH_FK_MaBA" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietBA_MH_FK_MaMH" />
+        <AssociationConnector Association="QLKIOSKModel.DonVi_MatHang_FK_MaLMH" />
+        <AssociationConnector Association="QLKIOSKModel.MatHang_FK_MaDV" />
+        <EntityTypeShape EntityType="QLKIOSKModel.HopDong" Width="1.5" PointX="3" PointY="13.75" />
+        <AssociationConnector Association="QLKIOSKModel.BuoiAn_FK_SoHD" />
+        <AssociationConnector Association="QLKIOSKModel.ChiTietThueKIOSKQC_FK_SoHD" />
+        <AssociationConnector Association="QLKIOSKModel.DotKM_FK" />
+        <AssociationConnector Association="QLKIOSKModel.HopDong_FK_MaKH" />
+        <AssociationConnector Association="QLKIOSKModel.HopDong_FK_MaKH2" />
+        <AssociationConnector Association="QLKIOSKModel.LoaiMatHang_FK_SoHD" />
+        <AssociationConnector Association="QLKIOSKModel.TaiKhoan_FK_SoHD" />
+        <EntityTypeShape EntityType="QLKIOSKModel.LoaiNhom" Width="1.5" PointX="8.125" PointY="24.125" />
+        <AssociationConnector Association="QLKIOSKModel.ChucNang_FK_MaLN" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

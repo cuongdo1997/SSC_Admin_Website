@@ -1,0 +1,43 @@
+﻿
+
+@{
+    ViewBag.Title = "Danh sách tài khoản admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Danh sách tài khoản</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+@Html.Action("_DropDown_LoaiNhom")
+
+<div id="accounts">    
+    @*Load AJAX*@
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            LoadAccounts();
+        });
+
+        function LoadAccounts() {
+            var maln = $("#LoaiNhom").val();
+            $("#accounts").load("/TaiKhoanAdmins/_GetAccountsByLoaiNhom?maln=" + maln, function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success")
+                    null;
+                    //alert("External content loaded successfully!");
+                if (statusTxt == "error")
+                    null;
+                    //alert("Error: " + xhr.status + ": " + xhr.statusText);
+            });
+        }
+
+        $("#LoaiNhom").change(function () {
+            LoadAccounts();
+        });
+    </script>
+}

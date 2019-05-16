@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SSC_Admin_Website.Models.DotKhuyenMai>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Đợt khuyến mãi</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-success"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Ngày tạo
+        </th>
+        <th>
+            Ngày bắt đầu
+        </th>
+        <th>
+            Ngày kết thúc
+        </th>
+        <th>
+            Nội dung
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayTao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayBD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayKT)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaKM }, new { @class = "btn btn-outline-warning" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaKM }, new { @class = "btn btn-outline-danger" })
+        </td>
+    </tr>
+}
+
+</table>
