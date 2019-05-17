@@ -51,6 +51,7 @@ namespace SSC_Admin_Website.Models
         public virtual DbSet<LoaiMatHang> LoaiMatHangs { get; set; }
         public virtual DbSet<HopDong> HopDongs { get; set; }
         public virtual DbSet<LoaiNhom> LoaiNhoms { get; set; }
+        public virtual DbSet<V_MatHang> V_MatHang { get; set; }
     
         public virtual ObjectResult<sp_checkKH_Result> sp_checkKH(string cmnd)
         {
@@ -467,6 +468,15 @@ namespace SSC_Admin_Website.Models
                 new ObjectParameter("maln", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ChucNangTheoLoaiNhom", malnParameter);
+        }
+    
+        public virtual int sp_MatHang_DELETE(Nullable<int> maMH)
+        {
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MatHang_DELETE", maMHParameter);
         }
     }
 }

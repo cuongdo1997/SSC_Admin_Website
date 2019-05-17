@@ -291,6 +291,23 @@ warning 6002: The table/view 'QLKIOSK.dbo.V_LoaiMatHang' does not have a primary
           <Property Name="ImageLMH" Type="varbinary(max)" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'QLKIOSK.dbo.V_MatHang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_MatHang">
+          <Key>
+            <PropertyRef Name="MaMH" />
+            <PropertyRef Name="MaDV" />
+            <PropertyRef Name="TrangThai" />
+          </Key>
+          <Property Name="MaMH" Type="int" Nullable="false" />
+          <Property Name="TenMH" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoLuongTon" Type="int" />
+          <Property Name="DonGia" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="MaDV" Type="int" Nullable="false" />
+          <Property Name="TenDV" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrangThai" Type="bit" Nullable="false" />
+          <Property Name="ImageMH" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'QLKIOSK.dbo.V_QuangCao' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="V_QuangCao">
           <Key>
@@ -642,6 +659,9 @@ warning 6002: The table/view 'QLKIOSK.dbo.V_QuangCao' does not have a primary ke
           <Parameter Name="MaLMH" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_MaKHMoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_MatHang_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaMH" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_PhanQuyen_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaTK" Type="int" Mode="In" />
           <Parameter Name="MaCN" Type="int" Mode="In" />
@@ -734,6 +754,18 @@ warning 6002: The table/view 'QLKIOSK.dbo.V_QuangCao' does not have a primary ke
     [V_LoaiMatHang].[TenLMH] AS [TenLMH], 
     [V_LoaiMatHang].[ImageLMH] AS [ImageLMH]
     FROM [dbo].[V_LoaiMatHang] AS [V_LoaiMatHang]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_MatHang" EntityType="Self.V_MatHang" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_MatHang].[MaMH] AS [MaMH], 
+    [V_MatHang].[TenMH] AS [TenMH], 
+    [V_MatHang].[SoLuongTon] AS [SoLuongTon], 
+    [V_MatHang].[DonGia] AS [DonGia], 
+    [V_MatHang].[MaDV] AS [MaDV], 
+    [V_MatHang].[TenDV] AS [TenDV], 
+    [V_MatHang].[TrangThai] AS [TrangThai], 
+    [V_MatHang].[ImageMH] AS [ImageMH]
+    FROM [dbo].[V_MatHang] AS [V_MatHang]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_QuangCao" EntityType="Self.V_QuangCao" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1305,6 +1337,10 @@ warning 6002: The table/view 'QLKIOSK.dbo.V_QuangCao' does not have a primary ke
             <End Role="LoaiNhom" EntitySet="LoaiNhoms" />
             <End Role="ChucNang" EntitySet="ChucNangs" />
           </AssociationSet>
+          <EntitySet Name="V_MatHang" EntityType="QLKIOSKModel.V_MatHang" />
+          <FunctionImport Name="sp_MatHang_DELETE">
+            <Parameter Name="MaMH" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_checkKH_Result">
           <Property Type="Int32" Name="MaKH" Nullable="false" />
@@ -1645,6 +1681,21 @@ warning 6002: The table/view 'QLKIOSK.dbo.V_QuangCao' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="V_MatHang">
+          <Key>
+            <PropertyRef Name="MaMH" />
+            <PropertyRef Name="MaDV" />
+            <PropertyRef Name="TrangThai" />
+          </Key>
+          <Property Name="MaMH" Type="Int32" Nullable="false" />
+          <Property Name="TenMH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoLuongTon" Type="Int32" />
+          <Property Name="DonGia" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="MaDV" Type="Int32" Nullable="false" />
+          <Property Name="TenDV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+          <Property Name="ImageMH" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2002,6 +2053,21 @@ warning 6002: The table/view 'QLKIOSK.dbo.V_QuangCao' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="V_MatHang">
+            <EntityTypeMapping TypeName="QLKIOSKModel.V_MatHang">
+              <MappingFragment StoreEntitySet="V_MatHang">
+                <ScalarProperty Name="ImageMH" ColumnName="ImageMH" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="TenDV" ColumnName="TenDV" />
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
+                <ScalarProperty Name="TenMH" ColumnName="TenMH" />
+                <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_MatHang_DELETE" FunctionName="QLKIOSKModel.Store.sp_MatHang_DELETE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

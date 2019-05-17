@@ -39,7 +39,7 @@ namespace SSC_Admin_Website.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKM,NgayTao,NgayBD,NgayKT,SoHD,TrangThaiPV")] DotKhuyenMai dotKhuyenMai)
+        public ActionResult Create([Bind(Include = "MaKM,NgayTao,NgayBD,NgayKT,SoHD")] DotKhuyenMai dotKhuyenMai)
         {
             if (ModelState.IsValid)
             {

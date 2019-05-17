@@ -49,6 +49,7 @@
         <AssociationConnector Association="QLKIOSKModel.TaiKhoan_FK_SoHD" />
         <EntityTypeShape EntityType="QLKIOSKModel.LoaiNhom" Width="1.5" PointX="8.125" PointY="24.125" />
         <AssociationConnector Association="QLKIOSKModel.ChucNang_FK_MaLN" />
+        <EntityTypeShape EntityType="QLKIOSKModel.V_MatHang" Width="1.5" PointX="12.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -36,7 +36,7 @@ namespace SSC_Admin_Website.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TenLMH, ImageLMH")] LoaiMatHang loaiMatHang, HttpPostedFileBase HinhAnh)
+        public ActionResult Create([Bind(Include = "TenLMH, ImageLMH,SoHD")] LoaiMatHang loaiMatHang, HttpPostedFileBase HinhAnh)
         {
             string tenlmh = loaiMatHang.TenLMH == null ? null : loaiMatHang.TenLMH.Trim();
 
@@ -100,17 +100,18 @@ namespace SSC_Admin_Website.Controllers
                 return View();
             }
 
+            LoaiMatHang o = db.LoaiMatHangs.FirstOrDefault(x => x.MaLMH == loaiMatHang.MaLMH);
+
             if (HinhAnh != null && HinhAnh.ContentLength > 0)
             {
                 loaiMatHang.ImageLMH = new byte[HinhAnh.ContentLength]; // file1 to store image in binary formate  
                 HinhAnh.InputStream.Read(loaiMatHang.ImageLMH, 0, HinhAnh.ContentLength);
-                LoaiMatHang o = db.LoaiMatHangs.FirstOrDefault(x => x.MaLMH == loaiMatHang.MaLMH);
+                
                 o.ImageLMH = loaiMatHang.ImageLMH;
             }
             else if (Convert.ToBoolean(f["isClear"]) == true)
             {
                 loaiMatHang.ImageLMH = null;
-                LoaiMatHang o = db.LoaiMatHangs.FirstOrDefault(x => x.MaLMH == loaiMatHang.MaLMH);
                 o.ImageLMH = loaiMatHang.ImageLMH;
             }
 
@@ -118,6 +119,7 @@ namespace SSC_Admin_Website.Controllers
             {
                 try
                 {
+                    o.TenLMH = loaiMatHang.TenLMH;
                     
                     db.SaveChanges();
                     return RedirectToAction("Index");

@@ -61,6 +61,15 @@ namespace SSC_Admin_Website.Controllers
             return regex.IsMatch(s);
         }
 
+        public static string Trim(string s)
+        {
+            if (s != null)
+            {
+                return s.Trim();
+            }
+            return null;
+        }
+
         public static string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);

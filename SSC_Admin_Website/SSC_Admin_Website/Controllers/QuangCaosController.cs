@@ -117,17 +117,17 @@ namespace SSC_Admin_Website.Controllers
                 return View(quangCao);
             }
 
+            QuangCao o = db.QuangCaos.FirstOrDefault(x => x.MaQC == quangCao.MaQC);
+
             if (HinhAnh != null && HinhAnh.ContentLength > 0)
             {
                 quangCao.ImageQC = new byte[HinhAnh.ContentLength]; // file1 to store image in binary formate  
                 HinhAnh.InputStream.Read(quangCao.ImageQC, 0, HinhAnh.ContentLength);
-                QuangCao o = db.QuangCaos.FirstOrDefault(x => x.MaQC == quangCao.MaQC);
                 o.ImageQC = quangCao.ImageQC;
             }
             else if (Convert.ToBoolean(f["isClear"]) == true)
             {
                 quangCao.ImageQC = null;
-                QuangCao o = db.QuangCaos.FirstOrDefault(x => x.MaQC == quangCao.MaQC);
                 o.ImageQC = quangCao.ImageQC;
             }
 
@@ -135,6 +135,8 @@ namespace SSC_Admin_Website.Controllers
             {
                 try
                 {
+                    o.NoiDung = quangCao.NoiDung;
+                    o.ThoiLuong = quangCao.ThoiLuong;
                     
                     db.SaveChanges();
                     return RedirectToAction("Index");

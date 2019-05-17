@@ -163,17 +163,18 @@ namespace SSC_Admin_Website.Controllers
                 return View(kIOSK);
             }
 
+            KIOSK o = db.KIOSKs.FirstOrDefault(x => x.MAKO == kIOSK.MAKO);
+
             if (fImageBanner != null && fImageBanner.ContentLength > 0)
             {
                 kIOSK.ImageBanner = new byte[fImageBanner.ContentLength]; // file1 to store image in binary formate  
                 fImageBanner.InputStream.Read(kIOSK.ImageBanner, 0, fImageBanner.ContentLength);
-                KIOSK o = db.KIOSKs.FirstOrDefault(x => x.MAKO == kIOSK.MAKO);
+                
                 o.ImageBanner = kIOSK.ImageBanner;
             }
             else if (Convert.ToBoolean(f["isClear"]) == true)
             {
                 kIOSK.ImageBanner = null;
-                KIOSK o = db.KIOSKs.FirstOrDefault(x => x.MAKO == kIOSK.MAKO);
                 o.ImageBanner = kIOSK.ImageBanner;
             }
 
@@ -181,7 +182,11 @@ namespace SSC_Admin_Website.Controllers
             {
                 try
                 {
-                    
+                    o.TenKO = kIOSK.TenKO;
+                    o.NgayXD = kIOSK.NgayXD;
+                    o.NgayVH = kIOSK.NgayVH;
+                    o.DiaDiem = kIOSK.DiaDiem;
+                    o.ConnectStr = kIOSK.ConnectStr;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
