@@ -1,0 +1,45 @@
+﻿@model IPagedList<SSC_Admin_Website.Models.MatHang>
+@using PagedList.Mvc;
+@using PagedList;
+<div class="row col-md-12">
+    <label class="col-form-label col-md-2" style="color:blue;font-weight:600; border: 1px solid ">Check </label>
+    <label class="col-form-label col-md-3" style="color:blue;font-weight:600; border: 1px solid ">Tên Mặt hàng </label>
+    <label class="col-form-label col-md-3" style="color:blue;font-weight:600; border: 1px solid ">Hình Ảnh</label>
+    <label class="col-form-label col-md-4" style="color:blue;font-weight:600; border: 1px solid ">Hình Ảnh</label>
+</div>
+<br />
+@foreach (var item in Model)
+{
+    <div class="row mathang col-md-12 ">
+
+        <input class="col-md-2 form-group checkmh" type="checkbox" name="@String.Format("check"+item.MaMH)" value="@item.MaMH"/>
+        <span class="col-md-3 form-group">@item.TenMH</span>
+        @if (item.ImageMH != null)
+        {
+            var base64 = Convert.ToBase64String(item.ImageMH);
+            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            <img class="img-responsive col-md-3 form-group" src="@imgsrc" style="max-height:100px">
+        }
+        <input type="number" class="col-md-3 slgiam" name="@String.Format("gtgmh"+item.MaMH)" min="0" value="0" pattern="[0-9.]+" max="100" disabled="disabled" /> <span class="col-md-1">(%)</span>
+    </div>
+}
+@*@Html.PagedListPager(Model, page => Url.Action("LoadGiamGiaSP", new { page }))*@
+@Html.PagedListPager(Model, page => Url.Action("LoadGiamGiaSP", new { page }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions(){  HttpMethod = "GET", UpdateTargetId = "SLSP" }))
+
+<script type="text/javascript">
+    $(function () {
+        $('.mathang').each(function () { // duyệt từng dòng để kiểm tra check mặt hàng nào đc giảm giá
+            $(this).find(".checkmh").click(function () {
+                if (this.checked) {
+                    $(this).parent().find(".slgiam").removeAttr("disabled");
+                }
+                else {
+                    $(this).parent().find(".slgiam").prop("disabled", "disabled");
+                    $(this).parent().find(".slgiam").removeAttr("value");
+                    $(this).parent().find(".slgiam").prop("value", 0);
+                }
+            });
+        });
+    });
+</script>

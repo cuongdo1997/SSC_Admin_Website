@@ -1,0 +1,78 @@
+﻿    @using SSC_Admin_Website.Models;
+@{
+    /**/
+
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detail</h2>
+@if (ViewBag.count1 != 0)
+{
+    <div class=" ct1">
+        <div class="modal-header alert-primary">
+        <h3>DANH SÁCH SẢN PHẨM ĐƯỢC GIẢM GIÁ</h3>
+        <button class="btn btn-primary" style="float:right">Thêm</button>
+        </div>
+        <div class="modal-body">
+            <div class="row col-md-12">
+                <label class="col-md-4 col-form-label"> Tên mặt hàng</label>
+                <label class="col-md-4 col-form-label"> Hình Ảnh</label>
+                <label class="col-md-4 col-form-label">(%) Giảm</label>
+            </div>
+            @foreach (var item in ViewBag.GiamGiaMhTheoSl as List<ChiTietGiamGiaTheoSL>)
+            {
+            <div class="row col-md-12">
+                <text class="col-md-4">@item.MaMH</text>
+                @if (item.MatHang.ImageMH != null)
+                {
+                    var base64 = Convert.ToBase64String(item.MatHang.ImageMH);
+
+                    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                    <img class="img-responsive col-md-4 " src="@imgsrc" style="max-height:100px; width:100px">
+                }
+                @if (item.Giam != 0)
+                {
+                    double giam = Convert.ToDouble (item.Giam * 100);
+                   <p class="col-md-4">@giam</p>
+                }
+
+            </div>
+            }
+        </div>
+        <div class="modal-footer alert-primary">
+
+        </div>
+    </div>
+}
+
+
+@if (ViewBag.count2 != 0)
+{
+    <div class="ct2">
+        <div class="modal-header alert-primary">
+            <h3>GIẢM GIÁ THEO TỔNG ĐƠN HÀNG</h3>
+            <button style="float:right" class="btn btn-primary">Thêm</button>
+        </div>
+        <div class="modal-body">
+            <div class="row" style="text-align:center; color: red">
+                <label class="col-md-6 col-form-label">Trị giá đơn hàng tối thiểu</label>
+                <label class="col-md-6" col-form-label>(%) Giảm</label>
+            </div>
+            @foreach (var item in ViewBag.GiamGiaTGDH as List<KMTheoTGHD>)
+            {
+            <div class="row col-md-12" style="text-align:center">
+                <p class="col-md-6">@item.TongTriGiaToiThieu</p>
+                @if (item.Giam != 0)
+                {
+                    double giam = Convert.ToDouble(item.Giam * 100);
+                    <p class="col-md-6" >@giam</p>
+                }
+            </div>
+            }
+        </div>
+        <div class="modal-footer alert-primary">
+
+        </div>
+    </div>
+}

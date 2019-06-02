@@ -24,7 +24,6 @@ namespace SSC_Admin_Website.Models
         public string TenDV { get; set; }
         public int MALMH { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     
         public virtual LoaiMatHang LoaiMatHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -20,7 +20,6 @@ namespace SSC_Admin_Website.Models
         public System.DateTime NgayBDQC { get; set; }
         public System.DateTime NgayKTQC { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     
         public virtual QuangCao QuangCao { get; set; }
         public virtual ChiTietThueKIOSKQC ChiTietThueKIOSKQC { get; set; }

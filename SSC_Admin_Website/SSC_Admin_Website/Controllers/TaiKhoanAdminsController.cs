@@ -171,7 +171,64 @@ namespace SSC_Admin_Website.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+        public ActionResult TaiKhoan()
+        {
+            //List<PHANQUYEN> list = Session["TaiKhoan"] as List<PHANQUYEN>;
+            if (Session["TaiKhoan"] == null)
+            {
+                return PartialView();
+            }
+            else
+            {
+                TaiKhoan tk = Session["TaiKhoan"] as TaiKhoan;
+                ViewBag.TenKH = db.KhachHangs.SingleOrDefault(m => m.MaKH == tk.MaKH).TenKH;
+                int maln = db.sp_CN_Login(tk.MaTK).First().Value;
+                ViewBag.tenln = db.LoaiNhoms.Single(m => m.MaLN == maln).TenLN;
+                return PartialView(tk);
+            }
 
+        }
+        public ActionResult FormLogin()
+        {
+            return View();
+        }
+        [HttpPost, ActionName("FormLogin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult FormLogin(string name, string password, string lat12, string lon12)
+        {
+            password = EnCryptMD5.MD5Hash(EncodeBase64.Base64Encode(password));
+            TaiKhoan tk = db.TaiKhoans.SingleOrDefault(m => m.Username == name && m.Password == password);
+            if (tk == null)
+            {
+                ViewData["Loi1"] = "Tài khoản hoặc mật khẩu sai rồi!!!";
+            }
+            else
+            {
+                int maln = db.sp_CN_Login(tk.MaTK).First().Value;
+                string vitri = "Vĩ độ:" + lat12 + ", Kinh độ :" + lon12;
+                db.sp_LichSu_DangNhap_INSERT(tk.MaTK, vitri);
+                db.SaveChanges();
+                string tenln = db.LoaiNhoms.Single(m => m.MaLN == maln).TenLN;
+                if (tenln.Contains("Khách Hàng"))
+                {
+                    Session["TaiKhoan"] = tk;
+                    return RedirectToAction("Create", "DotKhuyenMais");
+                }
+                else
+                {
+                    Session["TaiKhoan"] = tk;
+                    return RedirectToAction("SuperAdmin", "TaiKhoans");
+                }
+
+            }
+            return View();
+
+        }
+        public ActionResult Logout()
+        {
+            Session["TaiKhoan"] = null;
+            return RedirectToAction("Login", "TaiKhoan");
+        }
 
 
 

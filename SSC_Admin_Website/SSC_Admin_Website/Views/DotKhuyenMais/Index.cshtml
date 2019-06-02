@@ -1,14 +1,13 @@
-﻿@model IEnumerable<SSC_Admin_Website.Models.DotKhuyenMai>
-
+﻿@model IPagedList<SSC_Admin_Website.Models.DotKhuyenMai>
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2 class="text-center">Đợt khuyến mãi</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-success"})
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-success" })
 </p>
 <table class="table">
     <tr>
@@ -26,23 +25,26 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayTao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayBD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayKT)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaKM }, new { @class = "btn btn-outline-warning" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaKM }, new { @class = "btn btn-outline-danger" })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayTao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayBD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayKT)
+            </td>
+            <td>
+                @Html.ActionLink("Detail", "Detail", new { id = item.MaKM }, new { @class = "btn btn-outline-warning" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaKM }, new { @class = "btn btn-outline-warning" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaKM }, new { @class = "btn btn-outline-danger" })
+            </td>
+        </tr>
+    }
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+    @*PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions(){  HttpMethod = "GET", UpdateTargetId = "SLSP" }))*@

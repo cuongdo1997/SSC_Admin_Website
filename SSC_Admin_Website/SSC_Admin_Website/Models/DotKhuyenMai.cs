@@ -18,6 +18,8 @@ namespace SSC_Admin_Website.Models
         public DotKhuyenMai()
         {
             this.ChiTietGiamGiaTheoSLs = new HashSet<ChiTietGiamGiaTheoSL>();
+            this.KMTheoSLMHs = new HashSet<KMTheoSLMH>();
+            this.KMTheoTGHDs = new HashSet<KMTheoTGHD>();
         }
     
         public int MaKM { get; set; }
@@ -26,10 +28,13 @@ namespace SSC_Admin_Website.Models
         public System.DateTime NgayKT { get; set; }
         public int SoHD { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietGiamGiaTheoSL> ChiTietGiamGiaTheoSLs { get; set; }
         public virtual HopDong HopDong { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KMTheoSLMH> KMTheoSLMHs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KMTheoTGHD> KMTheoTGHDs { get; set; }
     }
 }

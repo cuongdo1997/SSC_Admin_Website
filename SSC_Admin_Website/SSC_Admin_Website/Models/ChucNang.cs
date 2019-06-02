@@ -24,10 +24,9 @@ namespace SSC_Admin_Website.Models
         public string TenCN { get; set; }
         public Nullable<int> MaLN { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     
+        public virtual LoaiNhom LoaiNhom { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
-        public virtual LoaiNhom LoaiNhom { get; set; }
     }
 }

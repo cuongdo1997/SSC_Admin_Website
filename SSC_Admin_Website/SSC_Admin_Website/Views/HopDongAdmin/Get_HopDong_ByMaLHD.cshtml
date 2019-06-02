@@ -1,0 +1,113 @@
+﻿@model IEnumerable<SSC_Admin_Website.Models.HopDong>
+
+<table class="table" id="GetDSHopDong">
+    <tr>
+        <th>Số Hợp Đồng</th>
+        <th>
+            Ngày Lập
+        </th>
+        <th>
+            Nội Dung
+        </th>
+        <th>Tên Khách Hàng</th>
+        <th>Số CMND</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoHD)
+                <input type="hidden" class="sohd" value="@item.SoHD" />
+            </td>
+            <td>
+                @string.Format("{0:dd-MMM-yyyy} ", item.NgayLapHD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoiDungHD)
+            </td>
+            @if (item.MALHD == 1)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang.TenKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang.CMND)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang1.TenKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang1.CMND)
+                </td>
+            }
+
+            <td>
+                <input type="button" class="btn-primary GetDetailKO"  value="Chi Tiết" />
+            </td>
+        </tr>
+    }
+
+</table>
+@* Load modal chi tiết *@
+
+<!-- Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-xl" role="document" >
+        <div class="modal-content">
+                <div class="modal-header" style="background-color:burlywood; text-align:center">
+                    <input type="text" disabled class="modal-title" name="TieuDe" id="TieuDe" style="background-color:transparent; border:0; font-weight:600;color:red;font-size:24px; text-align:center" />
+                    <input type="hidden" name="mahd" id="mahd" />
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body" style="background-color:darkseagreen">
+
+                    <div class="row">
+                        <div class="col-md-3" style="background-color:cadetblue">
+                            <div style="text-align:center"><h4 style="font-weight:600;color:darkblue">Thông Tin Khách Hàng</h4></div>
+                            <hr />
+                            <div id="ttkh">
+
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ">
+                                <h3 class="col-md-12" style="font-weight:600;color:darkblue">Bổ sung KIOSK</h3>
+                                <div class="col-md-6 form-group">
+                                    <label class="col-md-2 col-form-label">Thời gian thuê tối thiểu:</label>
+                                    <div class=" col-md-2"><input class="form-control" name="tgth" type="number" pattern="[0-9.]+" id="tgth1" min="1" value="1" required="" /> </div>
+                                    <div class="col-md-1"><span style="margin-left:-24px">(Ngày)</span></div>
+                                </div>
+                                <div class=" col-md-6 form-group">
+                                    <label class="col-md-2 col-form-label">Số lượng KIOSK:</label>
+                                    <div class=" col-md-2"><input class="form-control" value="0" name="sl" type="number" pattern="[0-9.]+" id="soluong1" min="0" placeholder="0" /></div>
+                                </div>
+                                <input type="hidden" id="slcu1" value="0" />
+
+                                <div id="ThemKO">
+
+                                </div>
+
+
+                            </div>
+                            <div id="ttko"><h3 style="font-weight:600;color:darkblue">Thông Tin KIOSK</h3></div>
+                            <div id="cthd">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="background-color:burlywood; text-align:center">
+                    <input id="ThemSubmit" type="hidden" class="btn btn-primary" value="Thêm" style=" border:0" readonly disabled />
+                </div>
+        </div>
+    </div>
+</div>
+

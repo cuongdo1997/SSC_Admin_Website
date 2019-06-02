@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SSC_Admin_Website.Models.ChiTietHopDong>
+<input type="hidden" id="ngaylaphd" value="@ViewBag.Ngaylaphd"/>
+<table class="table" id="DetailKOTable">
+    <tr>
+        <th>
+            Tên KIOSK
+        </th>
+        <th>
+            Ngày Bắt Đầu
+        </th>
+        <th>
+            Ngày Kết Thúc
+        </th>
+        <th>
+            Tình Trạng
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <input type="text" value="@item.KIOSK.TenKO" style="background-color:transparent;border:0" disabled />
+            <input type="hidden" class="mako" value="@item.MAKO" />
+        </td>
+        <td>
+            @string.Format("{0:dd-MMM-yyyy} ", item.NgayBDThue)
+        </td>
+        <td>
+            <input type="text" class="ngayketthuc" value=" @string.Format("{0:dd-MMM-yyyy} ", item.NgayKetThuc)" style="background-color:transparent;border:0" disabled />
+        </td>
+
+        @if (item.IsDeleted == false)
+        {
+            <td>Đang sử dụng</td>
+        }
+        else
+        {
+            <td>Hết hạn sử dụng</td>
+        }
+       <td>
+            @if (item.IsDeleted == true)
+            {
+                <input type="button" class="btn-primary editDetailKO" id="editDetailKO" value="Gia Hạn"  />
+            }
+        </td>
+</tr>
+}
+
+</table>

@@ -17,7 +17,6 @@ namespace SSC_Admin_Website.Models
         public int MaBA { get; set; }
         public int MaMH { get; set; }
         public bool TrangThaiMA { get; set; }
-        public System.Guid rowguid { get; set; }
     
         public virtual BuoiAn BuoiAn { get; set; }
         public virtual MatHang MatHang { get; set; }

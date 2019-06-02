@@ -23,9 +23,8 @@ namespace SSC_Admin_Website.Models
         public int MaLMH { get; set; }
         public string TenLMH { get; set; }
         public byte[] ImageLMH { get; set; }
-        public Nullable<int> SoHD { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
+        public Nullable<int> SoHD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonVi_MatHang> DonVi_MatHang { get; set; }

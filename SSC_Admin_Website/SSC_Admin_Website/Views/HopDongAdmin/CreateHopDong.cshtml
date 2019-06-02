@@ -1,0 +1,475 @@
+﻿@using SSC_Admin_Website.Models;
+@model SSC_Admin_Website.Models.HopDong
+
+@{
+    ViewBag.Title = "CreateHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("CreateHopDong", "HopDongAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group text-danger">
+            <span style="color:red"><b>@ViewBag.Checkcmnd</b></span>
+            <span style="color:red"><b>@ViewBag.Checksl</b></span>
+            <span style="color:red"><b>@ViewBag.hoten</b></span>
+            <span style="color:red"><b>@ViewBag.diachi</b></span>
+            <span style="color:red"><b>@ViewBag.email</b></span>
+            <span style="color:red"><b>@ViewBag.sdt</b></span>
+            <span style="color:red"><b>@ViewBag.lhd</b></span>
+            <span style="color:red"><b>@ViewBag.ngaylaphd</b></span>
+        </div>
+        <h4>Thông Tin Khách Hàng</h4>
+        <br />
+        <div class="form-group">
+            <label class="control-label col-md-2">Nhập Số CMND:</label>
+            <div class="col-md-3">
+                <input class="form-control" type="text" pattern="[0-9.]+" maxlength="12" name="checkcmnd" id="cmndcheck" required="" onkeyup="myfunction()" />
+            </div>
+            <div class="col-md-3">
+                <span class="text-danger" id="validate_cmnd"></span>
+                <span class="text-danger">@ViewData["checkcmnd"]</span>
+            </div>
+
+        </div>
+        <div id="TTKH">
+
+        </div>
+        <h4>Thông Tin Hợp Đồng</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayLapHD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input name="ngaylaphd" id="ngaylaphd" type="date" required="" max="@string.Format("{0:yyyy}", DateTime.Now)-@string.Format("{0:MM}", DateTime.Now)-@string.Format("{0:dd}", DateTime.Now)" />
+                @Html.ValidationMessageFor(model => model.NgayLapHD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoiDungHD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NoiDungHD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NoiDungHD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Loại Hợp Đồng: </label>
+            <div class="col-md-5">
+                <select id="LoaiHopDong" class="form-control" name="malhd">
+                    <option value="0"></option>
+                    @foreach (var item in ViewBag.MaLHD as List<LoaiHopDong>)
+                    {
+                        <option value="@item.MaLHD">@item.TenLHD</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3"><span style="color:red">@ViewBag.lhd</span></div>
+        </div>
+        <h4>Thông tin các KIOSK</h4>
+        <br />
+        <div class="form-group">
+            <label class="col-md-2 control-label">Thời gian thuê tối thiểu:</label>
+            <div class=" col-md-3"><input class="form-control" name="tgth" type="number" pattern="[0-9.]+" id="tgth" min="1" value="1" required="" /> Ngày</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Số lượng KIOSK:</label>
+            <div class=" col-md-3"><input class="form-control" value="0" name="sl" type="number" pattern="[0-9.]+" id="soluong" min="0" placeholder="0" readonly="" /></div>
+
+        </div>
+        <input type="hidden" id="slcu" value="0" />
+        <div id="Kiosk">
+
+        </div>
+        <div  id="userpass">
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input  id="btnsubmit" type="submit" value="Tạo Hợp Đồng" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function CheckCMND() {
+            var cmnd = $('#cmndcheck').val();
+            if (cmnd != null) {
+                if (!Validate_StringIsCMND()) {
+                    $('#validate_cmnd').html('(*) Vui lòng nhập đúng số CMND.');
+                    $('#cmndcheck').removeClass();
+                    $('#cmndcheck').addClass("form-control alert-danger");
+                    ToggleSubmit(true);
+                }
+                else {
+                    $('#validate_cmnd').html('');
+                    $('#cmndcheck').removeClass();
+                    $('#cmndcheck').addClass("form-control alert-success");
+                    ToggleSubmit(false);
+                }
+            }
+        }
+
+        function CheckSDT() {
+            var sdt = $('#sdt').val();
+            if (sdt != null) {
+                if (!Validate_StringIsSDT()) {
+                    $('#validate_sdt').html('(*) Vui lòng nhập đúng số điện thoại.');
+                    $('#sdt').removeClass();
+                    $('#sdt').addClass("form-control alert-danger");
+                    ToggleSubmit(true);
+                }
+                else {
+                    $('#validate_sdt').html('');
+                    $('#sdt').removeClass();
+                    $('#sdt').addClass("form-control alert-success");
+                    ToggleSubmit(false);
+                }
+            }
+        }
+        function CheckPass() {
+            var pass = $('#Password').val();
+            if (pass != null) {
+                if (!Validate_StringIsPassWord()) {
+                    $('#validate_pass').html('(*) Password cần tối thiểu 8-25 ký tự. Gồm một ký đặc biệt, 1 ký tự thường, 1 ký tự in hoa, 1 chữ số.');
+                    $('#Password').removeClass();
+                    $('#Password').addClass("form-control alert-danger");
+                    ToggleSubmit(true);
+                }
+                else {
+                    $('#validate_pass').html('');
+                    $('#Password').removeClass();
+                    $('#Password').addClass("form-control alert-success");
+                    ToggleSubmit(false);
+                }
+            }
+        }
+        function Validate_StringIsCMND() {
+            var pattern = /^(\d{9}|\d{12})$/;
+            var cmnd = $('#cmndcheck').val();
+            return pattern.test(cmnd);
+        }
+
+        function Validate_StringIsSDT() {
+            var pattern = /070\d{7}|079\d{7}|077\d{7}|076\d{7}|078\d{7}|089\d{7}|090\d{7}|093\d{7}|083\d{7}|084\d{7}|085\d{7}|081\d{7}|082\d{7}|088\d{7}|091\d{7}|094\d{7}|032\d{7}|033\d{7}|034\d{7}|035\d{7}|036\d{7}|037\d{7}|038\d{7}|039\d{7}|086\d{7}|096\d{7}|097\d{7}|098\d{7}|056\d{7}|058\d{7}|092\d{7}|059\d{7}|099\d{7}/;
+            var sdt = $('#sdt').val();
+            return pattern.test(sdt);
+        }
+        function Validate_StringIsPassWord() {
+            var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,25}$/;
+            var pass = $('#Password').val();
+            return pattern.test(pass);
+        }
+        function ToggleSubmit(isDisabled) {
+            $('#btnsubmit').prop('disabled', isDisabled);
+        }
+
+        function ValidatePassword() {
+            var password = $("#Password").val();
+            var repassword = $("#RetypePassword").val();
+
+            if (password != repassword) {
+                $("#btnSubmit").prop('disabled', true);
+
+                $("#Password").removeClass("alert-success");
+                $("#RetypePassword").removeClass("alert-success");
+
+                $("#Password").addClass("alert-danger");
+                $("#RetypePassword").addClass("alert-danger");
+            }
+            else {
+                $("#btnSubmit").prop('disabled', false);
+                $("#Password").removeClass("alert-danger");
+                $("#RetypePassword").removeClass("alert-danger");
+
+                $("#Password").addClass("alert-success");
+                $("#RetypePassword").addClass("alert-success");
+            }
+        }
+
+
+
+        function myfunction() {
+            CheckCMND();
+            var cmnd = $('#cmndcheck').val();
+            if (cmnd.length == 9 || cmnd.length == 12) {
+                $.ajax({
+                    type: 'GET',
+                    data: { cmnd: cmnd },
+                    url: 'CheckKhachHang',
+                    datatype: 'JSON',
+                    contentType: "application/JSON",
+                    success: function (result) {
+
+                        if (result == 0) {
+                            $("#TTKH").empty();
+                            var div_data = '<div class="form-group"><label class="control-label col-md-2">Họ và tên:</label><div class="col-md-3"><input class="form-control" type="text" name="hoten" required="" /></div></div>';
+                            var div_data1 = '<div class="form-group"><label class="control-label col-md-2">Số CMND:</label><div class="col-md-3"><input class="form-control" type="number" name="cmnd" maxlength="10" value="' + cmnd + '" readonly /></div></div>';
+                            var div_data2 = '<div class="form-group"><label class="control-label col-md-2">Địa Chỉ:</label><div class="col-md-3"><input class="form-control" type="text" name="diachi" placeholder="475A, p.25, Quận Bình Thành" required="" /></div></div>';
+                            var div_data3 = '<div class="form-group"><label class="control-label col-md-2">Email:</label><div class="col-md-3"><input class="form-control" type="email" name="email" placeholder="HaiVipPro@gmail.com" required="" /></div></div>';
+                            var div_data4 = '<div class="form-group"><label class="control-label col-md-2">Số Điện Thoại:</label><div class="col-md-3"><input class="form-control" type="number" id="sdt" name="sdt" required="" /></div><div class="col-md-3"><span class="text-danger" id="validate_sdt"></span></div></div>';
+                            var div = div_data + div_data1 + div_data2 + div_data3 + div_data4;
+                            $(div).appendTo("#TTKH");
+                            var div_data6 = '<div class="form-group"><label class="control-label col-md-2">UserName:</label><div class=" col-md-3"><input class="form-control" name="username" type="text"  /></div></div><div class="form-group"><label class="control-label col-md-2">PassWord:</label><div class=" col-md-3">  <input class="form-control" type="password" name="pass" id="Password"/></div><div class="col-md-3"><span class="text-danger" id="validate_pass"></span></div></div><div class="form-group"><label for="RetypePassword" class="control-label col-md-2">Retype password</label><div class="col-md-3"><input type="password" id="RetypePassword" name="RetypePassword" class="form-control" /></div></div>';
+                            $(div_data6).appendTo("#userpass");
+                        }
+                        else {
+                            $("#TTKH").empty();
+
+                            for (var i = 0; i < result.length; i++) {
+                                var div_data = '<div class="form-group"><label class="control-label col-md-2">Họ và tên:</label><div class="col-md-10"><input class="form-control" type="text" name="hoten" readonly="" value="' + result[i].TenKH + '"  /></div></div>';
+                                var div_data1 = '<div class="form-group"><label class="control-label col-md-2">Số CMND:</label><div class="col-md-10"><input class="form-control" type="number" name="cmnd" readonly="" maxlength="10" value="' + result[i].CMND + '"  /></div></div>';
+                                var div_data2 = '<div class="form-group"><label class="control-label col-md-2">Địa Chỉ:</label><div class="col-md-10"><input class="form-control" type="text" name="diachi" readonly="" value="' + result[i].DiaChi + '" /></div></div>';
+                                var div_data3 = '<div class="form-group"><label class="control-label col-md-2">Email:</label><div class="col-md-10"><input class="form-control" type="email" name="email" readonly="" value="' + result[i].Email + '" /></div></div>';
+                                var div_data4 = '<div class="form-group"><label class="control-label col-md-2">Số Điện Thoại:</label><div class="col-md-10"><input class="form-control" type="number" name="sdt" readonly="" value="' + result[i].SDT + '" /></div></div>';
+                                var div = div_data + div_data1 + div_data2 + div_data3 + div_data4;
+                                $(div).appendTo("#TTKH");
+
+                            }
+                        }
+                        $('#sdt').keyup(function () {
+                            CheckSDT();
+                        });
+                        $("#Password").keyup(function () {
+                            CheckPass();
+                            ValidatePassword();
+                        });
+
+                        $("#RetypePassword").keyup(function () {
+                            ValidatePassword();
+                        });
+                    }
+                });
+            } else {
+                $("#userpass").empty();
+                $("#TTKH").empty();
+            }
+
+        }
+
+        $(document).ready(() => {
+            CheckCMND();
+            CheckSDT();
+
+
+            $("input[type=text][pattern]").on("input", function () {
+                if (!this.checkValidity())
+                    this.value = this.value.slice(0, -1);
+            });
+            $("input[type=number][pattern]").on("input", function () {
+                if (!this.checkValidity())
+                    this.value = this.value.slice(0, -1);
+            });
+            $("#LoaiHopDong").change(function () {
+                var malhd = $("#LoaiHopDong").val();
+                $.ajax({
+                    type: 'POST',
+                    data: { malhd: malhd },
+                    url: 'CountKO',
+                    datatype: 'JSON',
+                    contendtype: "application/JSON",
+                    success: function (result) {
+                        $('#soluong').val(0);
+                        if (result != 0) {
+                            $('#soluong').prop("max", result);
+                            $('#soluong').removeAttr("readonly");
+                        }
+                        else {
+                            $('#soluong').prop("max", 0);
+                            $('#soluong').prop("readonly");
+                        }
+                        $("input[type=number][pattern]").on("input", function () {
+                            if (!this.checkValidity())
+                                this.value = this.value.slice(0, -1);
+                        });
+                    }
+
+                });
+            });
+
+            $("#soluong").bind('keyup mouseup', function () {
+                var sl = Number($('#soluong').val());
+                if (sl == 0 || $('#soluong').val() == "") {
+                    $("#Kiosk").empty();
+                    $('#slcu').val(0);
+                }
+                var malhd = $("#LoaiHopDong").val();
+                var sl1 = Number($('#soluong').prop("max"));
+                var slcu = Number($('#slcu').val());
+                if (Number(sl) > Number(sl1)) {
+                    $('#soluong').val(sl1);
+                    sl = $('#soluong').val();
+                }
+
+                if (Number(sl) != 0 && malhd != 0) {
+                    $.ajax({
+                        type: 'GET',
+                        data: { malhd: malhd, sl: sl },
+                        url: 'GetKOChuaSuDung',
+                        datatype: 'JSON',
+                        contentType: "application/JSON",
+                        success: function (result) {
+
+                            if (slcu < sl) {
+                                for (var i = slcu ; i < sl; i++) {
+                                    var div_data = '<div class="form-group row" id="' + result[i].MAKO + '"><div class="col-md-12"><label>' + result[i].TenKO + '</label></div>';
+                                    var div_data1 = '<div class="form-group"><label class="col-md-2">Ngày bắt đầu:</label><div class="col-md-3"><input type="date" class="ngaybd" name="NgayBD_' + result[i].MAKO + '" required="" /></div><label class="col-md-2">Ngày bắt kết thúc:</label><div class="col-md-3"><input type="date" class="ngaykt" name="NgayKT_' + result[i].MAKO + '" required="" /></div>';
+                                    var div = div_data + div_data1;
+                                    $(div).appendTo("#Kiosk");
+                                }
+                                $('#slcu').val(sl);
+                            }
+                            else if (slcu > sl) {
+                                
+                                for (var i = (slcu-1); i >= sl; i--) {
+                                    $("#" + result[i].MAKO).remove();
+                                }
+                                $('#slcu').val(sl);
+                            } 
+
+                            $('.row').each(function () {
+                                var someFormattedDate = '';
+                                $(this).find(".ngaybd").change(function () {
+                                    var ngaylaphd = new Date($("#ngaylaphd").val());
+                                    var date = $(this).val();
+                                    var tgth = $("#tgth").val();
+                                    var newdate = new Date(date);
+                                    if (newdate < ngaylaphd) {
+                                        var dd1 = ngaylaphd.getDate();
+                                        var mm1 = ngaylaphd.getMonth() + 1;
+                                        var yyyy1 = ngaylaphd.getFullYear();
+                                        if (mm1 < 10)
+                                            mm1 = '0' + mm1;
+                                        if (dd1 < 10)
+                                            dd1 = '0' + dd1;
+                                        someFormattedDate1 = yyyy1 + '-' + mm1 + '-' + dd1;
+                                        $(this).val(someFormattedDate1);
+                                        ngaylaphd.setDate(ngaylaphd.getDate() + parseInt(tgth));
+                                        var dd = ngaylaphd.getDate();
+                                        var mm = ngaylaphd.getMonth() + 1;
+                                        var yyyy = ngaylaphd.getFullYear();
+                                        if (mm < 10)
+                                            mm = '0' + mm;
+                                        if (dd < 10)
+                                            dd = '0' + dd;
+                                        someFormattedDate = yyyy + '-' + mm + '-' + dd;
+                                        $(this).parent().parent().find(".ngaykt").prop("min", someFormattedDate);
+                                        $(this).parent().parent().find(".ngaykt").val(someFormattedDate);
+                                    } else {
+                                        newdate.setDate(newdate.getDate() + parseInt(tgth));
+                                        var dd = newdate.getDate();
+                                        var mm = newdate.getMonth() + 1;
+                                        var yyyy = newdate.getFullYear();
+                                        if (mm < 10)
+                                            mm = '0' + mm;
+                                        if (dd < 10)
+                                            dd = '0' + dd;
+                                        someFormattedDate = yyyy + '-' + mm + '-' + dd;
+                                        $(this).parent().parent().find(".ngaykt").prop("min", someFormattedDate);
+                                        $(this).parent().parent().find(".ngaykt").val(someFormattedDate);
+                                    }
+
+                                });
+
+                                $(this).find(".ngaykt").change(function () {
+
+                                    var date = $(this).val();
+                                    var date2 = $(this).prop("min");
+                                    var newdate = new Date(date);
+                                    var newdate2 = new Date(date2);
+                                    if (newdate < newdate2) {
+                                        $(this).parent().parent().find(".ngaykt").prop("min", date2);
+                                        $(this).parent().parent().find(".ngaykt").val(date2);
+                                    }
+
+                                });
+                            });
+                            $("#tgth").change(function () {
+                                $('.row').each(function () {
+                                    var someFormattedDate = '';
+                                    var date = $(this).find(".ngaybd").val();
+                                    var tgth = $("#tgth").val();
+                                    if (parseInt(tgth.slice(0, 1)) == 0)
+                                        tgth = parseInt(sl.slice(1));
+                                    var newdate = new Date(date);
+                                    newdate.setDate(newdate.getDate() + parseInt(tgth));
+                                    var dd = newdate.getDate();
+                                    var mm = newdate.getMonth() + 1;
+                                    var yyyy = newdate.getFullYear();
+                                    if (mm < 10)
+                                        mm = '0' + mm;
+                                    if (dd < 10)
+                                        dd = '0' + dd;
+                                    someFormattedDate = yyyy + '-' + mm + '-' + dd;
+                                    $(this).find(".ngaykt").prop("min", someFormattedDate);
+                                    $(this).find(".ngaykt").val(someFormattedDate);
+                                });
+                            });
+                            $("#ngaylaphd").change(function () {
+                                var ngaylaphd = new Date($("#ngaylaphd").val());
+                                var ngayhh = new Date();
+                                var dd = ngayhh.getDate();
+                                var mm = ngayhh.getMonth() + 1;
+                                var yyyy = ngayhh.getFullYear();
+                                if (mm < 10)
+                                    mm = '0' + mm;
+                                if (dd < 10)
+                                    dd = '0' + dd;
+                                someFormattedDate = yyyy + '-' + mm + '-' + dd;
+                                if (ngaylaphd > ngayhh) {
+                                    $("#ngaylaphd").val(someFormattedDate);
+                                    $('.row').each(function () {
+                                        var ngaycheck = new Date($(this).find(".ngaybd").val());
+                                        if (ngaycheck < ngayhh)
+                                            $(this).find(".ngaybd").val(someFormattedDate);
+                                    });
+                                }
+
+                                $('.row').each(function () {
+                                    var ngaycheck = new Date($(this).find(".ngaybd").val());
+                                    if (ngaycheck < ngaylaphd) {
+                                        var dd1 = ngaylaphd.getDate();
+                                        var mm1 = ngaylaphd.getMonth() + 1;
+                                        var yyyy1 = ngaylaphd.getFullYear();
+                                        if (mm1 < 10)
+                                            mm1 = '0' + mm1;
+                                        if (dd1 < 10)
+                                            dd1 = '0' + dd1;
+                                        someFormattedDatebd = yyyy1 + '-' + mm1 + '-' + dd1;
+                                        $(this).find(".ngaybd").val(someFormattedDatebd);
+                                        var tgth = $("#tgth").val();
+                                        var dd2 = ngaylaphd.getDate() + parseInt(tgth);
+                                        var mm2 = ngaylaphd.getMonth() + 1;
+                                        var yyyy2 = ngaylaphd.getFullYear();
+                                        if (mm2 < 10)
+                                            mm2 = '0' + mm2;
+                                        if (dd2 < 10)
+                                            dd2 = '0' + dd2;
+                                        someFormattedDatekt = yyyy2 + '-' + mm2 + '-' + dd2;
+                                        $(this).find(".ngaykt").prop("min", someFormattedDatekt);
+                                        $(this).find(".ngaykt").val(someFormattedDatekt);
+                                    }
+
+                                });
+
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

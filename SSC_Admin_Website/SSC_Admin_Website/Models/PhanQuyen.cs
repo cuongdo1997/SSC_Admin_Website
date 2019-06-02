@@ -19,9 +19,8 @@ namespace SSC_Admin_Website.Models
         public Nullable<System.DateTime> Ngay_CapNhat { get; set; }
         public Nullable<System.TimeSpan> Gio_CapNhat { get; set; }
         public bool TinhTrang { get; set; }
-        public System.Guid rowguid { get; set; }
     
-        public virtual TaiKhoan TaiKhoan { get; set; }
         public virtual ChucNang ChucNang { get; set; }
+        public virtual TaiKhoan TaiKhoan { get; set; }
     }
 }

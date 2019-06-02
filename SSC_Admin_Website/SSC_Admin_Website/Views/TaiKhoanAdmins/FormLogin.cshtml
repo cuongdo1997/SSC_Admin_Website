@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "FormLogin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("FormLogin", "TaiKhoanAdmins", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="header">
+        <div class="header-main">
+            <h1>Classy Login Form</h1>
+            <div class="header-bottom">
+                <div class="header-right w3agile">
+                    @ViewData["Loi1"]
+                    <div class="header-left-bottom agileinfo">
+                        <input type="text" value="User name" name="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}" />
+                        <input type="password" value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}" />
+                        <div class="remember">
+                            <span class="checkbox1">
+                                <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Remember me</label>
+                            </span>
+                            <div class="forgot">
+                                <h6><a href="#">Forgot Password?</a></h6>
+                            </div>
+                        </div>
+                        <div class="clear"> </div>
+                        <input type="hidden" name="lat12" id="lat" value="" />
+                        <input type="hidden" name="lon12" id="lon" value="" />
+                        <input id="currPos"  type="submit"  value="Login">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(() => {
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } 
+            }
+
+            function showPosition(position) {
+                $("#lat").val(position.coords.latitude);
+                $("#lon").val(position.coords.longitude);
+            }
+            getLocation();
+        });
+    </script>    
+    
+    }

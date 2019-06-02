@@ -20,6 +20,5 @@ namespace SSC_Admin_Website.Models
         public string Email { get; set; }
         public string SDT { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     }
 }

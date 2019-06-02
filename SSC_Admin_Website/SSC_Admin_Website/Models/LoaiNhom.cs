@@ -23,7 +23,6 @@ namespace SSC_Admin_Website.Models
         public int MaLN { get; set; }
         public string TenLN { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChucNang> ChucNangs { get; set; }

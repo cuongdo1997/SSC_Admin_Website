@@ -1,0 +1,342 @@
+﻿
+@using SSC_Admin_Website.Models;
+@{
+    ViewBag.Title = "ManageHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" id="formmange">
+    <div class="form-group text-danger">
+        <span style="color:red"><b>@ViewBag.lhd</b></span>
+        <span style="color:red"><b>@ViewBag.Checksl</b></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Loại Hợp Đồng: </label>
+        <div class="col-md-5">
+            <select id="LoaiHopDong" class="form-control" name="malhd">
+                @foreach (var item in ViewBag.MaLHD as List<LoaiHopDong>)
+                {
+                    <option value="@item.MaLHD">@item.TenLHD</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3"><span style="color:red">@ViewBag.lhd</span></div>
+    </div>
+    <p>
+        @Html.ActionLink("Create New", "CreateHopDong")
+
+    </p>
+    <div id="HopDongs">
+        @*Load AJAX*@
+    </div>
+</form>
+    @section scripts
+{
+        <script type="text/javascript">
+
+     $(document).ready(function () {
+            LoadHopDongs();
+
+        });
+
+
+        function LoadHopDongs() {
+            var malhd = $("#LoaiHopDong").val();
+
+            //$("#HopDongs").load("/HopDong/Get_HopDong_ByMaLHD?malhd=" + malhd);
+            $.post("@Url.Action("Get_HopDong_ByMaLHD")",
+                {
+                    malhd: malhd
+                },
+                function (data, status) {
+                    if (status == "success")
+                    {
+                        $("#HopDongs").html(data);
+                        $('#GetDSHopDong tr').each(function () {
+                            $(this).find('td .GetDetailKO').each(function () {
+                                $(this).click(function () {
+                                    var sohd = $(this).parent().parent().find(".sohd").val();
+                                    var malhd = $("#LoaiHopDong").val();
+                                    $('#detailModal').on('show.bs.modal', function (e) {
+                                        load_detail(sohd);
+                                        load_khachhang(sohd);
+                                        // load kiosk
+
+                                        $("input[type=number][pattern]").on("input", function () {
+                                            if (!this.checkValidity())
+                                                this.value = this.value.slice(0, -1);
+                                        });
+                                        // Lấy ra số lượng KO còn trống
+                                        $.ajax({
+                                            type: 'GET',
+                                            data: { malhd: malhd },
+                                            url: 'CountKO',
+                                            datatype: 'JSON',
+                                            contendtype: "application/JSON",
+                                            success: function (result) {
+                                                if (result != 0) {
+                                                    $('#soluong1').prop("max", result);
+                                                    $('#soluong1').removeAttr("readonly");
+                                                }
+                                                else {
+                                                    $('#soluong1').prop("max", 0);
+                                                    $('#soluong1').prop("readonly");
+                                                }
+                                            }
+                                        });
+                                        // check số lượng thay đổi
+                                        $("#soluong1").bind('keyup mouseup', function () {
+                                            var sl = Number($('#soluong1').val());
+                                            //Xét trường hợp số lượng = 0
+                                            if (sl == 0 || $('#soluong1').val() == "") {   
+                                                $("#ThemKO").empty();
+                                                $('#slcu1').val(0); 
+                                                $("#ttko").empty();
+                                                load_detail(sohd);
+                                                $('#ThemSubmit').prop("type", "hidden");
+                                            } else {
+                                                $('#ThemSubmit').removeAttr("disabled");
+                                                $('#ThemSubmit').prop("type", "submit");
+                                            }
+                                            var sl1 = Number($('#soluong1').prop("max"));
+                                            var slcu = Number($('#slcu1').val());
+                                            if (Number(sl) > Number(sl1)) {
+                                                $('#soluong1').val(sl1);
+                                                sl = $('#soluong1').val();
+                                            }
+                                            // Lấy ra các KIOSK chưa được sử dụng
+                                            $.ajax({
+                                                type: 'GET',
+                                                data: { malhd: malhd, sl: sl },
+                                                url: 'GetKOChuaSuDung',
+                                                datatype: 'JSON',
+                                                contentType: "application/JSON",
+                                                success: function (result) {
+                                                    $("#ttko").empty();
+                                                    $("#cthd").empty();
+                                                    if (slcu < sl) { // Thêm Kiosk
+                                                        for (var i = slcu; i < sl; i++) {
+                                                            var getngayhh = new Date();
+                                                            var dd = getngayhh.getDate();
+                                                            var mm = getngayhh.getMonth() + 1;
+                                                            var yyyy = getngayhh.getFullYear();
+                                                            if (mm < 10)
+                                                                mm = '0' + mm;
+                                                            if (dd < 10)
+                                                                dd = '0' + dd;
+                                                            var ngay = yyyy + '-' + mm + '-' + dd;
+                                                            var div_data = '<div class="form-group row row1" id="' + result[i].MAKO + '"><input type="hidden" name="mako' + result[i].MAKO + '" value="' + result[i].MAKO + '" /><div class="col-md-12"><label>' + result[i].TenKO + '</label></div>';
+                                                            var div_data1 = '<div class="form-group"><label class="col-md-2">Ngày bắt đầu:</label><div class="col-md-3"><input type="date" class="ngaybd" min="' + ngay + '" name="NgayBD_' + result[i].MAKO + '" required="" /></div><label class="col-md-2">Ngày bắt kết thúc:</label><div class="col-md-3"><input type="date" class="ngaykt" name="NgayKT_' + result[i].MAKO + '" required="" /></div>';
+                                                            var div = div_data + div_data1;
+                                                            $(div).appendTo("#ThemKO");
+                                                        }
+                                                        $('#slcu1').val(sl);
+                                                    }
+                                                    else if (slcu > sl) {// Xóa Kiosk
+
+                                                        for (var i = (slcu - 1); i >= sl; i--) {
+                                                            $("#" + result[i].MAKO).remove();
+                                                        }
+                                                        $('#slcu1').val(sl);
+                                                    }
+
+                                                    $('.row1').each(function () { // duyệt từng dòng để làm đkiện thêm kiosk
+                                                        var someFormattedDate = '';
+                                                        $(this).find(".ngaybd").change(function () {
+                                                            var ngaylaphd = new Date($("#ngaylaphd").val());
+                                                            var date = $(this).val();
+                                                            var tgth = $("#tgth1").val();
+                                                            var newdate = new Date(date);
+                                                            if (newdate < ngaylaphd) {
+                                                                var dd1 = ngaylaphd.getDate();
+                                                                var mm1 = ngaylaphd.getMonth() + 1;
+                                                                var yyyy1 = ngaylaphd.getFullYear();
+                                                                if (mm1 < 10)
+                                                                    mm1 = '0' + mm1;
+                                                                if (dd1 < 10)
+                                                                    dd1 = '0' + dd1;
+                                                                someFormattedDate1 = yyyy1 + '-' + mm1 + '-' + dd1;
+                                                                $(this).val(someFormattedDate1);
+                                                                ngaylaphd.setDate(ngaylaphd.getDate() + parseInt(tgth));
+                                                                var dd = ngaylaphd.getDate();
+                                                                var mm = ngaylaphd.getMonth() + 1;
+                                                                var yyyy = ngaylaphd.getFullYear();
+                                                                if (mm < 10)
+                                                                    mm = '0' + mm;
+                                                                if (dd < 10)
+                                                                    dd = '0' + dd;
+                                                                someFormattedDate = yyyy + '-' + mm + '-' + dd;
+                                                                $(this).parent().parent().find(".ngaykt").prop("min", someFormattedDate);
+                                                                $(this).parent().parent().find(".ngaykt").val(someFormattedDate);
+                                                            } else {
+                                                                newdate.setDate(newdate.getDate() + parseInt(tgth));
+                                                                var dd = newdate.getDate();
+                                                                var mm = newdate.getMonth() + 1;
+                                                                var yyyy = newdate.getFullYear();
+                                                                if (mm < 10)
+                                                                    mm = '0' + mm;
+                                                                if (dd < 10)
+                                                                    dd = '0' + dd;
+                                                                someFormattedDate = yyyy + '-' + mm + '-' + dd;
+                                                                $(this).parent().parent().find(".ngaykt").prop("min", someFormattedDate);
+                                                                $(this).parent().parent().find(".ngaykt").val(someFormattedDate);
+                                                            }
+
+                                                        });
+
+                                                        $(this).find(".ngaykt").change(function () {
+
+                                                            var date = $(this).val();
+                                                            var date2 = $(this).prop("min");
+                                                            var newdate = new Date(date);
+                                                            var newdate2 = new Date(date2);
+                                                            if (newdate < newdate2) {
+                                                                $(this).parent().parent().find(".ngaykt").prop("min", date2);
+                                                                $(this).parent().parent().find(".ngaykt").val(date2);
+                                                            }
+
+                                                        });
+                                                    });
+                                                    $("#tgth1").change(function () { // nếu thời gian tối thiểu thay đổi
+                                                        $('.row1').each(function () {
+                                                            var someFormattedDate = '';
+                                                            var date = $(this).find(".ngaybd").val();
+                                                            var tgth = $("#tgth1").val();
+                                                            if (parseInt(tgth.slice(0, 1)) == 0)
+                                                                tgth = parseInt(sl.slice(1));
+                                                            var newdate = new Date(date);
+                                                            newdate.setDate(newdate.getDate() + parseInt(tgth));
+                                                            var dd = newdate.getDate();
+                                                            var mm = newdate.getMonth() + 1;
+                                                            var yyyy = newdate.getFullYear();
+                                                            if (mm < 10)
+                                                                mm = '0' + mm;
+                                                            if (dd < 10)
+                                                                dd = '0' + dd;
+                                                            someFormattedDate = yyyy + '-' + mm + '-' + dd;
+                                                            $(this).find(".ngaykt").prop("min", someFormattedDate);
+                                                            $(this).find(".ngaykt").val(someFormattedDate);
+                                                        });
+                                                    });
+
+                                                    // sự kiện click của form
+                                                    $("#ThemSubmit").submit(function () {
+                                                        var data = $('form #formmange').serialize();
+                                                        $.post("@Url.Action("ManageHopDong")",
+                                                        {
+                                                            data: data
+                                                        },
+                                                            function (data, status) {
+                                                                alert("Thêm Thành Công!");
+                                                                if (status == "success") {
+                                                                
+                                                                load('HopDong/ManageHopDong');
+                                                            }
+                                                        });
+                                                       
+                                                    });
+
+                                                }
+                                            });
+                                        });
+                                    });
+                                    $('#detailModal').modal("show");
+                                });
+                            });
+                        });
+                        $("#detailModal").on('hidden.bs.modal', function () {
+                            LoadHopDongs();
+                        });
+                    }
+                });
+        }
+
+        $("#LoaiHopDong").change(function () {
+            LoadHopDongs();
+        });
+
+        function load_detail(sohd ) {
+            $.post("@Url.Action("HD_Detail")",
+                {
+                    sohd: sohd
+                },
+                function (data, status) {
+                    if (status == "success")
+                    {
+                        $("#cthd").html(data);
+                        $('#TieuDe').val('Chi Tiết Hợp Đồng ' + sohd);
+                        $("#ttko").html('<h3  style="font-weight: 600; color: darkblue">Thông Tin KIOSK</h3>');
+                        $('#DetailKOTable tr').each(function () {
+                            $(this).find('td .editDetailKO').each(function () {
+                                $(this).click(function () {
+                                    var dl = $(this).val();
+                                    if (dl == 'Gia Hạn') {
+                                        var ngaykt = new Date($(this).parent().parent().find(".ngayketthuc").val());
+                                        var dd1 = ngaykt.getDate();
+                                        var mm1 = ngaykt.getMonth() + 1;
+                                        var yyyy1 = ngaykt.getFullYear();
+                                        if (mm1 < 10)
+                                            mm1 = '0' + mm1;
+                                        if (dd1 < 10)
+                                            dd1 = '0' + dd1;
+                                        var someFormattedDate1 = yyyy1 + '-' + mm1 + '-' + dd1;
+                                        $(this).parent().parent().find(".ngayketthuc").removeAttr("disabled");
+                                        $(this).parent().parent().find(".ngayketthuc").prop("type", "date");
+                                        $(this).parent().parent().find(".ngayketthuc").prop("min", someFormattedDate1);
+                                        $(this).parent().parent().find(".ngayketthuc").removeAttr("value");
+                                        $(this).parent().parent().find(".ngayketthuc").removeAttr("style");
+                                        $(this).parent().parent().find(".ngayketthuc").prop("value", someFormattedDate1);
+                                        $(this).removeAttr("value");
+                                        $(this).prop("value", "Cập Nhật");
+                                    }
+                                    else if (dl == 'Cập Nhật') {
+                                        var ngayktnew = new Date($(this).parent().parent().find(".ngayketthuc").val());
+                                        var mako = $(this).parent().parent().find(".mako").val();
+                                        var sohdmoi = parseInt(sohd);
+                                        var dd1 = ngayktnew.getDate();
+                                        var mm1 = ngayktnew.getMonth() + 1;
+                                        var yyyy1 = ngayktnew.getFullYear();
+                                        if (mm1 < 10)
+                                            mm1 = '0' + mm1;
+                                        if (dd1 < 10)
+                                            dd1 = '0' + dd1;
+                                        var someFormattedDate1 = yyyy1 + '-' + mm1 + '-' + dd1;
+                                        $.post("@Url.Action("testnha")",
+                                            {
+                                                sohd: sohdmoi, ngaykt: someFormattedDate1, mako: mako
+                                            },
+                                            function (result, status) {
+                                                if (status == "success") {
+                                                    $('#DetailKOTable tr').each(function () {
+                                                        $(this).find('td .mako').each(function () {
+                                                            if ($(this).val() == mako) {
+                                                                $(this).parent().parent().find(".editDetailKO").removeAttr("value");
+                                                                $(this).parent().parent().find(".editDetailKO").prop("value", "Gia Hạn");
+                                                                load_detail(sohd);
+                                                            }
+                                                        });
+                                                    });
+                                                }
+                                            });
+                                    }
+                                });
+                            });
+                        });
+                    }
+                });
+        }
+        function load_khachhang(sohd) {
+            $.post("@Url.Action("HD_Customer")",
+                {
+                    sohd: sohd
+                },
+                function (data, status) {
+                    if (status == "success") {
+                        $("#ttkh").html(data);
+                        $("#mahd").val(sohd);
+                    }
+                });
+        }
+
+        </script>
+    }

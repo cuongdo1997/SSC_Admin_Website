@@ -27,31 +27,151 @@ namespace SSC_Admin_Website.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BuoiAn> BuoiAns { get; set; }
+        public virtual DbSet<ChiTiet_TinhTrangKO> ChiTiet_TinhTrangKO { get; set; }
+        public virtual DbSet<ChiTietBA_MH> ChiTietBA_MH { get; set; }
         public virtual DbSet<ChiTietGiamGiaTheoSL> ChiTietGiamGiaTheoSLs { get; set; }
+        public virtual DbSet<ChiTietHopDong> ChiTietHopDongs { get; set; }
+        public virtual DbSet<ChiTietNap> ChiTietNaps { get; set; }
         public virtual DbSet<ChiTietQC> ChiTietQCs { get; set; }
+        public virtual DbSet<ChiTietTangQuaTheoSL> ChiTietTangQuaTheoSLs { get; set; }
+        public virtual DbSet<ChiTietTangQuaTheoSLMH> ChiTietTangQuaTheoSLMHs { get; set; }
+        public virtual DbSet<ChiTietTangQuaTheoTGHD> ChiTietTangQuaTheoTGHDs { get; set; }
+        public virtual DbSet<ChiTietThueKIOSKQC> ChiTietThueKIOSKQCs { get; set; }
+        public virtual DbSet<ChucNang> ChucNangs { get; set; }
         public virtual DbSet<Config> Configs { get; set; }
+        public virtual DbSet<CTHD> CTHDs { get; set; }
+        public virtual DbSet<DonVi_MatHang> DonVi_MatHang { get; set; }
         public virtual DbSet<DotKhuyenMai> DotKhuyenMais { get; set; }
+        public virtual DbSet<HinhThuc_ThanhToan> HinhThuc_ThanhToan { get; set; }
+        public virtual DbSet<HoaDon> HoaDons { get; set; }
+        public virtual DbSet<HopDong> HopDongs { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<KIOSK> KIOSKs { get; set; }
+        public virtual DbSet<KMTheoSLMH> KMTheoSLMHs { get; set; }
+        public virtual DbSet<KMTheoTGHD> KMTheoTGHDs { get; set; }
+        public virtual DbSet<LanNap> LanNaps { get; set; }
+        public virtual DbSet<LichSu_DangNhap> LichSu_DangNhap { get; set; }
+        public virtual DbSet<LichSuCapNhatMatHang> LichSuCapNhatMatHangs { get; set; }
+        public virtual DbSet<Loai_TinhTrang_KO> Loai_TinhTrang_KO { get; set; }
+        public virtual DbSet<LoaiHopDong> LoaiHopDongs { get; set; }
+        public virtual DbSet<LoaiMatHang> LoaiMatHangs { get; set; }
+        public virtual DbSet<LoaiNhom> LoaiNhoms { get; set; }
+        public virtual DbSet<LoaiTien> LoaiTiens { get; set; }
         public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
         public virtual DbSet<QuangCao> QuangCaos { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
         public virtual DbSet<V_ChiTietQC> V_ChiTietQC { get; set; }
-        public virtual DbSet<V_DonViMatHang> V_DonViMatHang { get; set; }
         public virtual DbSet<V_KhachHang> V_KhachHang { get; set; }
-        public virtual DbSet<V_KIOSK> V_KIOSK { get; set; }
         public virtual DbSet<V_LoaiMatHang> V_LoaiMatHang { get; set; }
-        public virtual DbSet<V_QuangCao> V_QuangCao { get; set; }
-        public virtual DbSet<ChucNang> ChucNangs { get; set; }
-        public virtual DbSet<MatHang> MatHangs { get; set; }
-        public virtual DbSet<ChiTietThueKIOSKQC> ChiTietThueKIOSKQCs { get; set; }
-        public virtual DbSet<BuoiAn> BuoiAns { get; set; }
-        public virtual DbSet<ChiTietBA_MH> ChiTietBA_MH { get; set; }
-        public virtual DbSet<DonVi_MatHang> DonVi_MatHang { get; set; }
-        public virtual DbSet<LoaiMatHang> LoaiMatHangs { get; set; }
-        public virtual DbSet<HopDong> HopDongs { get; set; }
-        public virtual DbSet<LoaiNhom> LoaiNhoms { get; set; }
         public virtual DbSet<V_MatHang> V_MatHang { get; set; }
+        public virtual DbSet<V_QuangCao> V_QuangCao { get; set; }
+        public virtual DbSet<MatHang> MatHangs { get; set; }
+        public virtual DbSet<V_DonViMatHang> V_DonViMatHang { get; set; }
+        public virtual DbSet<V_KIOSK> V_KIOSK { get; set; }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_Auto_UPDATE_ChiTietHopDong()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Auto_UPDATE_ChiTietHopDong");
+        }
+    
+        public virtual int sp_BuoiAn_DELETE(Nullable<int> maBA)
+        {
+            var maBAParameter = maBA.HasValue ?
+                new ObjectParameter("MaBA", maBA) :
+                new ObjectParameter("MaBA", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_BuoiAn_DELETE", maBAParameter);
+        }
+    
+        public virtual int sp_BuoiAn_INSERT(string tenBA, Nullable<System.TimeSpan> gioBD, Nullable<System.TimeSpan> gioKT)
+        {
+            var tenBAParameter = tenBA != null ?
+                new ObjectParameter("TenBA", tenBA) :
+                new ObjectParameter("TenBA", typeof(string));
+    
+            var gioBDParameter = gioBD.HasValue ?
+                new ObjectParameter("GioBD", gioBD) :
+                new ObjectParameter("GioBD", typeof(System.TimeSpan));
+    
+            var gioKTParameter = gioKT.HasValue ?
+                new ObjectParameter("GioKT", gioKT) :
+                new ObjectParameter("GioKT", typeof(System.TimeSpan));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_BuoiAn_INSERT", tenBAParameter, gioBDParameter, gioKTParameter);
+        }
+    
+        public virtual int sp_BuoiAn_UPDATE(Nullable<int> maBA, string tenBA, Nullable<System.TimeSpan> gioBD, Nullable<System.TimeSpan> gioKT)
+        {
+            var maBAParameter = maBA.HasValue ?
+                new ObjectParameter("MaBA", maBA) :
+                new ObjectParameter("MaBA", typeof(int));
+    
+            var tenBAParameter = tenBA != null ?
+                new ObjectParameter("TenBA", tenBA) :
+                new ObjectParameter("TenBA", typeof(string));
+    
+            var gioBDParameter = gioBD.HasValue ?
+                new ObjectParameter("GioBD", gioBD) :
+                new ObjectParameter("GioBD", typeof(System.TimeSpan));
+    
+            var gioKTParameter = gioKT.HasValue ?
+                new ObjectParameter("GioKT", gioKT) :
+                new ObjectParameter("GioKT", typeof(System.TimeSpan));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_BuoiAn_UPDATE", maBAParameter, tenBAParameter, gioBDParameter, gioKTParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Check_KO_SoHD(Nullable<int> sohd, string mako, Nullable<int> malhd)
+        {
+            var sohdParameter = sohd.HasValue ?
+                new ObjectParameter("sohd", sohd) :
+                new ObjectParameter("sohd", typeof(int));
+    
+            var makoParameter = mako != null ?
+                new ObjectParameter("mako", mako) :
+                new ObjectParameter("mako", typeof(string));
+    
+            var malhdParameter = malhd.HasValue ?
+                new ObjectParameter("malhd", malhd) :
+                new ObjectParameter("malhd", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Check_KO_SoHD", sohdParameter, makoParameter, malhdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<bool>> sp_checkCN_TK(string tencn, Nullable<int> matk)
+        {
+            var tencnParameter = tencn != null ?
+                new ObjectParameter("tencn", tencn) :
+                new ObjectParameter("tencn", typeof(string));
+    
+            var matkParameter = matk.HasValue ?
+                new ObjectParameter("matk", matk) :
+                new ObjectParameter("matk", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("sp_checkCN_TK", tencnParameter, matkParameter);
+        }
     
         public virtual ObjectResult<sp_checkKH_Result> sp_checkKH(string cmnd)
         {
@@ -60,6 +180,73 @@ namespace SSC_Admin_Website.Models
                 new ObjectParameter("cmnd", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_checkKH_Result>("sp_checkKH", cmndParameter);
+        }
+    
+        public virtual int sp_ChiTiet_TinhTrangKO_INSERT(string maKO, Nullable<int> maTT, Nullable<System.DateTime> ngayBD, Nullable<System.TimeSpan> gioBD, Nullable<System.DateTime> ngayKT, Nullable<System.TimeSpan> gioKT, string noiDung)
+        {
+            var maKOParameter = maKO != null ?
+                new ObjectParameter("MaKO", maKO) :
+                new ObjectParameter("MaKO", typeof(string));
+    
+            var maTTParameter = maTT.HasValue ?
+                new ObjectParameter("MaTT", maTT) :
+                new ObjectParameter("MaTT", typeof(int));
+    
+            var ngayBDParameter = ngayBD.HasValue ?
+                new ObjectParameter("NgayBD", ngayBD) :
+                new ObjectParameter("NgayBD", typeof(System.DateTime));
+    
+            var gioBDParameter = gioBD.HasValue ?
+                new ObjectParameter("GioBD", gioBD) :
+                new ObjectParameter("GioBD", typeof(System.TimeSpan));
+    
+            var ngayKTParameter = ngayKT.HasValue ?
+                new ObjectParameter("NgayKT", ngayKT) :
+                new ObjectParameter("NgayKT", typeof(System.DateTime));
+    
+            var gioKTParameter = gioKT.HasValue ?
+                new ObjectParameter("GioKT", gioKT) :
+                new ObjectParameter("GioKT", typeof(System.TimeSpan));
+    
+            var noiDungParameter = noiDung != null ?
+                new ObjectParameter("NoiDung", noiDung) :
+                new ObjectParameter("NoiDung", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTiet_TinhTrangKO_INSERT", maKOParameter, maTTParameter, ngayBDParameter, gioBDParameter, ngayKTParameter, gioKTParameter, noiDungParameter);
+        }
+    
+        public virtual int sp_ChiTietBA_MH_INSERT(Nullable<int> maBA, Nullable<int> maMH, Nullable<bool> trangThaiMA)
+        {
+            var maBAParameter = maBA.HasValue ?
+                new ObjectParameter("MaBA", maBA) :
+                new ObjectParameter("MaBA", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            var trangThaiMAParameter = trangThaiMA.HasValue ?
+                new ObjectParameter("TrangThaiMA", trangThaiMA) :
+                new ObjectParameter("TrangThaiMA", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietBA_MH_INSERT", maBAParameter, maMHParameter, trangThaiMAParameter);
+        }
+    
+        public virtual int sp_ChiTietBA_MH_UPDATE(Nullable<int> maBA, Nullable<int> maMH, Nullable<bool> trangThaiMA)
+        {
+            var maBAParameter = maBA.HasValue ?
+                new ObjectParameter("MaBA", maBA) :
+                new ObjectParameter("MaBA", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            var trangThaiMAParameter = trangThaiMA.HasValue ?
+                new ObjectParameter("TrangThaiMA", trangThaiMA) :
+                new ObjectParameter("TrangThaiMA", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietBA_MH_UPDATE", maBAParameter, maMHParameter, trangThaiMAParameter);
         }
     
         public virtual int sp_ChiTietGiamGiaTheoSL_DELETE(Nullable<int> maKM)
@@ -117,6 +304,44 @@ namespace SSC_Admin_Website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietGiamGiaTheoSL_UPDATE", sTTParameter, maKMParameter, maMHParameter, sLMuaToiThieuParameter, giamParameter);
         }
     
+        public virtual int sp_ChiTietHopDong_INSERT(Nullable<int> soHD, string maKO, Nullable<System.DateTime> ngayBDThue, Nullable<System.DateTime> ngayKetThuc)
+        {
+            var soHDParameter = soHD.HasValue ?
+                new ObjectParameter("SoHD", soHD) :
+                new ObjectParameter("SoHD", typeof(int));
+    
+            var maKOParameter = maKO != null ?
+                new ObjectParameter("MaKO", maKO) :
+                new ObjectParameter("MaKO", typeof(string));
+    
+            var ngayBDThueParameter = ngayBDThue.HasValue ?
+                new ObjectParameter("NgayBDThue", ngayBDThue) :
+                new ObjectParameter("NgayBDThue", typeof(System.DateTime));
+    
+            var ngayKetThucParameter = ngayKetThuc.HasValue ?
+                new ObjectParameter("NgayKetThuc", ngayKetThuc) :
+                new ObjectParameter("NgayKetThuc", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietHopDong_INSERT", soHDParameter, maKOParameter, ngayBDThueParameter, ngayKetThucParameter);
+        }
+    
+        public virtual int sp_ChiTietHopDong_UPDATE(Nullable<int> sohd, Nullable<System.DateTime> ngaykt, string mako)
+        {
+            var sohdParameter = sohd.HasValue ?
+                new ObjectParameter("sohd", sohd) :
+                new ObjectParameter("sohd", typeof(int));
+    
+            var ngayktParameter = ngaykt.HasValue ?
+                new ObjectParameter("ngaykt", ngaykt) :
+                new ObjectParameter("ngaykt", typeof(System.DateTime));
+    
+            var makoParameter = mako != null ?
+                new ObjectParameter("mako", mako) :
+                new ObjectParameter("mako", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietHopDong_UPDATE", sohdParameter, ngayktParameter, makoParameter);
+        }
+    
         public virtual int sp_ChiTietQC_DELETE(Nullable<int> soHD, string maKO, Nullable<int> maQC)
         {
             var soHDParameter = soHD.HasValue ?
@@ -159,6 +384,147 @@ namespace SSC_Admin_Website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietQC_INSERT", soHDParameter, maKOParameter, maQCParameter, ngayBDQCParameter, ngayKTQCParameter);
         }
     
+        public virtual int sp_ChiTietTangQuaTheoSL_DELETE(Nullable<int> sTT, Nullable<int> maMH_Tang)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMH_TangParameter = maMH_Tang.HasValue ?
+                new ObjectParameter("MaMH_Tang", maMH_Tang) :
+                new ObjectParameter("MaMH_Tang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoSL_DELETE", sTTParameter, maMH_TangParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoSL_INSERT(Nullable<int> sTT, Nullable<int> maMH_Tang, Nullable<int> soLuongTang)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMH_TangParameter = maMH_Tang.HasValue ?
+                new ObjectParameter("MaMH_Tang", maMH_Tang) :
+                new ObjectParameter("MaMH_Tang", typeof(int));
+    
+            var soLuongTangParameter = soLuongTang.HasValue ?
+                new ObjectParameter("SoLuongTang", soLuongTang) :
+                new ObjectParameter("SoLuongTang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoSL_INSERT", sTTParameter, maMH_TangParameter, soLuongTangParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoSL_UPDATE(Nullable<int> sTT, Nullable<int> maMH_Tang, Nullable<int> soLuongTang)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMH_TangParameter = maMH_Tang.HasValue ?
+                new ObjectParameter("MaMH_Tang", maMH_Tang) :
+                new ObjectParameter("MaMH_Tang", typeof(int));
+    
+            var soLuongTangParameter = soLuongTang.HasValue ?
+                new ObjectParameter("SoLuongTang", soLuongTang) :
+                new ObjectParameter("SoLuongTang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoSL_UPDATE", sTTParameter, maMH_TangParameter, soLuongTangParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoSLMH_DELETE(Nullable<int> sTT, Nullable<int> maMH)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoSLMH_DELETE", sTTParameter, maMHParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoSLMH_INSERT(Nullable<int> sTT, Nullable<int> maMH, Nullable<int> soLuongTang)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            var soLuongTangParameter = soLuongTang.HasValue ?
+                new ObjectParameter("SoLuongTang", soLuongTang) :
+                new ObjectParameter("SoLuongTang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoSLMH_INSERT", sTTParameter, maMHParameter, soLuongTangParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoSLMH_UPDATE(Nullable<int> sTT, Nullable<int> maMH, Nullable<int> soLuongTang)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            var soLuongTangParameter = soLuongTang.HasValue ?
+                new ObjectParameter("SoLuongTang", soLuongTang) :
+                new ObjectParameter("SoLuongTang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoSLMH_UPDATE", sTTParameter, maMHParameter, soLuongTangParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoTGHD_DELETE(Nullable<int> sTT, Nullable<int> maMH)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoTGHD_DELETE", sTTParameter, maMHParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoTGHD_INSERT(Nullable<int> sTT, Nullable<int> maMH, Nullable<int> soLuongTang)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            var soLuongTangParameter = soLuongTang.HasValue ?
+                new ObjectParameter("SoLuongTang", soLuongTang) :
+                new ObjectParameter("SoLuongTang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoTGHD_INSERT", sTTParameter, maMHParameter, soLuongTangParameter);
+        }
+    
+        public virtual int sp_ChiTietTangQuaTheoTGHD_UPDATE(Nullable<int> sTT, Nullable<int> maMH, Nullable<int> soLuongTang)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            var soLuongTangParameter = soLuongTang.HasValue ?
+                new ObjectParameter("SoLuongTang", soLuongTang) :
+                new ObjectParameter("SoLuongTang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietTangQuaTheoTGHD_UPDATE", sTTParameter, maMHParameter, soLuongTangParameter);
+        }
+    
         public virtual int sp_ChiTietThueKIOSKQC_INSERT(Nullable<int> soHD, string maKO, Nullable<System.DateTime> ngayBDThue, Nullable<System.DateTime> ngayKetThuc)
         {
             var soHDParameter = soHD.HasValue ?
@@ -180,6 +546,106 @@ namespace SSC_Admin_Website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietThueKIOSKQC_INSERT", soHDParameter, maKOParameter, ngayBDThueParameter, ngayKetThucParameter);
         }
     
+        public virtual int sp_ChiTietThueKIOSKQC_UPDATE(Nullable<int> sohd, Nullable<System.DateTime> ngaykt, string mako)
+        {
+            var sohdParameter = sohd.HasValue ?
+                new ObjectParameter("sohd", sohd) :
+                new ObjectParameter("sohd", typeof(int));
+    
+            var ngayktParameter = ngaykt.HasValue ?
+                new ObjectParameter("ngaykt", ngaykt) :
+                new ObjectParameter("ngaykt", typeof(System.DateTime));
+    
+            var makoParameter = mako != null ?
+                new ObjectParameter("mako", mako) :
+                new ObjectParameter("mako", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChiTietThueKIOSKQC_UPDATE", sohdParameter, ngayktParameter, makoParameter);
+        }
+    
+        public virtual int sp_ChucNang_DELETE(Nullable<int> maCN)
+        {
+            var maCNParameter = maCN.HasValue ?
+                new ObjectParameter("MaCN", maCN) :
+                new ObjectParameter("MaCN", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChucNang_DELETE", maCNParameter);
+        }
+    
+        public virtual int sp_ChucNang_INSERT(string tenCN, Nullable<int> maLN)
+        {
+            var tenCNParameter = tenCN != null ?
+                new ObjectParameter("TenCN", tenCN) :
+                new ObjectParameter("TenCN", typeof(string));
+    
+            var maLNParameter = maLN.HasValue ?
+                new ObjectParameter("MaLN", maLN) :
+                new ObjectParameter("MaLN", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChucNang_INSERT", tenCNParameter, maLNParameter);
+        }
+    
+        public virtual int sp_ChucNang_UPDATE(Nullable<int> maCN, string tenCN, Nullable<int> maLN)
+        {
+            var maCNParameter = maCN.HasValue ?
+                new ObjectParameter("MaCN", maCN) :
+                new ObjectParameter("MaCN", typeof(int));
+    
+            var tenCNParameter = tenCN != null ?
+                new ObjectParameter("TenCN", tenCN) :
+                new ObjectParameter("TenCN", typeof(string));
+    
+            var maLNParameter = maLN.HasValue ?
+                new ObjectParameter("MaLN", maLN) :
+                new ObjectParameter("MaLN", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChucNang_UPDATE", maCNParameter, tenCNParameter, maLNParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_ChucNangTheoLoaiNhom(Nullable<int> maln)
+        {
+            var malnParameter = maln.HasValue ?
+                new ObjectParameter("maln", maln) :
+                new ObjectParameter("maln", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ChucNangTheoLoaiNhom", malnParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_CN_Login(Nullable<int> maTK)
+        {
+            var maTKParameter = maTK.HasValue ?
+                new ObjectParameter("MaTK", maTK) :
+                new ObjectParameter("MaTK", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_CN_Login", maTKParameter);
+        }
+    
+        public virtual int sp_CONFIG_DELETE(string variable_name)
+        {
+            var variable_nameParameter = variable_name != null ?
+                new ObjectParameter("variable_name", variable_name) :
+                new ObjectParameter("variable_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CONFIG_DELETE", variable_nameParameter);
+        }
+    
+        public virtual int sp_CONFIG_INSERT(string variable_name, string description, string value)
+        {
+            var variable_nameParameter = variable_name != null ?
+                new ObjectParameter("variable_name", variable_name) :
+                new ObjectParameter("variable_name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var valueParameter = value != null ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CONFIG_INSERT", variable_nameParameter, descriptionParameter, valueParameter);
+        }
+    
         public virtual int sp_CONFIG_UPDATE(string variable_name, string description, string value)
         {
             var variable_nameParameter = variable_name != null ?
@@ -195,6 +661,80 @@ namespace SSC_Admin_Website.Models
                 new ObjectParameter("value", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CONFIG_UPDATE", variable_nameParameter, descriptionParameter, valueParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_CountSoHoaDon()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_CountSoHoaDon");
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual ObjectResult<sp_Detail_HopDongBySoHD_Result> sp_Detail_HopDongBySoHD(Nullable<int> sohd)
+        {
+            var sohdParameter = sohd.HasValue ?
+                new ObjectParameter("sohd", sohd) :
+                new ObjectParameter("sohd", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Detail_HopDongBySoHD_Result>("sp_Detail_HopDongBySoHD", sohdParameter);
+        }
+    
+        public virtual int sp_DonVi_MatHang_DELETE(Nullable<int> maDV)
+        {
+            var maDVParameter = maDV.HasValue ?
+                new ObjectParameter("MaDV", maDV) :
+                new ObjectParameter("MaDV", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DonVi_MatHang_DELETE", maDVParameter);
+        }
+    
+        public virtual int sp_DonVi_MatHang_INSERT(string tenDV, Nullable<int> maLMH)
+        {
+            var tenDVParameter = tenDV != null ?
+                new ObjectParameter("TenDV", tenDV) :
+                new ObjectParameter("TenDV", typeof(string));
+    
+            var maLMHParameter = maLMH.HasValue ?
+                new ObjectParameter("MaLMH", maLMH) :
+                new ObjectParameter("MaLMH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DonVi_MatHang_INSERT", tenDVParameter, maLMHParameter);
+        }
+    
+        public virtual int sp_DonVi_MatHang_UPDATE(Nullable<int> maDV, string tenDV, Nullable<int> maLMH)
+        {
+            var maDVParameter = maDV.HasValue ?
+                new ObjectParameter("MaDV", maDV) :
+                new ObjectParameter("MaDV", typeof(int));
+    
+            var tenDVParameter = tenDV != null ?
+                new ObjectParameter("TenDV", tenDV) :
+                new ObjectParameter("TenDV", typeof(string));
+    
+            var maLMHParameter = maLMH.HasValue ?
+                new ObjectParameter("MaLMH", maLMH) :
+                new ObjectParameter("MaLMH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DonVi_MatHang_UPDATE", maDVParameter, tenDVParameter, maLMHParameter);
         }
     
         public virtual int sp_DotKhuyenMai_DELETE(Nullable<int> maKM)
@@ -240,6 +780,45 @@ namespace SSC_Admin_Website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DotKhuyenMai_UPDATE", maKMParameter, ngayBDParameter, ngayKTParameter);
         }
     
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_GET_MH_Result> sp_GET_MH(string mAKO, Nullable<int> maLMH, Nullable<int> maBA)
+        {
+            var mAKOParameter = mAKO != null ?
+                new ObjectParameter("MAKO", mAKO) :
+                new ObjectParameter("MAKO", typeof(string));
+    
+            var maLMHParameter = maLMH.HasValue ?
+                new ObjectParameter("MaLMH", maLMH) :
+                new ObjectParameter("MaLMH", typeof(int));
+    
+            var maBAParameter = maBA.HasValue ?
+                new ObjectParameter("MaBA", maBA) :
+                new ObjectParameter("MaBA", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GET_MH_Result>("sp_GET_MH", mAKOParameter, maLMHParameter, maBAParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Get_SOHD(Nullable<int> matk)
+        {
+            var matkParameter = matk.HasValue ?
+                new ObjectParameter("matk", matk) :
+                new ObjectParameter("matk", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Get_SOHD", matkParameter);
+        }
+    
         public virtual ObjectResult<sp_GetAccountsByMaLN_Result> sp_GetAccountsByMaLN(Nullable<int> maln)
         {
             var malnParameter = maln.HasValue ?
@@ -247,6 +826,138 @@ namespace SSC_Admin_Website.Models
                 new ObjectParameter("maln", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAccountsByMaLN_Result>("sp_GetAccountsByMaLN", malnParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetHopDongByMaLHD_Result> sp_GetHopDongByMaLHD(Nullable<int> malhd)
+        {
+            var malhdParameter = malhd.HasValue ?
+                new ObjectParameter("malhd", malhd) :
+                new ObjectParameter("malhd", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetHopDongByMaLHD_Result>("sp_GetHopDongByMaLHD", malhdParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetKhachHang_ByHopDong_Result> sp_GetKhachHang_ByHopDong(Nullable<int> sohd)
+        {
+            var sohdParameter = sohd.HasValue ?
+                new ObjectParameter("sohd", sohd) :
+                new ObjectParameter("sohd", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetKhachHang_ByHopDong_Result>("sp_GetKhachHang_ByHopDong", sohdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_GetMaCN(string tencn)
+        {
+            var tencnParameter = tencn != null ?
+                new ObjectParameter("tencn", tencn) :
+                new ObjectParameter("tencn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_GetMaCN", tencnParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_HDMoi()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_HDMoi");
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_HinhThuc_ThanhToan_DELETE(Nullable<int> maHTTT)
+        {
+            var maHTTTParameter = maHTTT.HasValue ?
+                new ObjectParameter("MaHTTT", maHTTT) :
+                new ObjectParameter("MaHTTT", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HinhThuc_ThanhToan_DELETE", maHTTTParameter);
+        }
+    
+        public virtual int sp_HinhThuc_ThanhToan_INSERT(string tenHTTT)
+        {
+            var tenHTTTParameter = tenHTTT != null ?
+                new ObjectParameter("TenHTTT", tenHTTT) :
+                new ObjectParameter("TenHTTT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HinhThuc_ThanhToan_INSERT", tenHTTTParameter);
+        }
+    
+        public virtual int sp_HinhThuc_ThanhToan_UPDATE(Nullable<int> maHTTT, string tenHTTT)
+        {
+            var maHTTTParameter = maHTTT.HasValue ?
+                new ObjectParameter("MaHTTT", maHTTT) :
+                new ObjectParameter("MaHTTT", typeof(int));
+    
+            var tenHTTTParameter = tenHTTT != null ?
+                new ObjectParameter("TenHTTT", tenHTTT) :
+                new ObjectParameter("TenHTTT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HinhThuc_ThanhToan_UPDATE", maHTTTParameter, tenHTTTParameter);
+        }
+    
+        public virtual int sp_HopDong_DELETE(Nullable<int> soHD)
+        {
+            var soHDParameter = soHD.HasValue ?
+                new ObjectParameter("SoHD", soHD) :
+                new ObjectParameter("SoHD", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HopDong_DELETE", soHDParameter);
+        }
+    
+        public virtual int sp_HopDong_INSERT(Nullable<System.DateTime> ngayLapHD, string noiDungHD, Nullable<int> maLHD, Nullable<int> maKH_THUEKO, Nullable<int> maKH_DATQC)
+        {
+            var ngayLapHDParameter = ngayLapHD.HasValue ?
+                new ObjectParameter("NgayLapHD", ngayLapHD) :
+                new ObjectParameter("NgayLapHD", typeof(System.DateTime));
+    
+            var noiDungHDParameter = noiDungHD != null ?
+                new ObjectParameter("NoiDungHD", noiDungHD) :
+                new ObjectParameter("NoiDungHD", typeof(string));
+    
+            var maLHDParameter = maLHD.HasValue ?
+                new ObjectParameter("MaLHD", maLHD) :
+                new ObjectParameter("MaLHD", typeof(int));
+    
+            var maKH_THUEKOParameter = maKH_THUEKO.HasValue ?
+                new ObjectParameter("MaKH_THUEKO", maKH_THUEKO) :
+                new ObjectParameter("MaKH_THUEKO", typeof(int));
+    
+            var maKH_DATQCParameter = maKH_DATQC.HasValue ?
+                new ObjectParameter("MaKH_DATQC", maKH_DATQC) :
+                new ObjectParameter("MaKH_DATQC", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HopDong_INSERT", ngayLapHDParameter, noiDungHDParameter, maLHDParameter, maKH_THUEKOParameter, maKH_DATQCParameter);
+        }
+    
+        public virtual int sp_HuyHoaDon(Nullable<int> maHD)
+        {
+            var maHDParameter = maHD.HasValue ?
+                new ObjectParameter("MaHD", maHD) :
+                new ObjectParameter("MaHD", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HuyHoaDon", maHDParameter);
         }
     
         public virtual int sp_KhachHang_DELETE(Nullable<int> maKH)
@@ -321,9 +1032,321 @@ namespace SSC_Admin_Website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_KIOSK_DELETE", maKOParameter);
         }
     
+        public virtual int sp_KMTheoSLMH_DELETE(Nullable<int> sTT)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_KMTheoSLMH_DELETE", sTTParameter);
+        }
+    
+        public virtual int sp_KMTheoSLMH_INSERT(Nullable<int> sLMHToiThieu, Nullable<decimal> giam, Nullable<int> maKM)
+        {
+            var sLMHToiThieuParameter = sLMHToiThieu.HasValue ?
+                new ObjectParameter("SLMHToiThieu", sLMHToiThieu) :
+                new ObjectParameter("SLMHToiThieu", typeof(int));
+    
+            var giamParameter = giam.HasValue ?
+                new ObjectParameter("Giam", giam) :
+                new ObjectParameter("Giam", typeof(decimal));
+    
+            var maKMParameter = maKM.HasValue ?
+                new ObjectParameter("MaKM", maKM) :
+                new ObjectParameter("MaKM", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_KMTheoSLMH_INSERT", sLMHToiThieuParameter, giamParameter, maKMParameter);
+        }
+    
+        public virtual int sp_KMTheoSLMH_UPDATE(Nullable<int> sTT, Nullable<int> sLMHToiThieu, Nullable<decimal> giam)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var sLMHToiThieuParameter = sLMHToiThieu.HasValue ?
+                new ObjectParameter("SLMHToiThieu", sLMHToiThieu) :
+                new ObjectParameter("SLMHToiThieu", typeof(int));
+    
+            var giamParameter = giam.HasValue ?
+                new ObjectParameter("Giam", giam) :
+                new ObjectParameter("Giam", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_KMTheoSLMH_UPDATE", sTTParameter, sLMHToiThieuParameter, giamParameter);
+        }
+    
+        public virtual int sp_KMTheoTGHD_DELETE(Nullable<int> sTT)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_KMTheoTGHD_DELETE", sTTParameter);
+        }
+    
+        public virtual int sp_KMTheoTGHD_INSERT(Nullable<decimal> tongTriGiaToiThieu, Nullable<decimal> giam, Nullable<int> maKM)
+        {
+            var tongTriGiaToiThieuParameter = tongTriGiaToiThieu.HasValue ?
+                new ObjectParameter("TongTriGiaToiThieu", tongTriGiaToiThieu) :
+                new ObjectParameter("TongTriGiaToiThieu", typeof(decimal));
+    
+            var giamParameter = giam.HasValue ?
+                new ObjectParameter("Giam", giam) :
+                new ObjectParameter("Giam", typeof(decimal));
+    
+            var maKMParameter = maKM.HasValue ?
+                new ObjectParameter("MaKM", maKM) :
+                new ObjectParameter("MaKM", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_KMTheoTGHD_INSERT", tongTriGiaToiThieuParameter, giamParameter, maKMParameter);
+        }
+    
+        public virtual int sp_KMTheoTGHD_UPDATE(Nullable<int> sTT, Nullable<decimal> tongTriGiaToiThieu, Nullable<decimal> giam)
+        {
+            var sTTParameter = sTT.HasValue ?
+                new ObjectParameter("STT", sTT) :
+                new ObjectParameter("STT", typeof(int));
+    
+            var tongTriGiaToiThieuParameter = tongTriGiaToiThieu.HasValue ?
+                new ObjectParameter("TongTriGiaToiThieu", tongTriGiaToiThieu) :
+                new ObjectParameter("TongTriGiaToiThieu", typeof(decimal));
+    
+            var giamParameter = giam.HasValue ?
+                new ObjectParameter("Giam", giam) :
+                new ObjectParameter("Giam", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_KMTheoTGHD_UPDATE", sTTParameter, tongTriGiaToiThieuParameter, giamParameter);
+        }
+    
+        public virtual ObjectResult<sp_KO_ChuaSuDung_Result> sp_KO_ChuaSuDung(Nullable<int> malhd, Nullable<int> sl)
+        {
+            var malhdParameter = malhd.HasValue ?
+                new ObjectParameter("malhd", malhd) :
+                new ObjectParameter("malhd", typeof(int));
+    
+            var slParameter = sl.HasValue ?
+                new ObjectParameter("sl", sl) :
+                new ObjectParameter("sl", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_KO_ChuaSuDung_Result>("sp_KO_ChuaSuDung", malhdParameter, slParameter);
+        }
+    
+        public virtual int sp_LapHoaDon(Nullable<System.DateTime> ngaylap, Nullable<System.TimeSpan> giolap, string massc, string mako, Nullable<int> mahttt)
+        {
+            var ngaylapParameter = ngaylap.HasValue ?
+                new ObjectParameter("ngaylap", ngaylap) :
+                new ObjectParameter("ngaylap", typeof(System.DateTime));
+    
+            var giolapParameter = giolap.HasValue ?
+                new ObjectParameter("giolap", giolap) :
+                new ObjectParameter("giolap", typeof(System.TimeSpan));
+    
+            var masscParameter = massc != null ?
+                new ObjectParameter("massc", massc) :
+                new ObjectParameter("massc", typeof(string));
+    
+            var makoParameter = mako != null ?
+                new ObjectParameter("mako", mako) :
+                new ObjectParameter("mako", typeof(string));
+    
+            var mahtttParameter = mahttt.HasValue ?
+                new ObjectParameter("mahttt", mahttt) :
+                new ObjectParameter("mahttt", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LapHoaDon", ngaylapParameter, giolapParameter, masscParameter, makoParameter, mahtttParameter);
+        }
+    
+        public virtual int sp_LichSu_DangNhap_INSERT(Nullable<int> maTK, string viTri)
+        {
+            var maTKParameter = maTK.HasValue ?
+                new ObjectParameter("MaTK", maTK) :
+                new ObjectParameter("MaTK", typeof(int));
+    
+            var viTriParameter = viTri != null ?
+                new ObjectParameter("ViTri", viTri) :
+                new ObjectParameter("ViTri", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LichSu_DangNhap_INSERT", maTKParameter, viTriParameter);
+        }
+    
+        public virtual int sp_LichSuCapNhatMatHang_INSERT(string hanhDong, string thuocTinh, string giaTriThayDoi, Nullable<int> maMH, Nullable<int> maTK)
+        {
+            var hanhDongParameter = hanhDong != null ?
+                new ObjectParameter("HanhDong", hanhDong) :
+                new ObjectParameter("HanhDong", typeof(string));
+    
+            var thuocTinhParameter = thuocTinh != null ?
+                new ObjectParameter("ThuocTinh", thuocTinh) :
+                new ObjectParameter("ThuocTinh", typeof(string));
+    
+            var giaTriThayDoiParameter = giaTriThayDoi != null ?
+                new ObjectParameter("GiaTriThayDoi", giaTriThayDoi) :
+                new ObjectParameter("GiaTriThayDoi", typeof(string));
+    
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            var maTKParameter = maTK.HasValue ?
+                new ObjectParameter("MaTK", maTK) :
+                new ObjectParameter("MaTK", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LichSuCapNhatMatHang_INSERT", hanhDongParameter, thuocTinhParameter, giaTriThayDoiParameter, maMHParameter, maTKParameter);
+        }
+    
+        public virtual int sp_Loai_TinhTrang_KO_DELETE(Nullable<int> maTT)
+        {
+            var maTTParameter = maTT.HasValue ?
+                new ObjectParameter("MaTT", maTT) :
+                new ObjectParameter("MaTT", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Loai_TinhTrang_KO_DELETE", maTTParameter);
+        }
+    
+        public virtual int sp_Loai_TinhTrang_KO_INSERT(string tenTT)
+        {
+            var tenTTParameter = tenTT != null ?
+                new ObjectParameter("TenTT", tenTT) :
+                new ObjectParameter("TenTT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Loai_TinhTrang_KO_INSERT", tenTTParameter);
+        }
+    
+        public virtual int sp_Loai_TinhTrang_KO_UPDATE(Nullable<int> maTT, string tenTT)
+        {
+            var maTTParameter = maTT.HasValue ?
+                new ObjectParameter("MaTT", maTT) :
+                new ObjectParameter("MaTT", typeof(int));
+    
+            var tenTTParameter = tenTT != null ?
+                new ObjectParameter("TenTT", tenTT) :
+                new ObjectParameter("TenTT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Loai_TinhTrang_KO_UPDATE", maTTParameter, tenTTParameter);
+        }
+    
+        public virtual int sp_LoaiHopDong_DELETE(Nullable<int> maLHD)
+        {
+            var maLHDParameter = maLHD.HasValue ?
+                new ObjectParameter("MaLHD", maLHD) :
+                new ObjectParameter("MaLHD", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiHopDong_DELETE", maLHDParameter);
+        }
+    
+        public virtual int sp_LoaiHopDong_INSERT(string tenLHD)
+        {
+            var tenLHDParameter = tenLHD != null ?
+                new ObjectParameter("TenLHD", tenLHD) :
+                new ObjectParameter("TenLHD", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiHopDong_INSERT", tenLHDParameter);
+        }
+    
+        public virtual int sp_LoaiMatHang_DELETE(Nullable<int> maLMH)
+        {
+            var maLMHParameter = maLMH.HasValue ?
+                new ObjectParameter("MaLMH", maLMH) :
+                new ObjectParameter("MaLMH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiMatHang_DELETE", maLMHParameter);
+        }
+    
+        public virtual int sp_LoaiNhom_DELETE(Nullable<int> maLN)
+        {
+            var maLNParameter = maLN.HasValue ?
+                new ObjectParameter("MaLN", maLN) :
+                new ObjectParameter("MaLN", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiNhom_DELETE", maLNParameter);
+        }
+    
+        public virtual int sp_LoaiNhom_INSERT(string tenLN)
+        {
+            var tenLNParameter = tenLN != null ?
+                new ObjectParameter("TenLN", tenLN) :
+                new ObjectParameter("TenLN", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiNhom_INSERT", tenLNParameter);
+        }
+    
+        public virtual int sp_LoaiNhom_UPDATE(Nullable<int> maLN, string tenLN)
+        {
+            var maLNParameter = maLN.HasValue ?
+                new ObjectParameter("MaLN", maLN) :
+                new ObjectParameter("MaLN", typeof(int));
+    
+            var tenLNParameter = tenLN != null ?
+                new ObjectParameter("TenLN", tenLN) :
+                new ObjectParameter("TenLN", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiNhom_UPDATE", maLNParameter, tenLNParameter);
+        }
+    
+        public virtual int sp_LoaiTien_DELETE(string maLT)
+        {
+            var maLTParameter = maLT != null ?
+                new ObjectParameter("MaLT", maLT) :
+                new ObjectParameter("MaLT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiTien_DELETE", maLTParameter);
+        }
+    
+        public virtual int sp_LoaiTien_INSERT(Nullable<decimal> giaTriTien)
+        {
+            var giaTriTienParameter = giaTriTien.HasValue ?
+                new ObjectParameter("GiaTriTien", giaTriTien) :
+                new ObjectParameter("GiaTriTien", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiTien_INSERT", giaTriTienParameter);
+        }
+    
+        public virtual int sp_LoaiTien_UPDATE(string maLT, Nullable<decimal> giaTriTien)
+        {
+            var maLTParameter = maLT != null ?
+                new ObjectParameter("MaLT", maLT) :
+                new ObjectParameter("MaLT", typeof(string));
+    
+            var giaTriTienParameter = giaTriTien.HasValue ?
+                new ObjectParameter("GiaTriTien", giaTriTien) :
+                new ObjectParameter("GiaTriTien", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiTien_UPDATE", maLTParameter, giaTriTienParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> sp_MaKHMoi()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_MaKHMoi");
+        }
+    
+        public virtual int sp_MatHang_DELETE(Nullable<int> maMH)
+        {
+            var maMHParameter = maMH.HasValue ?
+                new ObjectParameter("MaMH", maMH) :
+                new ObjectParameter("MaMH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MatHang_DELETE", maMHParameter);
+        }
+    
+        public virtual int sp_NapTien(Nullable<System.DateTime> ngaynap, Nullable<System.TimeSpan> gionap, string massc, string mako)
+        {
+            var ngaynapParameter = ngaynap.HasValue ?
+                new ObjectParameter("ngaynap", ngaynap) :
+                new ObjectParameter("ngaynap", typeof(System.DateTime));
+    
+            var gionapParameter = gionap.HasValue ?
+                new ObjectParameter("gionap", gionap) :
+                new ObjectParameter("gionap", typeof(System.TimeSpan));
+    
+            var masscParameter = massc != null ?
+                new ObjectParameter("massc", massc) :
+                new ObjectParameter("massc", typeof(string));
+    
+            var makoParameter = mako != null ?
+                new ObjectParameter("mako", mako) :
+                new ObjectParameter("mako", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_NapTien", ngaynapParameter, gionapParameter, masscParameter, makoParameter);
         }
     
         public virtual int sp_PhanQuyen_INSERT(Nullable<int> maTK, Nullable<int> maCN, Nullable<bool> tinhTrang)
@@ -369,6 +1392,23 @@ namespace SSC_Admin_Website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_QuangCao_DELETE", maQCParameter);
         }
     
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
         public virtual int sp_TaiKhoan_Disable(Nullable<int> maTK)
         {
             var maTKParameter = maTK.HasValue ?
@@ -408,75 +1448,60 @@ namespace SSC_Admin_Website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_TaiKhoan_INSERT", usernameParameter, passwordParameter, maKHParameter, soHDParameter);
         }
     
+        public virtual int sp_TaiKhoan_InsertDefault()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_TaiKhoan_InsertDefault");
+        }
+    
         public virtual ObjectResult<Nullable<int>> sp_TKMoi()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_TKMoi");
         }
     
-        public virtual int sp_DonVi_MatHang_DELETE(Nullable<int> maDV)
+        public virtual int sp_upgraddiagrams()
         {
-            var maDVParameter = maDV.HasValue ?
-                new ObjectParameter("MaDV", maDV) :
-                new ObjectParameter("MaDV", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DonVi_MatHang_DELETE", maDVParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int sp_DonVi_MatHang_INSERT(string tenDV, Nullable<int> maLMH)
+        public virtual ObjectResult<ChiTietGiamGiaTheoSL> sp_GiamGiaSP_ByMaKM(Nullable<int> makm)
         {
-            var tenDVParameter = tenDV != null ?
-                new ObjectParameter("TenDV", tenDV) :
-                new ObjectParameter("TenDV", typeof(string));
+            var makmParameter = makm.HasValue ?
+                new ObjectParameter("makm", makm) :
+                new ObjectParameter("makm", typeof(int));
     
-            var maLMHParameter = maLMH.HasValue ?
-                new ObjectParameter("MaLMH", maLMH) :
-                new ObjectParameter("MaLMH", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DonVi_MatHang_INSERT", tenDVParameter, maLMHParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ChiTietGiamGiaTheoSL>("sp_GiamGiaSP_ByMaKM", makmParameter);
         }
     
-        public virtual int sp_DonVi_MatHang_UPDATE(Nullable<int> maDV, string tenDV, Nullable<int> maLMH)
+        public virtual ObjectResult<ChiTietGiamGiaTheoSL> sp_GiamGiaSP_ByMaKM(Nullable<int> makm, MergeOption mergeOption)
         {
-            var maDVParameter = maDV.HasValue ?
-                new ObjectParameter("MaDV", maDV) :
-                new ObjectParameter("MaDV", typeof(int));
+            var makmParameter = makm.HasValue ?
+                new ObjectParameter("makm", makm) :
+                new ObjectParameter("makm", typeof(int));
     
-            var tenDVParameter = tenDV != null ?
-                new ObjectParameter("TenDV", tenDV) :
-                new ObjectParameter("TenDV", typeof(string));
-    
-            var maLMHParameter = maLMH.HasValue ?
-                new ObjectParameter("MaLMH", maLMH) :
-                new ObjectParameter("MaLMH", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DonVi_MatHang_UPDATE", maDVParameter, tenDVParameter, maLMHParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ChiTietGiamGiaTheoSL>("sp_GiamGiaSP_ByMaKM", mergeOption, makmParameter);
         }
     
-        public virtual int sp_LoaiMatHang_DELETE(Nullable<int> maLMH)
+        public virtual ObjectResult<KMTheoTGHD> sp_GiamGiaTGDH_ByMaKM(Nullable<int> makm)
         {
-            var maLMHParameter = maLMH.HasValue ?
-                new ObjectParameter("MaLMH", maLMH) :
-                new ObjectParameter("MaLMH", typeof(int));
+            var makmParameter = makm.HasValue ?
+                new ObjectParameter("makm", makm) :
+                new ObjectParameter("makm", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_LoaiMatHang_DELETE", maLMHParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KMTheoTGHD>("sp_GiamGiaTGDH_ByMaKM", makmParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> sp_ChucNangTheoLoaiNhom(Nullable<int> maln)
+        public virtual ObjectResult<KMTheoTGHD> sp_GiamGiaTGDH_ByMaKM(Nullable<int> makm, MergeOption mergeOption)
         {
-            var malnParameter = maln.HasValue ?
-                new ObjectParameter("maln", maln) :
-                new ObjectParameter("maln", typeof(int));
+            var makmParameter = makm.HasValue ?
+                new ObjectParameter("makm", makm) :
+                new ObjectParameter("makm", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ChucNangTheoLoaiNhom", malnParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KMTheoTGHD>("sp_GiamGiaTGDH_ByMaKM", mergeOption, makmParameter);
         }
     
-        public virtual int sp_MatHang_DELETE(Nullable<int> maMH)
+        public virtual int GetMatHang_ByDKM()
         {
-            var maMHParameter = maMH.HasValue ?
-                new ObjectParameter("MaMH", maMH) :
-                new ObjectParameter("MaMH", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MatHang_DELETE", maMHParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetMatHang_ByDKM");
         }
     }
 }

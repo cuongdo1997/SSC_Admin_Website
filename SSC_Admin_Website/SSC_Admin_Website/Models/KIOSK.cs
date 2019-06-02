@@ -17,7 +17,11 @@ namespace SSC_Admin_Website.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KIOSK()
         {
+            this.ChiTiet_TinhTrangKO = new HashSet<ChiTiet_TinhTrangKO>();
+            this.ChiTietHopDongs = new HashSet<ChiTietHopDong>();
             this.ChiTietThueKIOSKQCs = new HashSet<ChiTietThueKIOSKQC>();
+            this.HoaDons = new HashSet<HoaDon>();
+            this.LanNaps = new HashSet<LanNap>();
         }
     
         public string MAKO { get; set; }
@@ -31,9 +35,16 @@ namespace SSC_Admin_Website.Models
         public byte[] ImageBanner { get; set; }
         public string ConnectStr { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTiet_TinhTrangKO> ChiTiet_TinhTrangKO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietHopDong> ChiTietHopDongs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietThueKIOSKQC> ChiTietThueKIOSKQCs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LanNap> LanNaps { get; set; }
     }
 }

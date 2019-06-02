@@ -17,6 +17,8 @@ namespace SSC_Admin_Website.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TaiKhoan()
         {
+            this.LichSu_DangNhap = new HashSet<LichSu_DangNhap>();
+            this.LichSuCapNhatMatHangs = new HashSet<LichSuCapNhatMatHang>();
             this.PhanQuyens = new HashSet<PhanQuyen>();
         }
     
@@ -28,11 +30,14 @@ namespace SSC_Admin_Website.Models
         public Nullable<int> MaKH { get; set; }
         public Nullable<int> SoHD { get; set; }
         public bool TrangThai { get; set; }
-        public System.Guid rowguid { get; set; }
     
+        public virtual HopDong HopDong { get; set; }
         public virtual KhachHang KhachHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichSu_DangNhap> LichSu_DangNhap { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichSuCapNhatMatHang> LichSuCapNhatMatHangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
-        public virtual HopDong HopDong { get; set; }
     }
 }

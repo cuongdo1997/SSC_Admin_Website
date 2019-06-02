@@ -24,9 +24,8 @@ namespace SSC_Admin_Website.Models
         public string TenBA { get; set; }
         public Nullable<System.TimeSpan> GioBD { get; set; }
         public Nullable<System.TimeSpan> GioKT { get; set; }
-        public Nullable<int> SoHD { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
+        public Nullable<int> SoHD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietBA_MH> ChiTietBA_MH { get; set; }

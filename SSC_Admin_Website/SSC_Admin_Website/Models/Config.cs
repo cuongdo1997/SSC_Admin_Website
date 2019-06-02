@@ -17,6 +17,5 @@ namespace SSC_Admin_Website.Models
         public string VariableName { get; set; }
         public string Description { get; set; }
         public string Value { get; set; }
-        public System.Guid rowguid { get; set; }
     }
 }

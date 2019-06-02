@@ -19,7 +19,8 @@ namespace SSC_Admin_Website.Controllers
         // GET: MatHangs
         public ActionResult Index(int? page)
         {
-            Config cf_pagesize = db.Configs.SingleOrDefault(x => x.VariableName.Equals("mathangs_index_pagesize"));
+            //Config cf_pagesize = db.Configs.SingleOrDefault(x => x.VariableName.Equals("mathangs_index_pagesize"));
+            Config cf_pagesize = null;
             int pagenum = page ?? 1;
             int pagesize = cf_pagesize == null ? 5 : Convert.ToInt32(cf_pagesize.Value);
             List<V_MatHang> list = db.V_MatHang.ToList();

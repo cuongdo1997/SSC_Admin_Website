@@ -1,74 +1,130 @@
 ﻿@model SSC_Admin_Website.Models.DotKhuyenMai
-
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2 class="text-center">Create</h2>
-
-
-@using (Html.BeginForm()) 
+@if (@ViewBag.checktk != true || Session["TaiKhoan"] == null)
 {
-    @Html.AntiForgeryToken()
+
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Đợt khuyến mãi mới của Số Hợp Đồng @ViewBag.SoHD</h4>
+            <hr />
+            <div class="form-group col-md-12">
+                <lable class="col-form-label" style="color:blue;font-weight:600">Chọn Hình Thức Khuyến Mãi: <span style="color:red; font-weight:600">(*)</span></lable>
+                <select id="LoaiKM" class="form-control col-md-5" name="malkm">
+                    <option value="0">Giảm giá theo sản phẩm</option>
+                    <option value="1">Giảm giá theo trị giá hóa đơn</option>
+                </select>
+            </div>
+            <div class="form-group col-md-12">
+                <lable class="col-form-label col-md-2" style="color:blue;font-weight:600">Ngày Bắt Đầu <span style="color:red">(*)</span></lable>
+                <input type="date" name="ngaybd" id="ngaybd" value="@string.Format("{0:yyyy}", DateTime.Now)-@string.Format("{0:MM}",DateTime.Now)-@string.Format("{0:dd}", DateTime.Now)" required=""/>
+                <lable class="col-form-label col-md-2" style="color:blue;font-weight:600">Ngày Kết Thúc <span style="color:red">(*)</span></lable>
+                <input type="date" name="ngaykt" id="ngaykt" min=@string.Format("{0:yyyy}", DateTime.Now)-@string.Format("{0:MM}",DateTime.Now)-@string.Format("{0:dd}", DateTime.Now) required=""/>
+            </div>
     
-    <div class="form-horizontal">
-        <h4>Đợt khuyến mãi</h4>
-        <hr />
-        <div class="form-group">
-            <label class="col-md-2">Ngày tạo</label>
-            <div class="col-md-10">
-                <input type="date" 
-                @Html.ValidationMessageFor(model => model.NgayTao, "", new { @class = "text-danger" })
+            <div class="form-group col-md-12" id="SLSP">
+                @* LOAD FORM THÔNG TIN SP*@
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayBD, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayBD, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NgayBD, "", new { @class = "text-danger" })
+            <div class="form-group col-md-12" id="TGHD">
+                @* LOAD FORM THONG TIN TRI GIA DON HANG *@
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayKT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayKT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NgayKT, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoHD, "SoHD", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SoHD", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SoHD, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrangThaiPV, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.TrangThaiPV)
-                    @Html.ValidationMessageFor(model => model.TrangThaiPV, "", new { @class = "text-danger" })
+            <div class="form-group col-md-12">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            LoadLoaiKM();
+            $("#ngaybd").change(function () {
+                var ngaybd = new Date($("#ngaybd").val());
+                alert(ngaybd);
+                var dd = ngaybd.getDate();
+                var mm = ngaybd.getMonth() + 1;
+                var yyyy = ngaybd.getFullYear();
+                if (mm < 10)
+                    mm = '0' + mm;
+                if (dd < 10)
+                    dd = '0' + dd;
+                var ngay = yyyy + '-' + mm + '-' + dd;
+                var ngayhh = new Date();
+                if (ngayhh > ngaybd) {
+                    var dd1 = ngayhh.getDate();
+                    var mm1 = ngayhh.getMonth() + 1;
+                    var yyyy1 = ngayhh.getFullYear();
+                    if (mm1 < 10)
+                        mm1 = '0' + mm1;
+                    if (dd1 < 10)
+                        dd1 = '0' + dd1;
+                    var date = yyyy1 + '-' + mm1 + '-' + dd1;
+                    $("#ngaybd").val(date);
+                }
+
+                $("#ngaykt").removeAttr("value");
+                $("#ngaykt").prop("min", ngay);
+            });
+        });
+        function LoadLoaiKM() {
+            var giatri = $("#LoaiKM").val();
+            if (giatri == 0) {
+                LoadGiamSP();
+            } else {
+                LoadGiamTGDH();
+            }
+        }
+        $("#LoaiKM").change(function () {
+            var giatri = $("#LoaiKM").val();
+            
+            if (giatri == 0) {
+                $("#TGHD").empty();
+                LoadGiamSP();
+            } else {
+                $("#SLSP").empty();
+                LoadGiamTGDH();
+            }
+        });
+        function LoadGiamSP() {
+            $("#SLSP").load("/DotKhuyenMais/LoadGiamGiaSP", function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    $("input[type=number][pattern]").on("input", function () {
+                        if (!this.checkValidity())
+                            this.value = this.value.slice(0, -1);
+                    });
+                }
+                    
+                if (statusTxt == "error")
+                    null;
+                //alert("Error: " + xhr.status + ": " + xhr.statusText);
+            });      
+        }
+        function LoadGiamTGDH() {
+            $("#TGHD").load("/DotKhuyenMais/LoadGiamTGDH", function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    $("input[type=number][pattern]").on("input", function () {
+                        if (!this.checkValidity())
+                            this.value = this.value.slice(0, -1);
+                    });
+                }
+                //alert("External content loaded successfully!");
+                if (statusTxt == "error")
+                    null;
+                //alert("Error: " + xhr.status + ": " + xhr.statusText);
+            }); 
+        }
+    </script>
 }

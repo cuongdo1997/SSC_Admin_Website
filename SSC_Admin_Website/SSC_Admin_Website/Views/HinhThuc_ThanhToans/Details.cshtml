@@ -1,0 +1,43 @@
+﻿@model SSC_Admin_Website.Models.HinhThuc_ThanhToan
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HinhThuc_ThanhToan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHTTT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenHTTT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageHTTT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageHTTT)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHTTT }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

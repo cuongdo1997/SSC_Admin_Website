@@ -14,15 +14,22 @@ namespace SSC_Admin_Website.Models
     
     public partial class ChiTietGiamGiaTheoSL
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ChiTietGiamGiaTheoSL()
+        {
+            this.ChiTietTangQuaTheoSLs = new HashSet<ChiTietTangQuaTheoSL>();
+        }
+    
         public int STT { get; set; }
         public int MaKM { get; set; }
         public int MaMH { get; set; }
         public int SLMuaToiThieu { get; set; }
         public decimal Giam { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public System.Guid rowguid { get; set; }
     
         public virtual DotKhuyenMai DotKhuyenMai { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietTangQuaTheoSL> ChiTietTangQuaTheoSLs { get; set; }
         public virtual MatHang MatHang { get; set; }
     }
 }
